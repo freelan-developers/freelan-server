@@ -6,7 +6,7 @@ A configuration server for freelan.
 Goal
 ----
 
-freelan-server is a web application written in Python that allows freelan clients to get their configuration automatically.
+freelan-server is a web application written in Python that allows [freelan clients](http://www.freelan.org) to get their configuration automatically.
 
 Does the project have a website ?
 ---------------------------------
