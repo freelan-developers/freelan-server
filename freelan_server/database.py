@@ -6,6 +6,8 @@ from freelan_server import APPLICATION
 
 from flask.ext.sqlalchemy import SQLAlchemy
 
+import datetime
+
 DATABASE = SQLAlchemy(APPLICATION)
 
 class User(DATABASE.Model):
@@ -14,17 +16,20 @@ class User(DATABASE.Model):
     """
 
     id = DATABASE.Column(DATABASE.Integer, primary_key=True)
-    username = DATABASE.Column(DATABASE.String(80), unique=True)
+    username = DATABASE.Column(DATABASE.String(80), unique=True, nullable=False)
     email = DATABASE.Column(DATABASE.String(254), unique=True)
     password_hash = DATABASE.Column(DATABASE.String(50))
+    creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
 
-    def __init__(self, username, email):
+    def __init__(self, username, email, password):
         """
         Initializes a new user.
         """
 
         self.username = username
         self.email = email
+        self.password = password
+        self.creation_date = datetime.datetime.now()
 
     def __repr__(self):
         """

@@ -17,7 +17,8 @@ def home():
     try:
         users = User.query.all()
 
-        return repr(users)
+        return render_template('home.html', users=users)
+
     except OperationalError, ex:
         return render_template('no_database.html')
 
@@ -29,7 +30,8 @@ def create_database():
 
     DATABASE.create_all()
 
-    DATABASE.session.add(User('Jason', 'jason@mailprovider.com'))
+    DATABASE.session.add(User('admin', None, 'password'))
+    DATABASE.session.add(User('user', None, 'password'))
     DATABASE.session.commit()
 
     return redirect(url_for('home'))
