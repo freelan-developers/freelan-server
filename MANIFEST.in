@@ -1,0 +1,2 @@
+recursive-include freelan_server/templates *
+recursive-include freelan_server/static *
