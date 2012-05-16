@@ -2,26 +2,22 @@
 The freelan-server entry point.
 """
 
-from flask import Flask, g
+from flask import Flask
 
-# Here goes the configuration
-HOST = '::'
-DEBUG = False
+APPLICATION = Flask(__name__)
 
-# We create an application
-app = Flask(__name__)
+APPLICATION.config.from_object('freelan_server.default_configuration')
+APPLICATION.config.from_envvar('FREELAN_SERVER_CONFIGURATION_FILE', silent=True)
 
-app.config.from_object(__name__)
-app.config.from_envvar('FREELAN_SERVER_CONFIGURATION_FILE', silent=True)
+from freelan_server.views import *
 
-# Routes
-@app.before_request
-def before_request():
-    g.user = 'me'
+# Run the web server
+def run():
+    """
+    Run the web server.
+    """
 
-# We handle direct calls
-if __name__ == '__main__':
-    app.run(
-        debug=app.config['DEBUG'],
-        host=app.config['HOST']
+    APPLICATION.run(
+        debug=APPLICATION.config['DEBUG'],
+        host=APPLICATION.config['HOST']
     )
