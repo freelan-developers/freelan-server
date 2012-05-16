@@ -6,11 +6,13 @@ from freelan_server import APPLICATION
 
 from flask.ext.sqlalchemy import SQLAlchemy
 
+from flaskext.login import UserMixin
+
 import datetime
 
 DATABASE = SQLAlchemy(APPLICATION)
 
-class User(DATABASE.Model):
+class User(DATABASE.Model, UserMixin):
     """
     Represents a database user.
     """

@@ -4,11 +4,14 @@ The views.
 
 from freelan_server import APPLICATION
 from freelan_server.database import DATABASE, User
+from freelan_server.login import LOGIN_MANAGER, load_user
 from sqlalchemy.exc import OperationalError
 
-from flask import g, redirect, url_for, render_template
+from flask import g, session, request, redirect, url_for, render_template, flash
+from flaskext.login import login_required, login_user
 
 @APPLICATION.route('/')
+@login_required
 def home():
     """
     The home page.
@@ -21,6 +24,34 @@ def home():
 
     except OperationalError, ex:
         return render_template('no_database.html')
+
+@APPLICATION.route('/login', methods=['GET', 'POST'])
+def login():
+    """
+    The login page.
+    """
+
+    if request.method == 'POST':
+        username = request.form['username_box']
+        password = request.form['password_box']
+
+        user = User.query.filter_by(username=username).first()
+
+        if user:
+
+            if user.check_password(password):
+                session.regenerate()
+                login_user(user)
+
+                flash('Authentication successful', 'information')
+
+                return redirect(request.args.get('next') or url_for('home'))
+            else:
+                flash('Incorrect password.', 'error')
+        else:
+            flash('No such username: %s' % username, 'error')
+
+    return render_template('login.html')
 
 @APPLICATION.route('/create_database')
 def create_database():

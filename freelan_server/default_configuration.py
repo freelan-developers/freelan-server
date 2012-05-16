@@ -11,4 +11,4 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///%s' % os.path.join(
     tempfile.gettempdir(),
     'freelan_server.db'
 )
-
+SECRET_KEY = 'please change this secret key'
