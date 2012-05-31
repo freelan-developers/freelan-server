@@ -1,20 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-	  <title>Freelan Server{% block title_suffix %}{% endblock %}</title>
-  </head>
-  <body>
-	  {% with messages = get_flashed_messages(with_categories=true) %}
-		  {% if messages %}
-		  	{% for category, message in messages %}
-	<p class="{{ category }}">{{ message }}</p>
-			{% endfor %}
-		  {% endif %}
-	  {% endwith %}
+{# The base template for all pages #}
 
-	  {% block content %}{% endblock %}
-  </body>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Freelan Server{% block title_suffix %}{% endblock %}</title>
+		<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css" media="screen" />
+	</head>
+	<body>
+		{# The notification box #}
+		{% include 'notification.html' %}
+
+		{# The content #}
+		{% block content %}{% endblock %}
+	</body>
 </html>

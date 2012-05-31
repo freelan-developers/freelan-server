@@ -32,8 +32,8 @@ def login():
     """
 
     if request.method == 'POST':
-        username = request.form['username_box']
-        password = request.form['password_box']
+        username = request.form['username']
+        password = request.form['password']
 
         user = User.query.filter_by(username=username).first()
 

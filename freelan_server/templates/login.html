@@ -1,16 +1,25 @@
+{# The login page #}
+
 {% extends "base.html" %}
 
 {% block title_suffix %} - Login{% endblock %}
 
 {% block content %}
-<p>Please login:</p>
 
-<form method="POST" action="{{ url_for('login') }}">
-	<label for="username_box">Username: </label><input type="text" name="username_box" />
-	<label for="password_box">Password: </label><input type="password" name="password_box" />
-	<input type="submit" value="Login" />
-</form>
+<div id="login_box">
+	<h1>Authentication</h1>
+
+	<form method="post" action="{{ url_for('login') }}">
+		<fieldset>
+			<label for="username_box">Username:</label>
+			<input type="text" id="username_box" name="username" placeholder="Enter your username" autofocus="autofocus" />
+			
+			<label for="password_box">Password:</label>
+			<input type="password" id="password_box" name="password" placeholder="Enter your password"/>
+			
+			<input type="submit" value="Login" />
+		</fieldset>
+	</form>
+</div>
 
 {% endblock %}
-
-
