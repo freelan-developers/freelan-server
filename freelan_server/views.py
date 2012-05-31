@@ -31,6 +31,10 @@ def login():
     The login page.
     """
 
+    flash('This is an error message', 'error')
+    flash('This is a warning message', 'warning')
+    flash('This is an informational message', 'info')
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -38,7 +42,6 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         if user:
-
             if user.check_password(password):
                 session.regenerate()
                 login_user(user)
@@ -47,9 +50,9 @@ def login():
 
                 return redirect(request.args.get('next') or url_for('home'))
             else:
-                flash('Incorrect password.', 'error')
+                flash('Authentication failed for %s' % username, 'error')
         else:
-            flash('No such username: %s' % username, 'error')
+            flash('Authentication failed for %s' % username, 'error')
 
     return render_template('login.html')
 
