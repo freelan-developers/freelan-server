@@ -37,9 +37,14 @@ body {
 
 #notification_box > p {
 	margin: 0 0 1em 0;
-	padding: 0;
+	padding: 0 0 0 28px;
 	border: none;
 	display: block;
+}
+
+#notification_box > p.error {
+	background: transparent url('../images/notification_error.png') no-repeat 0 50%;
+	background-size: 20px 20px;
 }
 
 #notification_box > div.notification_close {

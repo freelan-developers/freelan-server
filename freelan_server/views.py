@@ -41,18 +41,15 @@ def login():
 
         user = User.query.filter_by(username=username).first()
 
-        if user:
-            if user.check_password(password):
+        if user and user.check_password(password):
                 session.regenerate()
                 login_user(user)
 
-                flash('Authentication successful', 'information')
+                flash('Authentication successful.', 'information')
 
                 return redirect(request.args.get('next') or url_for('home'))
-            else:
-                flash('Authentication failed for %s' % username, 'error')
         else:
-            flash('Authentication failed for %s' % username, 'error')
+            flash('Authentication failed for user "%s".' % username, 'error')
 
     return render_template('login.html')
 
