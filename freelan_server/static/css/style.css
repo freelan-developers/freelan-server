@@ -18,6 +18,8 @@ body {
 	font-family: Verdana, Arial, sans-serif;
 }
 
+/* The notification box */
+
 #notification_box {
 	font-size: 16px;
 	line-height: 26px;
@@ -63,6 +65,8 @@ body {
 	color: #999;
 	cursor: pointer;
 }
+
+/* The login box */
 
 #login_box {
 	width: 430px;
@@ -132,6 +136,7 @@ body {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
+	box-shadow: 0px 1px 0px #f2f2f2;
 	-moz-box-shadow: 0px 1px 0px #f2f2f2;
 	-webkit-box-shadow: 0px 1px 0px #f2f2f2;
 	font-size: 16px;
@@ -163,10 +168,25 @@ body {
 	float: right;
 	padding: 10px 15px;
 	margin: 0 15px 0 0;
+	box-shadow: 0px 0px 5px #999;
 	-moz-box-shadow: 0px 0px 5px #999;
 	-webkit-box-shadow: 0px 0px 5px #999;
 	border: 1px solid #556f8c;
 	background: -moz-linear-gradient(top, #718DA9 0%, #415D79 100%); /* firefox */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#718DA9), color-stop(100%,#415D79)); /* webkit */
 	cursor: pointer;
+}
+
+/* The generic content */
+
+#content {
+	margin: 16px;
+	padding: 8px;
+	border-radius: 8px;
+	background: #5E768D;
+	background: -moz-linear-gradient(top, #546A7F 0%, #5E768D 20%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#546A7F), color-stop(20%,#5E768D)); /* webkit */
+	box-shadow: 0px 0px 4px #444;
+	-moz-box-shadow: 0px 0px 4px #444;
+	-webkit-box-shadow: 0px 0px 4px #444;
 }

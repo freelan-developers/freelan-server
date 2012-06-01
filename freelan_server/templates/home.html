@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "extended_base.html" %}
 
 {% block title_suffix %} - Home{% endblock %}
 
-{% block content %}
+{% block extended_content %}
 <p>Welcome to the freelan server home page.</p>
 
 <p>Registered users: {{ users | join(', ') }}.</p>
