@@ -31,10 +31,6 @@ def login():
     The login page.
     """
 
-    flash('This is an error message', 'error')
-    flash('This is a warning message', 'warning')
-    flash('This is an informational message', 'info')
-
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -45,11 +41,11 @@ def login():
                 session.regenerate()
                 login_user(user)
 
-                flash('Authentication successful.', 'information')
+                flash('Authentication successful.', 'info')
 
                 return redirect(request.args.get('next') or url_for('home'))
         else:
-            flash('Authentication failed for user "%s".' % username, 'error')
+            flash('Authentication failed for user "%s".' % username, 'denied')
 
     return render_template('login.html')
 

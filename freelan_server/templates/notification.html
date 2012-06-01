@@ -14,6 +14,12 @@
 
 				notification_box.append(notification_close_div);
 				notification_close_div.click(function() { notification_box.slideUp(); });
+				notification_box.hide().slideDown();
+
+				if (notification_box.find(".denied, .error").length === 0)
+				{
+					notification_box.delay(2500).slideUp();
+				}
 			});
 		</script>
 	{% endif %}

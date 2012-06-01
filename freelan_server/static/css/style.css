@@ -20,7 +20,7 @@ body {
 
 #notification_box {
 	font-size: 16px;
-	line-height: 20px;
+	line-height: 26px;
 	width: 80%;
 	padding: 15px 10% 10px 10%;
 	z-index: 250;
@@ -37,19 +37,26 @@ body {
 
 #notification_box > p {
 	margin: 0 0 1em 0;
-	padding: 0 0 0 28px;
+	padding: 0 0 0 34px;
 	border: none;
 	display: block;
 }
 
 #notification_box > p.error {
-	background: transparent url('../images/notification_error.png') no-repeat 0 50%;
-	background-size: 20px 20px;
+	background: transparent url('../images/error.png') no-repeat 0 50%;
+}
+
+#notification_box > p.info{
+	background: transparent url('../images/info.png') no-repeat 0 50%;
+}
+
+#notification_box > p.denied{
+	background: transparent url('../images/denied.png') no-repeat 0 50%;
 }
 
 #notification_box > div.notification_close {
 	margin: 0;
-	padding: 0;
+	padding: 0 0 0 34px;
 	border: none;
 	font-size: 10px;
 	font-weight: normal;
