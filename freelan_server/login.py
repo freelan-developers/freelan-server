@@ -4,7 +4,8 @@ Login related classes and functions.
 
 from freelan_server import APPLICATION
 
-from flaskext.login import LoginManager
+from flask import redirect, request, flash
+from flaskext.login import LoginManager, login_url
 from freelan_server.database import User
 
 LOGIN_MANAGER = LoginManager()
@@ -20,5 +21,8 @@ def load_user(userid):
 
     return User.query.get(int(userid))
 
-LOGIN_MANAGER.login_view = 'login'
-LOGIN_MANAGER.login_message = 'Please log in to access this page.'
+@LOGIN_MANAGER.unauthorized_handler
+def unauthorized():
+    flash('Please log in to access this page.', 'error')
+
+    return redirect(login_url('login', request.url))
