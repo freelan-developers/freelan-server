@@ -10,6 +10,7 @@ setup(
     install_requires=[
         'Flask',
         'SQLAlchemy',
+        'Flask-SQLAlchemy',
         'Flask-Login',
         'Flask-KVSession',
         'Flask-Gravatar',
