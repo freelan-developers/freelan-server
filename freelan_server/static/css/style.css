@@ -265,8 +265,12 @@ a.tile span {
 }
 
 a.tile span.user {
-	padding-top: 4px;
-	height: auto;
+	height: 148px;
+	background: url('../images/menu/profile.png') 50% 0 no-repeat;
+}
+
+a.tile span.user img {
+	margin-bottom: 4px;
 }
 
 a.tile span.home {

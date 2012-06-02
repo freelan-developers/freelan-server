@@ -20,7 +20,7 @@ class User(DATABASE.Model, UserMixin):
     id = DATABASE.Column(DATABASE.Integer, primary_key=True)
     username = DATABASE.Column(DATABASE.String(80), unique=True, nullable=False)
     email = DATABASE.Column(DATABASE.String(254), unique=True)
-    password_hash = DATABASE.Column(DATABASE.String(50))
+    password_hash = DATABASE.Column(DATABASE.String(50), nullable=False)
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
     admin_flag = DATABASE.Column(DATABASE.Boolean(), nullable=False)
 

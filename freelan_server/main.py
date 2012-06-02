@@ -158,8 +158,8 @@ def main():
 
     user_create_parser = user_action_parser.add_parser('create', help='Create a user.')
     user_create_parser.add_argument('username', help='The user username.')
+    user_create_parser.add_argument('password', help='The user password.')
     user_create_parser.add_argument('-e', '--email', help='The user email.')
-    user_create_parser.add_argument('-p', '--password', help='The user password.')
     user_create_parser.add_argument('-a', '--admin', action='store_true', help='The user admin flag.')
     user_create_parser.set_defaults(func=create_user)
 
