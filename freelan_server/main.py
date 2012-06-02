@@ -119,12 +119,12 @@ def main():
     database_reset_parser.add_argument('-p', '--password', help='The password for the admin account.')
     database_reset_parser.set_defaults(func=reset_database)
 
-    # The users parser
-    users_parser = action_parser.add_parser('users', help='Manage the users')
-    users_action_parser = users_parser.add_subparsers()
+    # The user parser
+    user_parser = action_parser.add_parser('user', help='Manage the users')
+    user_action_parser = user_parser.add_subparsers()
 
-    users_list_parser = users_action_parser.add_parser('list', help='List the existing users.')
-    users_list_parser.set_defaults(func=list_users)
+    user_list_parser = user_action_parser.add_parser('list', help='List the existing users.')
+    user_list_parser.set_defaults(func=list_users)
 
     # Parse the arguments
     args = parser.parse_args()
