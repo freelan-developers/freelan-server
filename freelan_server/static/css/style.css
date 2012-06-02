@@ -334,4 +334,19 @@ a.tile span.logout {
 
 #submenu_content {
 	margin: 8px 8px 8px 164px;
+	color: white;
+}
+
+#submenu_content h1 {
+	text-align: center;
+	margin: -8px -8px 8px -8px;
+	padding: 4px 0;
+	font-size: 16px;
+	background: black;
+	color: white;
+	border-bottom: white 2px solid;
+}
+
+#submenu_content p {
+	margin: 0 0 1em 0;
 }
