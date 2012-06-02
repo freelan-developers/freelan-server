@@ -105,7 +105,7 @@ def user(username):
     if not user:
         return abort(404);
 
-    return render_template('user.html', user=user)
+    return render_template('user.html', user=user, referer={'target': 'users', 'title': 'Users'})
 
 @APPLICATION.route('/networks')
 @login_required

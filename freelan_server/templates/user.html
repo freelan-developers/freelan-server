@@ -1,0 +1,9 @@
+{% extends "submenu.html" %}
+
+{% block title_suffix %} - User {{ user.username }}{% endblock %}
+{% block submenu_title %}User {{ user.username }}{% endblock %}
+
+{% block submenu_content %}
+	<h2>User {{ user.username }}</h2>
+{% endblock %}
+
