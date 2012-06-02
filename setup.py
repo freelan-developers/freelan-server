@@ -12,6 +12,11 @@ setup(
         'SQLAlchemy',
         'Flask-Login',
         'Flask-KVSession',
-        'Flash-Gravatar',
+        'Flask-Gravatar',
     ],
+    entry_points = {
+        'console_scripts': [
+            'freelan_server = freelan_server.main:main',
+        ],
+    },
 )

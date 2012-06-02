@@ -22,8 +22,9 @@ class User(DATABASE.Model, UserMixin):
     email = DATABASE.Column(DATABASE.String(254), unique=True)
     password_hash = DATABASE.Column(DATABASE.String(50))
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
+    admin_flag = DATABASE.Column(DATABASE.Boolean(), nullable=False)
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password, admin_flag=False):
         """
         Initializes a new user.
         """
@@ -32,6 +33,7 @@ class User(DATABASE.Model, UserMixin):
         self.email = email
         self.password = password
         self.creation_date = datetime.datetime.now()
+        self.admin_flag = True
 
     def __repr__(self):
         """

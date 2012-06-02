@@ -26,15 +26,5 @@ def add_version():
 STORE = DictStore()
 KVSessionExtension(STORE, APPLICATION)
 
+# We import the views
 from freelan_server.views import *
-
-# Run the web server
-def run():
-    """
-    Run the web server.
-    """
-
-    APPLICATION.run(
-        debug=APPLICATION.config['DEBUG'],
-        host=APPLICATION.config['HOST']
-    )

@@ -117,30 +117,3 @@ def status():
     """
 
     return render_template('status.html')
-
-# TODO: Remove/adapt the calls below as they are only provided for development
-
-@APPLICATION.route('/create_database')
-def create_database():
-    """
-    Create the database.
-    """
-
-    DATABASE.create_all()
-
-    DATABASE.session.add(User('admin', 'admin@admin.com', 'password'))
-    DATABASE.session.add(User('user', 'some@user.com', 'password'))
-    DATABASE.session.commit()
-
-    return redirect(url_for('home'))
-
-@APPLICATION.route('/destroy_database')
-def destroy_database():
-    """
-    Destroy the database.
-    """
-
-    DATABASE.drop_all()
-
-    return redirect(url_for('home'))
-
