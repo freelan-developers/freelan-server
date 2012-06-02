@@ -23,6 +23,8 @@ def home():
             ('users', 'Users'),
             ('networks', 'Networks'),
             ('profile', 'Profile'),
+            ('settings', 'Settings'),
+            ('status', 'Status'),
             ('logout', 'Logout'),
         )
 
@@ -97,6 +99,24 @@ def networks():
     """
 
     return render_template('networks.html')
+
+@APPLICATION.route('/settings')
+@login_required
+def settings():
+    """
+    The settings page.
+    """
+
+    return render_template('settings.html')
+
+@APPLICATION.route('/status')
+@login_required
+def status():
+    """
+    The status page.
+    """
+
+    return render_template('status.html')
 
 # TODO: Remove/adapt the calls below as they are only provided for development
 

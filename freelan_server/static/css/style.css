@@ -45,15 +45,15 @@ body {
 }
 
 #notification_box > p.error {
-	background: transparent url('../images/error.png') no-repeat 0 50%;
+	background: transparent url('../images/notification/error.png') no-repeat 0 50%;
 }
 
 #notification_box > p.info{
-	background: transparent url('../images/info.png') no-repeat 0 50%;
+	background: transparent url('../images/notification/info.png') no-repeat 0 50%;
 }
 
 #notification_box > p.denied{
-	background: transparent url('../images/denied.png') no-repeat 0 50%;
+	background: transparent url('../images/notification/denied.png') no-repeat 0 50%;
 }
 
 #notification_box > div.notification_close {
@@ -257,6 +257,7 @@ body {
 	background: #ddd;
 	border: none;
 	border-radius: 8px;
+	opacity: 0.8;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 	box-shadow: 0px 0px 16px #444;
@@ -265,6 +266,7 @@ body {
 }
 
 #tiles_box li a:hover {
+	opacity: 1;
 	background: white;
 }
 
@@ -276,17 +278,25 @@ body {
 }
 
 #tiles_box li a span.users {
-	background: url('../images/users.png') 50% 50% no-repeat;
+	background: url('../images/menu/users.png') 50% 50% no-repeat;
 }
 
 #tiles_box li a span.networks {
-	background: url('../images/networks.png') 50% 50% no-repeat;
+	background: url('../images/menu/networks.png') 50% 50% no-repeat;
 }
 
-#tiles_box li a span.profile{
-	background: url('../images/profile.png') 50% 50% no-repeat;
+#tiles_box li a span.profile {
+	background: url('../images/menu/profile.png') 50% 50% no-repeat;
 }
 
-#tiles_box li a span.logout{
-	background: url('../images/logout.png') 50% 50% no-repeat;
+#tiles_box li a span.settings {
+	background: url('../images/menu/settings.png') 50% 50% no-repeat;
+}
+
+#tiles_box li a span.status{
+	background: url('../images/menu/status.png') 50% 50% no-repeat;
+}
+
+#tiles_box li a span.logout {
+	background: url('../images/menu/logout.png') 50% 50% no-repeat;
 }
