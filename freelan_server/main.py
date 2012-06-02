@@ -118,6 +118,41 @@ def delete_user(args):
         print 'User "%s" does not exist.' % args.username
         return 1
 
+def update_user(args):
+    """
+    Update a user.
+    """
+
+    from freelan_server.database import DATABASE, User
+
+    user = User.query.filter_by(username=args.username).first()
+
+    if user:
+        if args.password is not None:
+            user.password = args.password
+            print 'Password updated for user "%s".' % args.username
+
+        if args.email is not None:
+            if args.email:
+                user.email = args.email
+                print 'Email address updated for user "%s".' % args.username
+            else:
+                user.email = None
+                print 'Email address reset for user "%s".' % args.username
+
+        if args.admin is not None:
+            user.admin_flag = args.admin
+
+            if args.admin:
+                print 'Admin status set for user "%s".' % args.username
+            else:
+                print 'Admin status reset for user "%s".' % args.username
+
+        DATABASE.session.commit()
+    else:
+        print 'User "%s" does not exist.' % args.username
+        return 1
+
 def main():
     """
     The entry point.
@@ -166,6 +201,16 @@ def main():
     user_delete_parser = user_action_parser.add_parser('delete', help='Delete a user.')
     user_delete_parser.add_argument('username', help='The username of the user to delete.')
     user_delete_parser.set_defaults(func=delete_user)
+
+    user_update_parser = user_action_parser.add_parser('update', help='Update a user.')
+    user_update_parser.add_argument('username', help='The user username.')
+    user_update_parser.add_argument('-p', '--password', help='The user password.')
+    user_update_parser.add_argument('-e', '--email', nargs='?', const='', help='The user email. Specify an empty value or no value to delete the email address.')
+
+    user_update_parser_admin_group = user_update_parser.add_mutually_exclusive_group(required=False)
+    user_update_parser_admin_group.add_argument('-a', '--admin', action='store_true', dest='admin', help='Set the user admin flag.')
+    user_update_parser_admin_group.add_argument('-u', '--user', action='store_false', dest='admin', help='Reset the user admin flag.')
+    user_update_parser.set_defaults(func=update_user)
 
     # Parse the arguments
     args = parser.parse_args()
