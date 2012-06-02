@@ -12,5 +12,6 @@ setup(
         'SQLAlchemy',
         'Flask-Login',
         'Flask-KVSession',
+        'Flash-Gravatar',
     ],
 )
