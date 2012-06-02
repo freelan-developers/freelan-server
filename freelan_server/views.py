@@ -6,6 +6,7 @@ from freelan_server import APPLICATION
 from freelan_server.database import DATABASE, User
 from freelan_server.login import LOGIN_MANAGER, load_user
 from freelan_server.gravatar import GRAVATAR
+from sqlalchemy import desc
 from sqlalchemy.exc import OperationalError
 
 from flask import g, session, request, redirect, abort, url_for, render_template, flash
@@ -89,7 +90,7 @@ def users():
     The users page.
     """
 
-    users = User.query.all()
+    users = User.query.order_by(desc(User.admin_flag)).order_by(User.username).all()
 
     return render_template('users.html', users=users)
 
