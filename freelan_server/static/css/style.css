@@ -271,6 +271,7 @@ a.tile span.user {
 
 a.tile span.user img {
 	margin-bottom: 4px;
+	border: 1px gray solid;
 }
 
 a.tile span.home {
