@@ -18,22 +18,22 @@ def run(args):
         host=APPLICATION.config['HOST']
     )
 
-def create_database(args):
+def init_database(args):
     """
-    Create the database.
+    Initialize the database.
     """
 
     from freelan_server.database import DATABASE, User
 
-    DATABASE.create_all()
+    DATABASE.init_all()
 
     DATABASE.session.add(User('admin', 'admin@admin.com', 'password', True))
     DATABASE.session.add(User('user', 'some@user.com', 'password'))
     DATABASE.session.commit()
 
-def destroy_database(args):
+def clean_database(args):
     """
-    Destroy the database.
+    Clean the database.
     """
 
     from freelan_server.database import DATABASE
@@ -42,11 +42,11 @@ def destroy_database(args):
 
 def reset_database(args):
     """
-    Destroy then create the database.
+    Clean then init the database.
     """
 
-    destroy_database()
-    create_database()
+    clean_database()
+    init_database()
 
 def main():
     """
@@ -66,11 +66,11 @@ def main():
     database_parser = action_parser.add_parser('database', help='Configure the database')
     database_action_parser = database_parser.add_subparsers()
 
-    database_create_parser = database_action_parser.add_parser('create', help='Create the database if it doesn\'t exist yet.')
-    database_create_parser.set_defaults(func=create_database)
+    database_init_parser = database_action_parser.add_parser('init', help='Initialize the database if it doesn\'t exist yet.')
+    database_init_parser.set_defaults(func=init_database)
 
-    database_destroy_parser = database_action_parser.add_parser('destroy', help='Destroy the database.')
-    database_destroy_parser.set_defaults(func=destroy_database)
+    database_clean_parser = database_action_parser.add_parser('clean', help='Clean the database.')
+    database_clean_parser.set_defaults(func=clean_database)
 
     database_reset_parser = database_action_parser.add_parser('reset', help='Reset the database.')
     database_reset_parser.set_defaults(func=reset_database)
