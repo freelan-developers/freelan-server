@@ -314,7 +314,7 @@ a.tile span.logout {
 	height: 100%;
 	width: 140px;
 	padding: 8px;
-	border-right: 2px white solid;
+	border-right: 1px black solid;
 	background: #829eba;
 }
 
@@ -325,7 +325,6 @@ a.tile span.logout {
 	font-size: 16px;
 	background: black;
 	color: white;
-	border-bottom: white 2px solid;
 }
 
 #submenu a.tile {
@@ -344,7 +343,6 @@ a.tile span.logout {
 	font-size: 16px;
 	background: black;
 	color: white;
-	border-bottom: white 2px solid;
 }
 
 #submenu_content p {
