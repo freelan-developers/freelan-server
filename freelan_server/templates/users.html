@@ -17,6 +17,9 @@
 								{% if user.email %}
 									<img src="{{ user.email | gravatar(size=128)}}" alt="User avatar" />
 								{% endif %}
+								{% if user.admin_flag %}
+									<span class="admin" title="Administrator"></span>
+								{% endif %}
 								{{ user.username }}
 							</span>
 						</a>
