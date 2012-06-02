@@ -89,7 +89,7 @@ def users():
     The users page.
     """
 
-    return render_template('users.html')
+    return render_template('users.html', referer={'target': 'home', 'title': 'Home'})
 
 @APPLICATION.route('/networks')
 @login_required

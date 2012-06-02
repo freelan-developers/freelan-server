@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<nav id="submenu">
+		<h1>Navigation</h1>
+		<a class="tile" href="{{ url_for(referer.target) }}">
+			<span class="{{ referer.target }}">{{ referer.title }}</span>
+		</a>
+	</nav>
+
+	<div id="submenu_content">
+		{% block submenu_content %}{% endblock %}
+	</div>
+{% endblock %}
+

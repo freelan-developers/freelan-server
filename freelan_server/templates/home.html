@@ -8,7 +8,7 @@
 			<ul id="tiles_box">
 				{% for target, title in tiles %}
 					<li>
-						<a href="{{ url_for(target) }}">
+						<a class="tile" href="{{ url_for(target) }}">
 							<span class="{{ target }}">{{ title }}</span>
 						</a>
 					</li>
