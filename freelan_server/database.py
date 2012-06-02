@@ -33,7 +33,7 @@ class User(DATABASE.Model, UserMixin):
         self.email = email
         self.password = password
         self.creation_date = datetime.datetime.now()
-        self.admin_flag = True
+        self.admin_flag = admin_flag
 
     def __repr__(self):
         """
