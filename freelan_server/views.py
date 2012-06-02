@@ -18,9 +18,14 @@ def home():
     """
 
     try:
-        users = User.query.all()
+        tiles = (
+            ('users', 'Users'),
+            ('networks', 'Networks'),
+            ('profile', 'Profile'),
+            ('logout', 'Logout'),
+        )
 
-        return render_template('home.html', users=users)
+        return render_template('home.html', tiles=tiles)
 
     except OperationalError, ex:
         return render_template('no_database.html')
@@ -73,6 +78,26 @@ def profile():
     """
 
     return render_template('profile.html')
+
+@APPLICATION.route('/users')
+@login_required
+def users():
+    """
+    The users page.
+    """
+
+    return render_template('users.html')
+
+@APPLICATION.route('/networks')
+@login_required
+def networks():
+    """
+    The networks page.
+    """
+
+    return render_template('networks.html')
+
+# TODO: Remove/adapt the calls below as they are only provided for development
 
 @APPLICATION.route('/create_database')
 def create_database():

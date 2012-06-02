@@ -2,10 +2,19 @@
 
 {% block title_suffix %} - Home{% endblock %}
 
-{% block extended_content %}
-<p>Welcome to the freelan server home page.</p>
-
-<p>Registered users: {{ users | join(', ') }}.</p>
-
+{% block content %}
+	{% if tiles %}
+		<nav>
+			<ul id="tiles_box">
+				{% for target, title in tiles %}
+					<li>
+						<a href="{{ url_for(target) }}">
+							<span class="{{ target }}">{{ title }}</span>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</nav>
+	{% endif %}
 {% endblock %}
 

@@ -221,16 +221,57 @@ body {
 	cursor: pointer;
 }
 
-/* The generic content */
+/* The tiles */
 
-#content {
-	margin: 16px;
+#tiles_box {
+	margin: 60px auto 60px auto;
+	padding: 0;
+	list-style: none;
+	text-align: center;
+	max-width: 50%;
+}
+
+#tiles_box li {
+	display: inline-block;
+	margin-right: 16px;
+	margin-bottom: 16px;
+}
+
+#tiles_box li a {
+	display: inline-block;
 	padding: 8px;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+	color: black;
+	background: #ddd;
+	border: none;
 	border-radius: 8px;
-	background: #5E768D;
-	background: -moz-linear-gradient(top, #546A7F 0%, #5E768D 20%); /* firefox */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#546A7F), color-stop(20%,#5E768D)); /* webkit */
-	box-shadow: 0px 0px 4px #444;
-	-moz-box-shadow: 0px 0px 4px #444;
-	-webkit-box-shadow: 0px 0px 4px #444;
+}
+
+#tiles_box li a:hover {
+	background: white;
+}
+
+#tiles_box li a span {
+	display: table-cell;
+	width: 132px;
+	height: 132px;
+	vertical-align: bottom;
+}
+
+#tiles_box li a span.users {
+	background: url('../images/users.png') 50% 50% no-repeat;
+}
+
+#tiles_box li a span.networks {
+	background: url('../images/networks.png') 50% 50% no-repeat;
+}
+
+#tiles_box li a span.profile{
+	background: url('../images/profile.png') 50% 50% no-repeat;
+}
+
+#tiles_box li a span.logout{
+	background: url('../images/logout.png') 50% 50% no-repeat;
 }
