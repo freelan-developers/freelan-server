@@ -88,6 +88,36 @@ def list_users(args):
             'creation_date': user.creation_date,
         }
 
+def create_user(args):
+    """
+    Create a user.
+    """
+
+    from freelan_server.database import DATABASE, User
+
+    DATABASE.session.add(User(args.username, args.email, args.password, args.admin))
+    DATABASE.session.commit()
+
+    print 'The user was created.'
+
+def delete_user(args):
+    """
+    Delete a user.
+    """
+
+    from freelan_server.database import DATABASE, User
+
+    user = User.query.filter_by(username=args.username).first()
+
+    if user:
+        DATABASE.session.delete(user)
+        DATABASE.session.commit()
+
+        print 'User "%s" was successfully deleted.' % args.username
+    else:
+        print 'User "%s" does not exist.' % args.username
+        return 1
+
 def main():
     """
     The entry point.
@@ -125,6 +155,17 @@ def main():
 
     user_list_parser = user_action_parser.add_parser('list', help='List the existing users.')
     user_list_parser.set_defaults(func=list_users)
+
+    user_create_parser = user_action_parser.add_parser('create', help='Create a user.')
+    user_create_parser.add_argument('username', help='The user username.')
+    user_create_parser.add_argument('-e', '--email', help='The user email.')
+    user_create_parser.add_argument('-p', '--password', help='The user password.')
+    user_create_parser.add_argument('-a', '--admin', action='store_true', help='The user admin flag.')
+    user_create_parser.set_defaults(func=create_user)
+
+    user_delete_parser = user_action_parser.add_parser('delete', help='Delete a user.')
+    user_delete_parser.add_argument('username', help='The username of the user to delete.')
+    user_delete_parser.set_defaults(func=delete_user)
 
     # Parse the arguments
     args = parser.parse_args()
