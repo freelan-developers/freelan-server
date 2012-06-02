@@ -8,7 +8,7 @@ from freelan_server.login import LOGIN_MANAGER, load_user
 from sqlalchemy.exc import OperationalError
 
 from flask import g, session, request, redirect, url_for, render_template, flash
-from flaskext.login import login_required, login_user
+from flaskext.login import login_required, login_user, logout_user, current_user
 
 @APPLICATION.route('/')
 @login_required
@@ -31,6 +31,9 @@ def login():
     The login page.
     """
 
+    if current_user.is_authenticated():
+        return redirect(url_for('home'))
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -49,6 +52,27 @@ def login():
             flash('Authentication failed for user "%s".' % username, 'denied')
 
     return render_template('login.html')
+
+@APPLICATION.route('/logout')
+def logout():
+    """
+    The logout page.
+    """
+    if current_user.is_authenticated():
+        flash('You are not longer logged in.', 'info')
+
+    logout_user()
+
+    return redirect(url_for('login'))
+
+@APPLICATION.route('/profile')
+@login_required
+def profile():
+    """
+    The profile page.
+    """
+
+    return render_template('profile.html')
 
 @APPLICATION.route('/create_database')
 def create_database():

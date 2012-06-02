@@ -70,10 +70,9 @@ body {
 #information_box {
 	text-align: right;
 	font-size: 12px;
-	font-weight: bold;
 	line-height: 26px;
 	width: 100%;
-	padding: 2px 8px;
+	padding: 0px 0px;
 	z-index: 250;
 	position: fixed;
 	bottom: 0px;
@@ -87,7 +86,24 @@ body {
 }
 
 #information_box strong {
+	color: #ffa5a5;
+}
+
+#information_box a,
+#information_box a:visited {
+	text-decoration: none;
 	color: #ffa500;
+	font-weight: bold;
+}
+
+#information_box a:hover {
+	color: white;
+}
+
+#information_box #logout_box,
+#information_box #user_box {
+	float: left;
+	margin-left: 4px;
 }
 
 /* The login box */
