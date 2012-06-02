@@ -4,8 +4,8 @@
 
 {% block content %}
 	{% if tiles %}
-		<nav>
-			<ul id="tiles_box">
+		<nav id="mainmenu">
+			<ul class="tiles_box">
 				{% for target, title in tiles %}
 					<li>
 						<a class="tile" href="{{ url_for(target) }}">

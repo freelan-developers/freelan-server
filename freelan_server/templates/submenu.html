@@ -3,9 +3,15 @@
 {% block content %}
 	<nav id="submenu">
 		<h1>Navigation</h1>
-		<a class="tile" href="{{ url_for(referer.target) }}">
-			<span class="{{ referer.target }}">{{ referer.title }}</span>
-		</a>
+		{% if referer %}
+			<a class="tile" href="{{ url_for(referer.target) }}">
+				<span class="{{ referer.target }}">{{ referer.title }}</span>
+			</a>
+		{% else %}
+			<a class="tile" href="{{ url_for("home") }}">
+				<span class="home">Home</span>
+			</a>
+		{% endif %}
 	</nav>
 
 	<div id="submenu_content">

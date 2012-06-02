@@ -8,7 +8,7 @@ from freelan_server.login import LOGIN_MANAGER, load_user
 from freelan_server.gravatar import GRAVATAR
 from sqlalchemy.exc import OperationalError
 
-from flask import g, session, request, redirect, url_for, render_template, flash
+from flask import g, session, request, redirect, abort, url_for, render_template, flash
 from flaskext.login import login_required, login_user, logout_user, current_user
 
 @APPLICATION.route('/')
@@ -80,7 +80,7 @@ def profile():
     The profile page.
     """
 
-    return render_template('profile.html')
+    return redirect(url_for('user', username=current_user.username))
 
 @APPLICATION.route('/users')
 @login_required
@@ -89,7 +89,23 @@ def users():
     The users page.
     """
 
-    return render_template('users.html', referer={'target': 'home', 'title': 'Home'})
+    users = User.query.all()
+
+    return render_template('users.html', users=users)
+
+@APPLICATION.route('/user/<username>')
+@login_required
+def user(username):
+    """
+    The user page.
+    """
+
+    user = User.query.filter_by(username=username).first()
+
+    if not user:
+        return abort(404);
+
+    return render_template('user.html', user=user)
 
 @APPLICATION.route('/networks')
 @login_required

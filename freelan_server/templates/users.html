@@ -4,5 +4,21 @@
 {% block submenu_title %}Users{% endblock %}
 
 {% block submenu_content %}
-<p>coucou</p>
+	<h2>User accounts</h2>
+	<p>There is currently {{ users | count }} user account(s).</p>
+
+	{% if users %}
+		<div id="users_list">
+			<ul class="tiles_box">
+				{% for user in users %}
+					<li>
+						<a class="tile" href="{{ url_for('user', username=user.username) }}">
+							<img src="{{ user.email | gravatar(size=128)}}" alt="User avatar" />
+							<span class="user">{{ user.username }}</span>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
 {% endblock %}

@@ -264,6 +264,11 @@ a.tile span {
 	vertical-align: bottom;
 }
 
+a.tile span.user {
+	padding-top: 4px;
+	height: auto;
+}
+
 a.tile span.home {
 	background: url('../images/menu/home.png') 50% 50% no-repeat;
 }
@@ -292,18 +297,22 @@ a.tile span.logout {
 	background: url('../images/menu/logout.png') 50% 50% no-repeat;
 }
 
-#tiles_box {
+.tiles_box {
 	margin: 60px auto 60px auto;
 	padding: 0;
 	list-style: none;
-	text-align: center;
-	max-width: 50%;
 }
 
-#tiles_box li {
+.tiles_box li {
 	display: inline-block;
-	margin-right: 16px;
-	margin-bottom: 16px;
+	margin-right: 4px;
+	margin-bottom: 4px;
+}
+
+#mainmenu {
+	margin: 0 auto;
+	max-width: 50%;
+	text-align: center;
 }
 
 #submenu {
@@ -345,6 +354,20 @@ a.tile span.logout {
 	color: white;
 }
 
+#submenu_content h2 {
+	border-bottom: 4px #ffa500 solid;
+	text-transform: uppercase;
+}
+
+#submenu_content h2:first-letter {
+	color: #ffa500;
+	font-size: 120%;
+}
+
 #submenu_content p {
 	margin: 0 0 1em 0;
+}
+
+#users_list {
+	text-align: center;
 }
