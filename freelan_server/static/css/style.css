@@ -142,6 +142,10 @@ body {
 	text-shadow: 0px -1px 0px #334f71;
 }
 
+#login_box input[type="checkbox"] {
+	width: auto;
+}
+
 #login_box input::-webkit-input-placeholder,
 #login_box input:-moz-placeholder {
 		color: #a1b2c3;
