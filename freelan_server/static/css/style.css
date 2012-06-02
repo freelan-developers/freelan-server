@@ -101,10 +101,16 @@ body {
 	color: white;
 }
 
+#information_box #avatar_box,
 #information_box #logout_box,
 #information_box #user_box {
 	float: left;
 	margin-left: 4px;
+}
+
+#information_box #avatar_box img {
+	width: 12px;
+	height: 12px;
 }
 
 /* The login box */

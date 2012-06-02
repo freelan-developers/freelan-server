@@ -5,6 +5,7 @@ The views.
 from freelan_server import APPLICATION
 from freelan_server.database import DATABASE, User
 from freelan_server.login import LOGIN_MANAGER, load_user
+from freelan_server.gravatar import GRAVATAR
 from sqlalchemy.exc import OperationalError
 
 from flask import g, session, request, redirect, url_for, render_template, flash
@@ -107,8 +108,8 @@ def create_database():
 
     DATABASE.create_all()
 
-    DATABASE.session.add(User('admin', None, 'password'))
-    DATABASE.session.add(User('user', None, 'password'))
+    DATABASE.session.add(User('admin', 'admin@admin.com', 'password'))
+    DATABASE.session.add(User('user', 'some@user.com', 'password'))
     DATABASE.session.commit()
 
     return redirect(url_for('home'))
