@@ -5,7 +5,7 @@ Login related classes and functions.
 from freelan_server import APPLICATION
 
 from flask import redirect, request, flash
-from flaskext.login import LoginManager, login_url
+from flask_login import LoginManager, login_url
 from freelan_server.database import User
 
 LOGIN_MANAGER = LoginManager()

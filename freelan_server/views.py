@@ -10,7 +10,7 @@ from sqlalchemy import desc
 from sqlalchemy.exc import OperationalError
 
 from flask import g, session, request, redirect, abort, url_for, render_template, flash
-from flaskext.login import login_required, login_user, logout_user, current_user
+from flask_login import login_required, login_user, logout_user, current_user
 
 @APPLICATION.route('/')
 @login_required

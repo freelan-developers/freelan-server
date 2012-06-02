@@ -6,7 +6,7 @@ from freelan_server import APPLICATION
 
 from flask.ext.sqlalchemy import SQLAlchemy
 
-from flaskext.login import UserMixin
+from flask_login import UserMixin
 
 import datetime
 
