@@ -108,6 +108,15 @@ def user(username):
 
     return render_template('user.html', user=user, referer={'target': 'users', 'title': 'Users'})
 
+@APPLICATION.route('/create_user')
+@login_required
+def create_user():
+    """
+    The create user page.
+    """
+
+    return render_template('create_user.html', referer={'target': 'users', 'title': 'Users'})
+
 @APPLICATION.route('/networks')
 @login_required
 def networks():

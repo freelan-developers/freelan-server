@@ -5,7 +5,7 @@
 
 {% block submenu_content %}
 	<h2>User accounts</h2>
-	<p>There is currently {{ users | count }} user account(s).</p>
+	<p>There is currently <strong>{{ users | count }}</strong> user account(s). Click <a href="{{ url_for('create_user') }}">here</a> to create a new one.</p>
 
 	{% if users %}
 		<div id="users_list">

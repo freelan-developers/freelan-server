@@ -240,7 +240,7 @@ a.tile {
 	font-size: 12px;
 	font-weight: bold;
 	text-decoration: none;
-	color: black;
+	color: black !important;
 	background: #ddd;
 	border: none;
 	border-radius: 8px;
@@ -376,6 +376,21 @@ a.tile span.logout {
 #submenu_content h2:first-letter {
 	color: #ffa500;
 	font-size: 120%;
+}
+
+#submenu_content a,
+#submenu_content a:visited {
+	color: #ffa500;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#submenu_content a:hover {
+	color: white;
+}
+
+#submenu_content strong {
+	color: #ffa5a5;
 }
 
 #submenu_content p {
