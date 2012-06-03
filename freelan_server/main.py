@@ -140,6 +140,7 @@ def update_user(args):
                 user.email = None
                 print 'Email address reset for user "%s".' % args.username
 
+        # FIXME: If the -a option is not specified, the admin status always gets reset.
         if args.admin is not None:
             user.admin_flag = args.admin
 
