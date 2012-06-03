@@ -283,6 +283,10 @@ a.tile span.user span.admin {
 	background: url('../images/flags/admin.png') 50% 50% no-repeat;
 }
 
+a.tile span.back {
+	background: url('../images/menu/back.png') 50% 50% no-repeat;
+}
+
 a.tile span.home {
 	background: url('../images/menu/home.png') 50% 50% no-repeat;
 }
