@@ -138,6 +138,8 @@ def user(username):
 
             flash('User "%s" was updated successfully.' % username, 'info')
 
+            return redirect(url_for('users'))
+
     return render_template('user.html', user=user, referer={'target': 'users', 'title': 'Users'})
 
 @APPLICATION.route('/create_user', methods=['GET', 'POST'])
@@ -169,7 +171,7 @@ def create_user():
             DATABASE.session.add(user)
             DATABASE.session.commit()
 
-            return redirect(url_for('user', username=username))
+            return redirect(url_for('users'))
     else:
         username = ''
         email = ''
