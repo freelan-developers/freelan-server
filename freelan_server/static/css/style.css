@@ -433,8 +433,26 @@ a.tile span.logout {
 	width: 300px;
 	margin: 0 0 4px 0;
 	padding: 4px 12px;
-	border-radius: 8px;
-	border: 1px #333 solid;
+	border-radius: 24px;
+	border: 2px #333 solid;
+	background: white;
+	-moz-border-radius: 24px;
+	-webkit-border-radius: 24px;
+	box-shadow: 0px 0px 16px #444;
+	-moz-box-shadow: 0px 0px 16px #444;
+	-webkit-box-shadow: 0px 0px 16px #444;
+	box-shadow: inset 0px 0px 4px #444;
+	-moz-box-shadow: inset 0px 0px 4px #444;
+	-webkit-box-shadow: inset 0px 0px 4px #444;
+}
+
+#submenu_content input:focus {
+	border-color: #ffa500;
+	background: #ffe0e0;
+}
+
+#submenu_content input:read-only {
+	background: #aaa;
 }
 
 #submenu_content input[type=checkbox] {
@@ -445,7 +463,23 @@ a.tile span.logout {
 #submenu_content input[type=submit] {
 	margin: 0 4px 0 0;
 	height: 32px;
-	width: 262px;
+	width: 264px;
+	cursor: pointer;
+}
+
+#submenu_content input[type=reset]:hover,
+#submenu_content input[type=submit]:hover {
+	background: #ffe0a5;
+}
+
+#submenu_content input[type=reset].danger,
+#submenu_content input[type=submit].danger {
+	background: #ffc0c0;
+}
+
+#submenu_content input[type=reset].danger:hover,
+#submenu_content input[type=submit].danger:hover {
+	background: #ffa5a5;
 }
 
 #users_list {

@@ -36,7 +36,7 @@
 	<h2>Danger zone</h2>
 
 	<form method="post" action="{{ url_for('delete_user', username=user.username) }}">
-		<input type="submit" value="Delete user" />
+		<input class="danger" type="submit" value="Delete user" />
 	</form>
 
 {% endblock %}
