@@ -413,6 +413,41 @@ a.tile span.logout {
 	margin: 0 0 1em 0;
 }
 
+#submenu_content fieldset {
+	clear: left;
+}
+
+#submenu_content label {
+	height: 24px;
+	width: 200px;
+	display: inline-block;
+	margin: 0 4px 4px 0;
+	padding: 0;
+	float: left;
+	clear: left;
+}
+
+#submenu_content input {
+	float: left;
+	height: 24px;
+	width: 300px;
+	margin: 0 0 4px 0;
+	padding: 4px 12px;
+	border-radius: 8px;
+	border: 1px #333 solid;
+}
+
+#submenu_content input[type=checkbox] {
+	width: auto;
+}
+
+#submenu_content input[type=reset],
+#submenu_content input[type=submit] {
+	margin: 0 4px 0 0;
+	height: 32px;
+	width: 262px;
+}
+
 #users_list {
 	text-align: center;
 }
