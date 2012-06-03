@@ -257,6 +257,14 @@ a.tile:hover {
 	background: white;
 }
 
+a.tile.fade {
+	opacity: 0.2;
+}
+
+a.tile.fade:hover {
+	opacity: 0.3;
+}
+
 a.tile span {
 	display: table-cell;
 	width: 132px;
@@ -281,6 +289,10 @@ a.tile span.user span.admin {
 	width: 16px;
 	height: 16px;
 	background: url('../images/flags/admin.png') 50% 50% no-repeat;
+}
+
+a.tile span.create_user {
+	background: url('../images/menu/create_user.png') 50% 0 no-repeat;
 }
 
 a.tile span.back {

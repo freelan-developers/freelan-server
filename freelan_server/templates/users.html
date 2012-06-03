@@ -25,6 +25,11 @@
 						</a>
 					</li>
 				{% endfor %}
+				<li>
+					<a class="tile fade" href="{{ url_for('create_user') }}">
+						<span class="user create_user">New user</span>
+					</a>
+				</li>
 			</ul>
 		</div>
 	{% endif %}
