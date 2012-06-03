@@ -108,14 +108,45 @@ def user(username):
 
     return render_template('user.html', user=user, referer={'target': 'users', 'title': 'Users'})
 
-@APPLICATION.route('/create_user')
+@APPLICATION.route('/create_user', methods=['GET', 'POST'])
 @login_required
 def create_user():
     """
     The create user page.
     """
 
-    return render_template('create_user.html', referer={'target': 'users', 'title': 'Users'})
+    if request.method == 'POST':
+        username = request.form['username'] or ''
+        email = request.form['email'] or ''
+        password = request.form['password'] or ''
+        password_repeat = request.form['password_repeat'] or ''
+        print request.form
+        admin_flag = ('admin_flag' in request.form)
+
+        if not username:
+            flash('Please specify an username.', 'error')
+        elif not password:
+            flash('Please specify a password.', 'error')
+        elif password != password_repeat:
+            flash('Password and password repeat do not match.', 'error')
+        else:
+            user = User(username, email, password, admin_flag)
+            DATABASE.session.add(user)
+            DATABASE.session.commit()
+
+            return redirect(url_for('user', username=username))
+    else:
+        username = ''
+        email = ''
+        admin_flag = ''
+
+    return render_template(
+        'create_user.html',
+        username=username,
+        email=email,
+        admin_flag=admin_flag,
+        referer={'target': 'users', 'title': 'Users'},
+    )
 
 @APPLICATION.route('/delete_user/<username>', methods=['POST'])
 @login_required

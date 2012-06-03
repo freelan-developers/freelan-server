@@ -9,10 +9,10 @@
 	<form method="post" action="{{ url_for('create_user') }}">
 		<fieldset>
 			<label for="username_box">Username:</label>
-			<input type="text" id="username_box" name="username" required="required" placeholder="Username" />
+			<input type="text" id="username_box" name="username" required="required" placeholder="Username" autofocus="autofocus" value="{{ username }}" />
 
 			<label for="email_box">Email:</label>
-			<input type="email" id="email_box" name="username" placeholder="Email" />
+			<input type="email" id="email_box" name="email" placeholder="Email" value="{{ email }}"/>
 
 			<label for="password_box">Password:</label>
 			<input type="password" id="password_box" name="password" placeholder="Enter the new password" />
@@ -21,7 +21,7 @@
 			<input type="password" id="password_repeat_box" name="password_repeat" placeholder="Repeat the new password" />
 
 			<label for="admin_flag_box">Administrator flag:</label>
-			<input type="checkbox" id="admin_flag_box" name="admin_flag" value="yes" />
+			<input type="checkbox" id="admin_flag_box" name="admin_flag" {% if admin_flag %}value="yes"{% endif %} />
 		</fieldset>
 
 		<fieldset>
