@@ -117,6 +117,25 @@ def create_user():
 
     return render_template('create_user.html', referer={'target': 'users', 'title': 'Users'})
 
+@APPLICATION.route('/delete_user/<username>', methods=['POST'])
+@login_required
+def delete_user(username):
+    """
+    The delete user page.
+    """
+
+    user = User.query.filter_by(username=username).first()
+
+    if not user:
+        flash('No such user "%s".' % username, 'error')
+    else:
+        DATABASE.session.delete(user)
+        DATABASE.session.commit()
+
+        flash('User "%s" was deleted.' % username, 'info')
+
+    return redirect(url_for('users'))
+
 @APPLICATION.route('/networks')
 @login_required
 def networks():

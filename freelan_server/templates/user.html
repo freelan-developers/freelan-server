@@ -5,5 +5,37 @@
 
 {% block submenu_content %}
 	<h2>Profile for user "{{ user.username }}"</h2>
+
+	<form method="post" action="{{ url_for('user', username=user.username) }}">
+		<fieldset>
+			<label for="username_box">Username:</label>
+			<input type="text" id="username_box" name="username" readonly="readonly" required="required" placeholder="Username" value="{{ user.username }}" />
+
+			<label for="email_box">Username:</label>
+			<input type="email" id="email_box" name="username" placeholder="Email" value="{{ user.email }}" />
+
+			<label for="password_box">Current password:</label>
+			<input type="password" id="password_box" name="password" placeholder="Enter the current password" />
+
+			<label for="new_password_box">New password:</label>
+			<input type="password" id="new_password_box" name="new_password" placeholder="Enter the new password" />
+
+			<label for="new_password_repeat_box">New password:</label>
+			<input type="password" id="new_password_repeat_box" name="new_password_repeat" placeholder="Repeat the new password" />
+
+			<label for="admin_flag_box">Administrator flag:</label>
+			<input type="checkbox" id="admin_flag_box" name="admin_flag" value="yes" {% if user.admin_flag %}{{ 'checked="checked"' }}{% endif %} />
+
+			<input type="reset" value="Reset" />
+			<input type="submit" value="Update" />
+		</fieldset>
+	</form>
+
+	<h2>Danger zone</h2>
+
+	<form method="post" action="{{ url_for('delete_user', username=user.username) }}">
+		<input type="submit" value="Delete user" />
+	</form>
+
 {% endblock %}
 
