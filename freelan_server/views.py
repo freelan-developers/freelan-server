@@ -6,7 +6,7 @@ from freelan_server import APPLICATION
 from freelan_server.database import DATABASE, User
 from freelan_server.login import LOGIN_MANAGER, load_user
 from freelan_server.gravatar import GRAVATAR
-from sqlalchemy import desc
+from sqlalchemy import desc, and_, or_, not_
 from sqlalchemy.exc import OperationalError
 
 from flask import g, session, request, redirect, abort, url_for, render_template, flash
@@ -94,7 +94,7 @@ def users():
 
     return render_template('users.html', users=users)
 
-@APPLICATION.route('/user/<username>')
+@APPLICATION.route('/user/<username>', methods=['GET', 'POST'])
 @login_required
 def user(username):
     """
@@ -105,6 +105,38 @@ def user(username):
 
     if not user:
         return abort(404);
+
+    if request.method == 'POST':
+        success = True
+        email = request.form['email'] or ''
+        password = request.form['password'] or ''
+        new_password = request.form['new_password'] or ''
+        new_password_repeat = request.form['new_password_repeat'] or ''
+        admin_flag = ('admin_flag' in request.form)
+
+        if new_password:
+            if new_password != new_password_repeat:
+                flash('New password and password repeat do not match.', 'error')
+                success = False
+            elif not user.check_password(password) and (not current_user.admin_flag or current_user.id == user.id):
+                flash('Incorrect password.', 'error')
+                success = False
+            else:
+                user.password = new_password
+
+        if email and User.query.filter(and_(User.email == email, User.id != user.id)).first():
+            flash('An user with the same email address already exists.', 'error')
+            success = False
+
+        if success:
+            user.email = email
+
+            if (current_user.id != user.id):
+                user.admin_flag = admin_flag
+
+            DATABASE.session.commit()
+
+            flash('User "%s" was updated successfully.' % username, 'info')
 
     return render_template('user.html', user=user, referer={'target': 'users', 'title': 'Users'})
 
@@ -120,7 +152,6 @@ def create_user():
         email = request.form['email'] or ''
         password = request.form['password'] or ''
         password_repeat = request.form['password_repeat'] or ''
-        print request.form
         admin_flag = ('admin_flag' in request.form)
 
         if not username:

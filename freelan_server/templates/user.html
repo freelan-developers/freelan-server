@@ -14,8 +14,12 @@
 			<label for="email_box">Email:</label>
 			<input type="email" id="email_box" name="email" placeholder="Email" value="{{ user.email }}" />
 
-			<label for="password_box">Current password:</label>
-			<input type="password" id="password_box" name="password" placeholder="Enter the current password" />
+			{% if not current_user.admin_flag or (current_user.id == user.id) %}
+				<label for="password_box">Current password:</label>
+				<input type="password" id="password_box" name="password" placeholder="Enter the current password" />
+			{% else %}
+				<input type="hidden" name="password" />
+			{% endif %}
 
 			<label for="new_password_box">New password:</label>
 			<input type="password" id="new_password_box" name="new_password" placeholder="Enter the new password" />
@@ -24,7 +28,7 @@
 			<input type="password" id="new_password_repeat_box" name="new_password_repeat" placeholder="Repeat the new password" />
 
 			<label for="admin_flag_box">Administrator flag:</label>
-			<input type="checkbox" id="admin_flag_box" name="admin_flag" value="yes" {% if user.admin_flag %}{{ 'checked="checked"' }}{% endif %} />
+			<input type="checkbox" id="admin_flag_box" name="admin_flag" value="yes" {% if user.admin_flag %}checked="checked"{% endif %} {% if (current_user.id == user.id) %}disabled="disabled"{% endif %} />
 		</fieldset>
 
 		<fieldset>
