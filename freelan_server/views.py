@@ -129,6 +129,10 @@ def create_user():
             flash('Please specify a password.', 'error')
         elif password != password_repeat:
             flash('Password and password repeat do not match.', 'error')
+        elif User.query.filter_by(username=username).first():
+            flash('An user with the same username already exists.', 'error')
+        elif email and User.query.filter_by(email=email).first():
+            flash('An user with the same email address already exists.', 'error')
         else:
             user = User(username, email, password, admin_flag)
             DATABASE.session.add(user)
