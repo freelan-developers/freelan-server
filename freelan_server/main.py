@@ -25,7 +25,7 @@ def init_database(args):
 
     print 'Initializing the database...'
 
-    from freelan_server.database import DATABASE, User
+    from freelan_server.database import DATABASE, User, Network
 
     DATABASE.create_all()
 
@@ -37,12 +37,27 @@ def init_database(args):
         print 'Added an "admin" account with the default password "password".'
 
     if args.add_test_data:
-        DATABASE.session.add(User('alice', 'alice@users.com', 'password'))
-        DATABASE.session.add(User('bob', 'bob@users.com', 'password'))
-        DATABASE.session.add(User('chris', 'chris@users.com', 'password'))
-        DATABASE.session.add(User('denis', 'denis@users.com', 'password'))
-        DATABASE.session.add(User('eleanor', 'eleanor@users.com', 'password'))
+        alice = User('alice', 'alice@users.com', 'password')
+        bob = User('bob', 'bob@users.com', 'password')
+        chris = User('chris', 'chris@users.com', 'password')
+        denis = User('denis', 'denis@users.com', 'password')
+        eleanor = User('eleanor', 'eleanor@users.com', 'password')
+
+        DATABASE.session.add(alice)
+        DATABASE.session.add(bob)
+        DATABASE.session.add(chris)
+        DATABASE.session.add(denis)
+        DATABASE.session.add(eleanor)
         print 'Added some user accounts with default password "password".'
+
+        my_network = Network('My network')
+        DATABASE.session.add(my_network)
+        print 'Added some networks.'
+
+        my_network.users.append(alice)
+        my_network.users.append(bob)
+        my_network.users.append(chris)
+        print 'Added some users to the networks.'
 
     DATABASE.session.commit()
 
@@ -74,18 +89,19 @@ def list_users(args):
     List the users.
     """
 
-    from freelan_server.database import User
+    from freelan_server.database import User, Network
 
     users = User.query.all()
 
     print 'Listing %s existing account(s):' % len(users)
 
     for user in users:
-        print '%(type)s | %(username)s (%(email)s) created on %(creation_date)s' % {
+        print '%(type)s | %(username)s (%(email)s) created on %(creation_date)s | %(networks)s' % {
             'type': user.admin_flag and 'admin' or 'user',
             'username': user.username,
             'email': user.email or '<no email>',
             'creation_date': user.creation_date,
+            'networks': ', '.join([network.name for network in user.networks])
         }
 
 def create_user(args):
@@ -154,6 +170,71 @@ def update_user(args):
         print 'User "%s" does not exist.' % args.username
         return 1
 
+def list_networks(args):
+    """
+    List the networks.
+    """
+
+    from freelan_server.database import User, Network
+
+    networks = Network.query.all()
+
+    print 'Listing %s existing network(s):' % len(networks)
+
+    for network in networks:
+        print '%(name)s | %(users_len)s user(s). Created on %(creation_date)s | %(users)s' % {
+            'name': network.name,
+            'creation_date': network.creation_date,
+            'users_len': len(network.users),
+            'users': ', '.join([user.username for user in network.users])
+        }
+
+def create_network(args):
+    """
+    Create a network.
+    """
+
+    from freelan_server.database import DATABASE, Network
+
+    DATABASE.session.add(Network(args.name))
+    DATABASE.session.commit()
+
+    print 'The network was created.'
+
+def delete_network(args):
+    """
+    Delete a network.
+    """
+
+    from freelan_server.database import DATABASE, Network
+
+    network = Network.query.filter_by(name=args.name).first()
+
+    if network:
+        DATABASE.session.delete(network)
+        DATABASE.session.commit()
+
+        print 'Network "%s" was successfully deleted.' % args.name
+    else:
+        print 'Network "%s" does not exist.' % args.name
+        return 1
+
+def update_network(args):
+    """
+    Update a network.
+    """
+
+    from freelan_server.database import DATABASE, Network
+
+    network = Network.query.filter_by(name=args.name).first()
+
+    if network:
+        # TODO: Something, probably
+        DATABASE.session.commit()
+    else:
+        print 'Network "%s" does not exist.' % args.name
+        return 1
+
 def main():
     """
     The entry point.
@@ -212,6 +293,25 @@ def main():
     user_update_parser_admin_group.add_argument('-a', '--admin', action='store_true', dest='admin', help='Set the user admin flag.')
     user_update_parser_admin_group.add_argument('-u', '--user', action='store_false', dest='admin', help='Reset the user admin flag.')
     user_update_parser.set_defaults(func=update_user)
+
+    # The network parser
+    network_parser = action_parser.add_parser('network', help='Manage the networks')
+    network_action_parser = network_parser.add_subparsers()
+
+    network_list_parser = network_action_parser.add_parser('list', help='List the existing networks.')
+    network_list_parser.set_defaults(func=list_networks)
+
+    network_create_parser = network_action_parser.add_parser('create', help='Create a network.')
+    network_create_parser.add_argument('name', help='The network name.')
+    network_create_parser.set_defaults(func=create_network)
+
+    network_delete_parser = network_action_parser.add_parser('delete', help='Delete a network.')
+    network_delete_parser.add_argument('name', help='The name of the network to delete.')
+    network_delete_parser.set_defaults(func=delete_network)
+
+    network_update_parser = network_action_parser.add_parser('update', help='Update a network.')
+    network_update_parser.add_argument('name', help='The network name.')
+    network_update_parser.set_defaults(func=update_network)
 
     # Parse the arguments
     args = parser.parse_args()
