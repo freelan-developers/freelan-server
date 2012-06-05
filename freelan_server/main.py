@@ -235,6 +235,24 @@ def update_network(args):
         print 'Network "%s" does not exist.' % args.name
         return 1
 
+def rename_network(args):
+    """
+    Rename a network.
+    """
+
+    from freelan_server.database import DATABASE, Network
+
+    network = Network.query.filter_by(name=args.name).first()
+
+    if network:
+        network.name = args.newname
+
+        DATABASE.session.commit()
+        print 'Network "%s" was renamed to "%s".' % (args.name, args.newname)
+    else:
+        print 'Network "%s" does not exist.' % args.name
+        return 1
+
 def adduser_network(args):
     """
     Add a user to the network.
@@ -366,6 +384,11 @@ def main():
     network_update_parser = network_action_parser.add_parser('update', help='Update a network.')
     network_update_parser.add_argument('name', help='The network name.')
     network_update_parser.set_defaults(func=update_network)
+
+    network_update_parser = network_action_parser.add_parser('rename', help='Rename a network.')
+    network_update_parser.add_argument('name', help='The current network name.')
+    network_update_parser.add_argument('newname', help='The new network name.')
+    network_update_parser.set_defaults(func=rename_network)
 
     network_update_parser = network_action_parser.add_parser('adduser', help='Add a user to the network.')
     network_update_parser.add_argument('username', help='The username.')
