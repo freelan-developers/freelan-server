@@ -235,6 +235,60 @@ def update_network(args):
         print 'Network "%s" does not exist.' % args.name
         return 1
 
+def adduser_network(args):
+    """
+    Add a user to the network.
+    """
+
+    from freelan_server.database import DATABASE, User, Network
+
+    network = Network.query.filter_by(name=args.name).first()
+
+    if not network:
+        print 'Network "%s" does not exist.' % args.name
+        return 1
+
+    user = User.query.filter_by(username=args.username).first()
+
+    if not user:
+        print 'User "%s" does not exist.' % args.username
+        return 1
+
+    if user in network.users:
+        print 'User "%s" already belongs to "%s".' % (args.username, args.name)
+        return 1
+
+    network.users.append(user)
+
+    DATABASE.session.commit()
+
+def removeuser_network(args):
+    """
+    Remove a user from the network.
+    """
+
+    from freelan_server.database import DATABASE, User, Network
+
+    network = Network.query.filter_by(name=args.name).first()
+
+    if not network:
+        print 'Network "%s" does not exist.' % args.name
+        return 1
+
+    user = User.query.filter_by(username=args.username).first()
+
+    if not user:
+        print 'User "%s" does not exist.' % args.username
+        return 1
+
+    if not user in network.users:
+        print 'User "%s" does not belong to "%s".' % (args.username, args.name)
+        return 1
+
+    network.users.remove(user)
+
+    DATABASE.session.commit()
+
 def main():
     """
     The entry point.
@@ -312,6 +366,16 @@ def main():
     network_update_parser = network_action_parser.add_parser('update', help='Update a network.')
     network_update_parser.add_argument('name', help='The network name.')
     network_update_parser.set_defaults(func=update_network)
+
+    network_update_parser = network_action_parser.add_parser('adduser', help='Add a user to the network.')
+    network_update_parser.add_argument('username', help='The username.')
+    network_update_parser.add_argument('name', help='The network name.')
+    network_update_parser.set_defaults(func=adduser_network)
+
+    network_update_parser = network_action_parser.add_parser('removeuser', help='Remove a user from the network.')
+    network_update_parser.add_argument('username', help='The username.')
+    network_update_parser.add_argument('name', help='The network name.')
+    network_update_parser.set_defaults(func=removeuser_network)
 
     # Parse the arguments
     args = parser.parse_args()
