@@ -3,7 +3,7 @@ The views.
 """
 
 from freelan_server import APPLICATION
-from freelan_server.database import DATABASE, User
+from freelan_server.database import DATABASE, User, Network
 from freelan_server.login import LOGIN_MANAGER, load_user
 from freelan_server.gravatar import GRAVATAR
 from sqlalchemy import desc, and_, or_, not_
@@ -211,7 +211,21 @@ def networks():
     The networks page.
     """
 
-    return render_template('networks.html')
+    networks = Network.query.order_by(Network.name).all()
+
+    return render_template('networks.html', networks=networks)
+
+@APPLICATION.route('/create_network', methods=['GET', 'POST'])
+@login_required
+def create_network():
+    """
+    The create network page.
+    """
+
+    return render_template(
+        'create_network.html',
+        referer={'target': 'networks', 'title': 'Networks'},
+    )
 
 @APPLICATION.route('/settings')
 @login_required

@@ -299,6 +299,20 @@ a.tile span.create_user {
 	background: url('../images/menu/create_user.png') 50% 0 no-repeat;
 }
 
+a.tile span.network {
+	height: 148px;
+	background: url('../images/menu/networks.png') 50% 0 no-repeat;
+}
+
+a.tile span.network img {
+	margin-bottom: 4px;
+	border: 1px gray solid;
+}
+
+a.tile span.create_network {
+	background: url('../images/menu/create_user.png') 50% 0 no-repeat;
+}
+
 a.tile span.back {
 	background: url('../images/menu/back.png') 50% 50% no-repeat;
 }
