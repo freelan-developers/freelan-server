@@ -233,6 +233,10 @@ body {
 
 /* The tiles */
 
+.tile_list {
+	text-align: center;
+}
+
 a.tile {
 	display: inline-block;
 	margin: 0;
@@ -482,6 +486,3 @@ a.tile span.logout {
 	background: #ffa5a5;
 }
 
-#users_list {
-	text-align: center;
-}

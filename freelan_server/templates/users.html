@@ -8,7 +8,7 @@
 	<p>There is currently <strong>{{ users | count }}</strong> user account(s). Click <a href="{{ url_for('create_user') }}">here</a> to create a new one.</p>
 
 	{% if users %}
-		<div id="users_list">
+		<div id="users_list" class="tile_list">
 			<ul class="tiles_box">
 				{% for user in users %}
 					<li>
