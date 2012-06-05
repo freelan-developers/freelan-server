@@ -12,6 +12,12 @@ import datetime
 
 DATABASE = SQLAlchemy(APPLICATION)
 
+NetworkUserTable = DATABASE.Table(
+    'network_user',
+    DATABASE.Column('network_id', DATABASE.Integer, DATABASE.ForeignKey('network.id')),
+    DATABASE.Column('user_id', DATABASE.Integer, DATABASE.ForeignKey('user.id')),
+)
+
 class User(DATABASE.Model, UserMixin):
     """
     Represents a database user.
@@ -65,3 +71,21 @@ class User(DATABASE.Model, UserMixin):
         self.password_hash = generate_password_hash(password)
 
     password = property(fset=set_password)
+
+class Network(DATABASE.Model):
+    """
+    Represents a database network.
+    """
+
+    id = DATABASE.Column(DATABASE.Integer, primary_key=True)
+    name = DATABASE.Column(DATABASE.String(80), unique=True, nullable=False)
+    creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
+    users = DATABASE.relationship('User', secondary=NetworkUserTable, backref='networks')
+
+    def __init__(self, name):
+        """
+        Initialize a new network.
+        """
+
+        self.name = name
+        self.creation_date = datetime.datetime.now()
