@@ -12,7 +12,7 @@
 			<ul class="tiles_box">
 				{% for network in networks %}
 					<li>
-						<a class="tile" href="">
+						<a class="tile" href="{{ url_for('network', name=network.name) }}">
 							<span class="network">
 								{{ network.name }}
 							</span>

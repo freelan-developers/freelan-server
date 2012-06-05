@@ -215,6 +215,20 @@ def networks():
 
     return render_template('networks.html', networks=networks)
 
+@APPLICATION.route('/network/<name>', methods=['GET', 'POST'])
+@login_required
+def network(name):
+    """
+    The network page.
+    """
+
+    network = Network.query.filter_by(name=name).first()
+
+    if not network:
+        return abort(404);
+
+    return render_template('network.html', network=network, referer={'target': 'networks', 'title': 'Networks'})
+
 @APPLICATION.route('/create_network', methods=['GET', 'POST'])
 @login_required
 def create_network():

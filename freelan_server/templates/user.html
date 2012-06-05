@@ -37,6 +37,19 @@
 		</fieldset>
 	</form>
 
+	<h2>Networks</h2>
+
+	{% if user.networks %}
+		<p><strong>{{ user.username }}</strong> belongs to the following network(s):</p>
+		<ul>
+			{% for network in user.networks %}
+				<li><a href="{{ url_for('network', name=network.name) }}">{{ network.name }}</a> - <strong>{{ network.users | count }}</strong> user(s)</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p><strong>{{ user.username }}</strong> does not belong to any network.</p>
+	{% endif %}
+
 	<h2>Danger zone</h2>
 
 	<form method="post" action="{{ url_for('delete_user', username=user.username) }}">
