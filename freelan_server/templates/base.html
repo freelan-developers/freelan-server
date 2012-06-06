@@ -6,6 +6,8 @@
 		<meta charset="utf-8" />
 		<title>Freelan Server{% block title_suffix %}{% endblock %}</title>
 		<link type="text/css" href="{{ url_for('static', filename='css/default.css') }}" rel="stylesheet" media="screen" />
+		<link type="text/css" href="{{ url_for('static', filename='css/header.css') }}" rel="stylesheet" media="screen" />
+		<link type="text/css" href="{{ url_for('static', filename='css/footer.css') }}" rel="stylesheet" media="screen" />
 		<link type="text/css" href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" media="screen" />
 		<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.7.2.min.js') }}"></script>
 	</head>
@@ -13,10 +15,13 @@
 		{# The notification box #}
 		{% include 'notification.html' %}
 
+		{# The header #}
+		{% include 'header.html' %}
+
 		{# The content #}
 		{% block content %}{% endblock %}
 
-		{# The information box #}
-		{% include 'information.html' %}
+		{# The footer #}
+		{% include 'footer.html' %}
 	</body>
 </html>

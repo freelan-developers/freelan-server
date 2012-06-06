@@ -1,0 +1,39 @@
+/**
+ * The footer styles.
+ */
+
+footer {
+	position: absolute;
+	bottom: 0;
+	height: 35px;
+	width: 100%;
+	border-top: 1px solid #ebebeb;
+	overflow: hidden;
+}
+
+footer > div {
+	font-size: .85em;
+	white-space: nowrap;
+	line-height: 0;
+	padding: 9px 44px 0;
+}
+
+footer > div > ul {
+	color: #999;
+	float: left;
+	max-width: 80%;
+	list-style: none;
+	line-height: 17px;
+	margin: 0 0 1em;
+}
+
+footer > div > ul > li {
+	display: inline;
+	padding: 0 1.5em 0 0;
+	margin: 0 0 .5em;
+	vertical-align: center;
+}
+
+footer a {
+	color: #333;
+}

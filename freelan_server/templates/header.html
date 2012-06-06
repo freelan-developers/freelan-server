@@ -1,0 +1,17 @@
+{# The header #}
+
+<header>
+	<div>
+		<ul>
+			{% if current_user.is_authenticated() %}
+				{% if current_user.email %}
+					<li>
+						<img src="{{ current_user.email | gravatar(size=128) }}" alt="{{ current_user.email }}" />
+					</li>
+				{% endif %}
+				<li id="user_box">Identified as <a href={{ url_for('profile') }}>{{ current_user.username }}</a>.</li>
+				<li id="logout_box">Click <a href={{ url_for('logout') }}>here</a> to log out.</li>
+			{% endif %}
+		</ul>
+	</div>
+</header>

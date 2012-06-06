@@ -1,0 +1,40 @@
+/**
+ * The header styles.
+ */
+
+header {
+	position: absolute;
+	top: 0;
+	height: 35px;
+	width: 100%;
+	border-bottom: 1px solid #ebebeb;
+	overflow: hidden;
+}
+
+header > div {
+	font-size: .85em;
+	white-space: nowrap;
+	line-height: 0;
+	padding: 9px 44px 0;
+}
+
+header > div > ul {
+	color: #999;
+	float: right;
+	max-width: 80%;
+	list-style: none;
+	line-height: 17px;
+	margin: 0 0 1em;
+}
+
+header > div > ul > li {
+	display: inline;
+	padding: 0 1.5em 0 0;
+	margin: 0 0 .5em;
+	vertical-align: center;
+}
+
+header > div > ul > li img {
+	max-height: 14px;
+}
+
