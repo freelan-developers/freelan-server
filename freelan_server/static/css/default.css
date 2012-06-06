@@ -1,0 +1,72 @@
+/* The default styles.
+ *
+ * Strongly inspired by Google's design.
+ */
+
+html, body, div, h1, h2, h3, h4, h5, h6, p, img, dl,
+dt, dd, ol, ul, li, table, tr, td, form, object, embed,
+article, aside, canvas, command, details, fieldset,
+figcaption, figure, footer, group, header, hgroup, legend,
+mark, menu, meter, nav, output, progress, section, summary,
+time, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+article, aside, details, figcaption, figure, footer,
+header, hgroup, menu, nav, section {
+	display: block;
+}
+
+html {
+	font: 81.25% arial, helvetica, sans-serif;
+	background: #fff;
+	color: #333;
+	line-height: 1;
+}
+
+a {
+	color: #15c;
+	text-decoration: none;
+}
+
+a:active {
+	color: #d14836;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #222;
+	font-size: 1.54em;
+	font-weight: normal;
+	line-height: 24px;
+	margin: 0 0 .46em;
+}
+
+p {
+	line-height: 17px;
+	margin: 0 0 1em;
+}
+
+ol, ul {
+	list-style: none;
+	line-height: 17px;
+	margin: 0 0 1em;
+}
+
+li {
+	margin: 0 0 .5em;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+strong {
+	color: #222;
+}
