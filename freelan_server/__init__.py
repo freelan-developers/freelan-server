@@ -27,4 +27,5 @@ STORE = DictStore()
 KVSessionExtension(STORE, APPLICATION)
 
 # We import the views
+# This must be done **AFTER** the APPLICATION object is instanciated.
 from freelan_server.views import *

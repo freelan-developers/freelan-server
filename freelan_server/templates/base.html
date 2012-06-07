@@ -8,17 +8,12 @@
 		<link type="text/css" href="{{ url_for('static', filename='css/default.css') }}" rel="stylesheet" media="screen" />
 		<link type="text/css" href="{{ url_for('static', filename='css/header.css') }}" rel="stylesheet" media="screen" />
 		<link type="text/css" href="{{ url_for('static', filename='css/footer.css') }}" rel="stylesheet" media="screen" />
+		<link type="text/css" href="{{ url_for('static', filename='css/page.css') }}" rel="stylesheet" media="screen" />
 		<link type="text/css" href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" media="screen" />
 		<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.7.2.min.js') }}"></script>
 	</head>
 	<body>
-		{# The header #}
-		{% include 'header.html' %}
-
 		{# The content #}
 		{% block content %}{% endblock %}
-
-		{# The footer #}
-		{% include 'footer.html' %}
 	</body>
 </html>

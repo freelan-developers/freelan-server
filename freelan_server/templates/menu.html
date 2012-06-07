@@ -1,0 +1,6 @@
+<ul>
+	<li><a href="{{ url_for('users') }}" title="Users" class="menu-users {% if active_menu == 'users' %}menu-active{% endif %}"><span>Users</span></a></li>
+	<li><a href="{{ url_for('networks') }}" title="Networks" class="menu-networks {% if active_menu == 'networks' %}menu-active{% endif %}"><span>Networks</span></a></li>
+	<li><a href="{{ url_for('settings') }}" title="Settings" class="menu-settings {% if active_menu == 'settings' %}menu-active{% endif %}"><span>Settings</span></a></li>
+	<li><a href="{{ url_for('status') }}" title="Status" class="menu-status {% if active_menu == 'status' %}menu-active{% endif %}"><span>Status</span></a></li>
+</ul>

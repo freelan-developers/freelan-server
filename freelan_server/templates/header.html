@@ -1,19 +1,24 @@
 {# The header #}
 
 <header>
-	<div>
-		<ul>
-			{% if current_user.is_authenticated() %}
+	<ul>
+		{% if current_user.is_authenticated() %}
+			<li>
+				<a href="{{ url_for('user', username=current_user.username) }}">
 				{% if current_user.email %}
-					<li>
-						<img src="{{ current_user.email | gravatar(size=128) }}" alt="{{ current_user.email }}" />
-					</li>
+					<img src="{{ current_user.email | gravatar(size=128) }}" alt="{{ current_user.email }}" />
 				{% endif %}
-				<li id="user_box">Identified as <a href={{ url_for('profile') }}>{{ current_user.username }}</a>.</li>
-				<li id="logout_box">Click <a href={{ url_for('logout') }}>here</a> to log out.</li>
-			{% else %}
-				<li>Not logged in</li>
-			{% endif %}
-		</ul>
-	</div>
+				{{ current_user.username }}
+				</a>
+			</li>
+			<li>
+				<a href="{{ url_for('networks') }}">
+					{{ current_user.networks | count }} network(s)
+				</a>
+			</li>
+			<li><a href="{{ url_for('logout') }}">Log out</a></li>
+		{% else %}
+			<li>Not logged in</li>
+		{% endif %}
+	</ul>
 </header>

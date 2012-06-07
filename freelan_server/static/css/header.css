@@ -3,36 +3,57 @@
  */
 
 header {
-	height: 35px;
+	color: #999;
 	background: #f1f1f1;
-	border-bottom: 1px solid #e5e5e5;
-	overflow: hidden;
-}
-
-header > div {
+	height: 40px;
+	padding-right: 8px;
 	font-size: .85em;
 	white-space: nowrap;
 	line-height: 0;
-	padding: 9px 44px 0;
-}
-
-header > div > ul {
-	color: #999;
-	float: right;
-	max-width: 80%;
-	list-style: none;
-	line-height: 17px;
-	margin: 0 0 1em;
-}
-
-header > div > ul > li {
-	display: inline;
-	padding: 0 1.5em 0 0;
-	margin: 0 0 .5em;
+	overflow: hidden;
 	vertical-align: center;
+	margin: 4px 0;
 }
 
-header > div > ul > li img {
-	max-height: 14px;
+header ul {
+	float: right;
+	list-style: none;
+	margin: 4px 0;
+	line-height: 32px;
+}
+
+header ul li {
+	display: inline;
+	padding: 0 0 0 4px;
+}
+
+header ul li a {
+	display: inline-block;
+	border: 1px solid #c6c6c6;
+	background-color: #f8f8f8;
+	background-image: linear-gradient(top, #f8f8f8, #ececec);
+	background-image: -webkit-linear-gradient(top, #f8f8f8, #ececec);
+	border-radius: 2px;
+	color: #999;
+	font-weight: bold;
+	cursor: pointer;
+	padding: 0 2px;
+}
+
+header ul li a:hover {
+	color: #2f5bb7;
+	border: 1px solid #2f5bb7;
+	background-color: #357ae8;
+	background-image: linear-gradient(top, #4d90fe, #357ae8);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	text-decoration: none;
+}
+
+header ul li a img {
+	height: 26px;
+	vertical-align: middle;
+	border: 1px solid #d3d3d3;
+	margin-top: -2px;
+	border-radius: 2px;
 }
 

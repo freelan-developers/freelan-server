@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-back">
+	{% include "header.html" %}
+
+	<div class="page-container">
+		<div class="page-container-row">
+			<div class="page-menu">
+				{% include "menu.html" %}
+			</div>
+
+			<div class="page-content">
+				{% block page %}{% endblock %}
+			</div>
+		</div>
+	</div>
+
+	{% include "footer.html" %}
+</div>
+{% endblock %}

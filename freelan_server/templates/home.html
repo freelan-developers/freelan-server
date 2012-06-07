@@ -1,20 +1,7 @@
-{% extends "base.html" %}
+{% extends "page.html" %}
 
 {% block title_suffix %} - Home{% endblock %}
 
-{% block content %}
-	{% if tiles %}
-		<nav id="mainmenu">
-			<ul class="tiles_box">
-				{% for target, title in tiles %}
-					<li>
-						<a class="tile" href="{{ url_for(target) }}">
-							<span class="{{ target }}">{{ title }}</span>
-						</a>
-					</li>
-				{% endfor %}
-			</ul>
-		</nav>
-	{% endif %}
+{% block page %}
 {% endblock %}
 

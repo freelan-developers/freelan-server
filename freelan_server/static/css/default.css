@@ -27,6 +27,10 @@ html {
 	line-height: 1;
 }
 
+html, body {
+	height: 100%;
+}
+
 a {
 	color: #15c;
 	text-decoration: none;

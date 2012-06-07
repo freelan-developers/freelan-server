@@ -29,7 +29,7 @@ def home():
             ('logout', 'Logout'),
         )
 
-        return render_template('home.html', tiles=tiles)
+        return render_template('home.html', active_menu='users')
 
     except OperationalError, ex:
         return render_template('no_database.html')
