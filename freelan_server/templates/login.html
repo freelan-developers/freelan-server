@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<div class="form-box">
+<div class="form-box login-box">
 	<h2>Log in</h2>
 
 	<form method="post" action="{{ url_for('login') }}">
@@ -18,7 +18,11 @@
 			
 			<div class="password-div">
 				<label for="password_box"><strong>Password</strong></label>
-				<input type="password" id="password_box" name="password" placeholder="Enter your password" required="required" />
+				<input {%if login_error %}class="form-error"{% endif %} type="password" id="password_box" name="password" placeholder="Enter your password" required="required" />
+
+				{% if login_error %}
+					<span class="errormsg">{{ login_error }}</span>
+				{% endif %}
 			</div>
 
 			<input type="submit" value="Log in" />

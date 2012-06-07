@@ -3,11 +3,9 @@
  */
 
 header {
-	position: absolute;
-	top: 0;
 	height: 35px;
-	width: 100%;
-	border-bottom: 1px solid #ebebeb;
+	background: #f1f1f1;
+	border-bottom: 1px solid #e5e5e5;
 	overflow: hidden;
 }
 

@@ -11,6 +11,8 @@
 				{% endif %}
 				<li id="user_box">Identified as <a href={{ url_for('profile') }}>{{ current_user.username }}</a>.</li>
 				<li id="logout_box">Click <a href={{ url_for('logout') }}>here</a> to log out.</li>
+			{% else %}
+				<li>Not logged in</li>
 			{% endif %}
 		</ul>
 	</div>

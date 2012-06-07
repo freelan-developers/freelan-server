@@ -43,6 +43,8 @@ def login():
     if current_user.is_authenticated():
         return redirect(url_for('home'))
 
+    login_error = None
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -54,13 +56,11 @@ def login():
                 session.regenerate()
                 login_user(user, remember=remember)
 
-                flash('Authentication successful.', 'info')
-
                 return redirect(request.args.get('next') or url_for('home'))
         else:
-            flash('Authentication failed for user "%s".' % username, 'denied')
+            login_error = 'The username or password is incorrect.'
 
-    return render_template('login.html')
+    return render_template('login.html', login_error=login_error)
 
 @APPLICATION.route('/logout')
 def logout():
