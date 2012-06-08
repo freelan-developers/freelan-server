@@ -22,6 +22,19 @@ def add_version():
 
     return {'version': VERSION}
 
+from freelan_server.menu import MENU_ENTRIES, CURRENT_MENU_ENTRY
+
+@APPLICATION.context_processor
+def add_menu():
+    """
+    Make the menu information available to the templates.
+    """
+
+    return {
+        'menu_entries': MENU_ENTRIES,
+        'current_menu_entry': CURRENT_MENU_ENTRY,
+    }
+
 # We replace the default session mechanism
 STORE = DictStore()
 KVSessionExtension(STORE, APPLICATION)

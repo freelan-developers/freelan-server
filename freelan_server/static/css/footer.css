@@ -3,7 +3,7 @@
  */
 
 footer {
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	height: 35px;
 	width: 100%;
@@ -36,4 +36,9 @@ footer > div > ul > li {
 
 footer a {
 	color: #333;
+}
+
+.page-content footer {
+	position: relative;
+	text-align: center;
 }

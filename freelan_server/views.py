@@ -6,6 +6,7 @@ from freelan_server import APPLICATION
 from freelan_server.database import DATABASE, User, Network
 from freelan_server.login import LOGIN_MANAGER, load_user
 from freelan_server.gravatar import GRAVATAR
+from freelan_server.menu import CURRENT_MENU_ENTRY
 from sqlalchemy import desc, and_, or_, not_
 from sqlalchemy.exc import OperationalError
 
@@ -19,20 +20,7 @@ def home():
     The home page.
     """
 
-    try:
-        tiles = (
-            ('users', 'Users'),
-            ('networks', 'Networks'),
-            ('profile', 'Profile'),
-            ('settings', 'Settings'),
-            ('status', 'Status'),
-            ('logout', 'Logout'),
-        )
-
-        return render_template('home.html', active_menu='users')
-
-    except OperationalError, ex:
-        return render_template('no_database.html')
+    return redirect(url_for('networks'))
 
 @APPLICATION.route('/login', methods=['GET', 'POST'])
 def login():
@@ -89,6 +77,9 @@ def users():
     """
     The users page.
     """
+
+    # FIXME: This doesn't work (yet!)
+    CURRENT_MENU_ENTRY = 'users'
 
     users = User.query.order_by(desc(User.admin_flag)).order_by(User.username).all()
 

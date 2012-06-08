@@ -1,9 +1,8 @@
-{% extends "submenu.html" %}
+{% extends "page.html" %}
 
 {% block title_suffix %} - Users{% endblock %}
-{% block submenu_title %}Users{% endblock %}
 
-{% block submenu_content %}
+{% block page %}
 	<h2>User accounts</h2>
 	<p>There is currently <strong>{{ users | count }}</strong> user account(s). Click <a href="{{ url_for('create_user') }}">here</a> to create a new one.</p>
 

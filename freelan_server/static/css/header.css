@@ -6,13 +6,12 @@ header {
 	color: #999;
 	background: #f1f1f1;
 	height: 40px;
-	padding-right: 8px;
+	padding: 4px 8px;
 	font-size: .85em;
 	white-space: nowrap;
 	line-height: 0;
 	overflow: hidden;
-	vertical-align: center;
-	margin: 4px 0;
+	vertical-align: middle;
 }
 
 header ul {
