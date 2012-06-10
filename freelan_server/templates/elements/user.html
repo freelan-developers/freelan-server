@@ -1,0 +1,16 @@
+<li>
+	<a href="{{ url_for('user', user_id=user.id) }}">
+		<div class="tile">
+			{% if user.email %}
+				<img src="{{ user.email | gravatar(size=48) }}" alt="{{ user.username }}" />
+			{% endif %}
+
+			<span class="username"><strong>{{ user.username }}</strong></span>
+			{% if user.admin_flag %}
+				<span class="information">Administrator</span>
+			{% else %}
+				<span class="information">User</span>
+			{% endif %}
+		</div>
+	</a>
+</li>

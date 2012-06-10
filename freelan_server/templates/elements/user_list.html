@@ -1,0 +1,7 @@
+{% if users %}
+<ul class="user-list tile-list">
+	{% for user in users %}
+		{% include "elements/user.html" %}
+	{% endfor %}
+</ul>
+{% endif %}

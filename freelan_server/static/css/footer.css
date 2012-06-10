@@ -41,4 +41,5 @@ footer a {
 .page-content footer {
 	position: relative;
 	text-align: center;
+	border-top: 1px solid #d7d7d7;
 }

@@ -7,7 +7,7 @@
 div.page-back {
 	position: absolute;
 	top: 0;
-	width: 100%;
+	width: auto;
 	height: 100%;
 	background: #f1f1f1;
 }
@@ -98,3 +98,75 @@ div.page-menu ul li a span {
 	text-align: center;
 }
 
+/* The page content */
+
+.page-content h1 {
+	color: #666;
+	padding: 8px;
+	border-bottom: 1px solid #d7d7d7;
+	margin-bottom: 0.8em;
+}
+
+.page-content p {
+	padding: 0 8px;
+}
+
+.page-content ul {
+	padding: 0 8px;
+}
+
+/* Tile lists */
+
+ul.tile-list {
+	list-style: none;
+}
+
+ul.tile-list li {
+	display: block;
+	float: left;
+	margin: 0 4px 4px 0;
+	padding: 0;
+}
+
+div.tile {
+	display: inline-block;
+	width: 150px;
+	height: 50px;
+	border: 1px solid #ddd;
+	padding: 4px;
+	line-height: 22px;
+	border-radius: 4px;
+	color: #333;
+	background: #f4f4f4;
+	background-image: -webkit-linear-gradient(top, white, #f4f4f4);
+	background-image: linear-gradient(top, white, #f4f4f4);
+	overflow: hidden;
+}
+
+div.tile:hover {
+	border-color: #58c;
+	background: #7af;
+	background-image: -webkit-linear-gradient(top, #cdf, #7af);
+	background-image: linear-gradient(top, white, #1f5);
+}
+
+div.tile img {
+	float: left;
+	margin-right: 4px;
+	width: 48px;
+	height: 48px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+div.tile span {
+	display: block;
+}
+
+div.tile span.username {
+	color: black;
+}
+
+div.tile span.information {
+	color: #666;
+}
