@@ -28,6 +28,7 @@ div.page-menu {
 }
 
 div.page-content {
+	vertical-align: top;
 	width: 100%;
 	display: table-cell;
 	border: 1px solid #d7d7d7;
