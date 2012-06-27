@@ -4,9 +4,9 @@ Gravatar related classes and functions.
 
 from flaskext.gravatar import Gravatar
 
-def register_gravatar_information(app):
+def register_gravatar_filters(app):
     """
-    Register gravatar-related methods to the specified Flask application.
+    Register gravatar-related filters to the specified Flask application.
     """
 
     gravatar = Gravatar(

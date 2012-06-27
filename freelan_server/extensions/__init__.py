@@ -20,5 +20,9 @@ def register_all_extensions(app):
     register_menu_information(app)
 
     # Register the gravatar extension
-    from freelan_server.extensions.gravatar import register_gravatar_information
-    register_gravatar_information(app)
+    from freelan_server.extensions.gravatar import register_gravatar_filters
+    register_gravatar_filters(app)
+
+    # Register the user filters
+    from freelan_server.extensions.user import register_user_functions
+    register_user_functions(app)

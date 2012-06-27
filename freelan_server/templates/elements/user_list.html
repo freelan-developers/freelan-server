@@ -1,7 +1,12 @@
 {% if users %}
-<ul class="user-list tile-list">
+<div class="javascript-only">
+	<p>Filter users by name: <input type="text" class="list-filter" data-associated-list="{{ list_name }}" data-filter-attribute="data-username" /></p>
+	<p class="list-filter-default" data-associated-list="{{ list_name }}">No user matches the specified filter.</p>
+</div>
+
+<ul class="user-list tile-list" data-list-name="{{ list_name }}">
 	{% for user in users %}
-		{% include "elements/user.html" %}
+		{% include "elements/user_list_item.html" %}
 	{% endfor %}
 </ul>
 {% endif %}

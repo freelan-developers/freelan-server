@@ -5,6 +5,6 @@
 {% block page %}
 	<h1>Users</h1>
 	<p>There is currently <strong>{{ users | count }}</strong> registered user(s).</p>
-	
-	{% include "elements/user_list.html" %}
+
+	{{ render_user_list('user-list', users) | safe }}
 {% endblock %}
