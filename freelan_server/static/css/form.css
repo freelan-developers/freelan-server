@@ -139,14 +139,14 @@ input[type="radio"]:focus {
 
 /* Specific classes */
 
-.form-box {
+div.form-box {
 	margin: 12px;
 	padding: 20px 25px 15px;
 	background: #f1f1f1;
 	border: 1px solid #e5e5e5;
 }
 
-.form-box h2 {
+div.form-box h2 {
 	font-size: 16px;
 	line-height: 17px;
 	height: 16px;
@@ -154,17 +154,17 @@ input[type="radio"]:focus {
 	position: relative;
 }
 
-.form-box div {
+div.form-box div {
 	margin: 0 0 1.5em;
 }
 
-.form-box label {
+div.form-box label {
 	display: block;
 	margin: 0 0 .5em;
 }
 
-.form-box input[type="text"],
-.form-box input[type="password"] {
+div.form-box input[type="text"],
+div.form-box input[type="password"] {
 	width: 100%;
 	height: 32px;
 	font-size: 15px;
@@ -188,13 +188,13 @@ input[type="url"].form-error {
 
 /* Particular elements */
 
-.form-box label.remember {
+div.form-box label.remember {
 	display: inline-block;
 	vertical-align: top;
 	margin: 9px 0 0;
 }
 
-.form-box label.remember strong {
+div.form-box label.remember strong {
 	color: #666;
 	font-weight: normal;
 	line-height: 0;

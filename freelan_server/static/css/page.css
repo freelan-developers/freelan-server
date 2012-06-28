@@ -100,19 +100,18 @@ div.page-menu ul li a span {
 
 /* The page content */
 
-.page-content h1 {
-	color: #666;
+.page-content > h1 {
 	padding: 8px;
+	color: #666;
 	border-bottom: 1px solid #d7d7d7;
 	margin-bottom: 0.8em;
 }
 
-.page-content p {
-	padding: 0 8px;
-}
-
-.page-content ul {
-	padding: 0 8px;
+.page-content > p,
+.page-content > div,
+.page-content > ul {
+	padding-left: 8px;
+	padding-right: 8px;
 }
 
 /* Tile lists */
