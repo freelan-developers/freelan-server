@@ -12,6 +12,24 @@ import datetime
 
 DATABASE = SQLAlchemy(APPLICATION)
 
+class Setting(DATABASE.Model):
+    """
+    Represents a setting.
+    """
+
+    key = DATABASE.Column(DATABASE.String(64), primary_key=True)
+    value = DATABASE.Column(DATABASE.Text())
+    creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
+
+    def __init__(self, key, value=None):
+        """
+        Initializes a new setting.
+        """
+
+        self.key = key
+        self.value = value
+        self.creation_date = datetime.datetime.now()
+
 NetworkUserTable = DATABASE.Table(
     'network_user',
     DATABASE.Column('network_id', DATABASE.Integer, DATABASE.ForeignKey('network.id')),

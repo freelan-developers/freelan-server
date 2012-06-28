@@ -84,6 +84,74 @@ def reset_database(args):
     clean_database(args)
     init_database(args)
 
+def set_value(args):
+    """
+    Set a configuration value.
+    """
+
+    from freelan_server.database import DATABASE, Setting
+
+    setting = Setting.query.get(args.key)
+
+    if setting:
+        setting.value = args.value
+
+        print '"%s" was updated to "%s".' % (setting.key, setting.value)
+    else:
+        setting = Setting(args.key, args.value)
+        DATABASE.session.add(setting)
+
+        print '"%s" was set to "%s".' % (setting.key, setting.value)
+
+    DATABASE.session.commit()
+
+def reset_value(args):
+    """
+    Reset a configuration value.
+    """
+
+    from freelan_server.database import DATABASE, Setting
+
+    setting = Setting.query.get(args.key)
+
+    if setting:
+        DATABASE.session.delete(setting)
+        DATABASE.session.commit()
+
+        print '"%s" was reset.' % setting.key
+    else:
+        print 'No such value: "%s"' % setting.key
+
+        return 1
+
+def get_value(args):
+    """
+    Get a configuration value.
+    """
+
+    from freelan_server.database import DATABASE, Setting
+
+    setting = Setting.query.get(args.key)
+
+    if setting:
+        print '"%s" is set to "%s".' % (setting.key, setting.value)
+    else:
+        print '"%s" is not set.' % args.key
+
+def list_values(args):
+    """
+    List all configuration values.
+    """
+
+    from freelan_server.database import DATABASE, Setting
+
+    settings = Setting.query.all()
+
+    print 'Current settings:'
+
+    for setting in settings:
+        print '"%s": "%s"' % (setting.key, setting.value)
+
 def list_users(args):
     """
     List the users.
@@ -337,6 +405,27 @@ def main():
     database_reset_parser.add_argument('-a', '--add-test-data', action='store_true', help='Add test users and networks to the database for testing.')
     database_reset_parser.add_argument('-p', '--password', help='The password for the admin account.')
     database_reset_parser.set_defaults(func=reset_database)
+
+    # The settings parser
+
+    settings_parser = action_parser.add_parser('settings', help='Configure the settings')
+    settings_action_parser = settings_parser.add_subparsers()
+
+    settings_init_parser = settings_action_parser.add_parser('set', help='Set a configuration value. If the specified value does not exist, it is created.')
+    settings_init_parser.add_argument('key', help='The name of the configuration setting to change.')
+    settings_init_parser.add_argument('value', help='The configuration value to set. If none is specified, the value is set to None.', default=None)
+    settings_init_parser.set_defaults(func=set_value)
+
+    settings_init_parser = settings_action_parser.add_parser('reset', help='Reset a configuration value.')
+    settings_init_parser.add_argument('key', help='The name of the configuration setting to delete.')
+    settings_init_parser.set_defaults(func=reset_value)
+
+    settings_init_parser = settings_action_parser.add_parser('get', help='Get a configuration value.')
+    settings_init_parser.add_argument('key', help='The name of the configuration setting to get.')
+    settings_init_parser.set_defaults(func=get_value)
+
+    settings_init_parser = settings_action_parser.add_parser('list', help='List all configuration values.')
+    settings_init_parser.set_defaults(func=list_values)
 
     # The user parser
     user_parser = action_parser.add_parser('user', help='Manage the users')
