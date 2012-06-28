@@ -11,10 +11,10 @@ MENU_ENTRIES = (
         'url': 'users',
         'title': 'Users',
     },
-#    {
-#        'url': 'settings',
-#        'title': 'Settings',
-#    },
+    {
+        'url': 'settings',
+        'title': 'Settings',
+    },
 #    {
 #        'url': 'status',
 #        'title': 'Status',
