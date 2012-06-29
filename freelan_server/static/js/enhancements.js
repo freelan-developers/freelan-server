@@ -38,7 +38,7 @@ function updateListFilter() {
 
 	var associated_list = $(this).attr('data-associated-list');
 
-	if (associated_list.length) {
+	if (associated_list && associated_list.length) {
 
 		var filter_attribute = $(this).attr('data-filter-attribute');
 		var filter_text = $(this).val();
