@@ -14,6 +14,7 @@ setup(
         'Flask-Login',
         'Flask-KVSession',
         'Flask-Gravatar',
+        'M2Crypto',
     ],
     entry_points = {
         'console_scripts': [
