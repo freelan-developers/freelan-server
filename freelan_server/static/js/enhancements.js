@@ -30,6 +30,10 @@ function transformActiveElements() {
 	
 	// Hide the list filter defaults
 	$('.list-filter-default').hide();
+
+	// Transform the certificate textareas
+	$('textarea[data-content-type="application/x-x509-ca-cert"]').fileTextarea();
+	$('textarea[data-content-type="application/x-pem-key"]').fileTextarea();
 }
 
 /* The components functions */
@@ -61,8 +65,39 @@ function updateListFilter() {
 	}
 }
 
+function fileTextarea() {
+
+	if (FileReader) {
+
+		var textarea = $(this);
+		var input = $(document.createElement('input'));
+		input.attr('type', 'file');
+
+		input.change(function (evt) {
+			var file = evt.target.files[0];
+
+			if (file) {
+
+				var reader = new FileReader();
+
+				reader.onload = function(evt) {
+					textarea.text(evt.target.result);
+				}
+
+				reader.readAsText(file);
+			}
+		});
+
+		textarea.before(input);
+		textarea.change(function() {
+			input.val('');
+		});
+	}
+}
+
 /* Extend JQuery */
 
 jQuery.fn.extend({
-	updateListFilter: updateListFilter
+	updateListFilter: updateListFilter,
+	fileTextarea: fileTextarea
 });

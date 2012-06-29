@@ -170,6 +170,11 @@ div.form-box input[type="password"] {
 	font-size: 15px;
 }
 
+div.form-box input[type="file"] {
+	display: block;
+	margin: 0 0 .5em;
+}
+
 input[type="email"].form-error,
 input[type="number"].form-error,
 input[type="password"].form-error,
