@@ -28,7 +28,7 @@ def setup_views(app):
     app.add_url_rule('/', view_func=root, endpoint='root')
     app.add_url_rule('/login', view_func=LoginView.as_view('login'))
     app.add_url_rule('/logout', view_func=LogoutView.as_view('logout'))
-    app.add_url_rule('/settings', view_func=SettingsView.as_view('settings'))
+    app.add_url_rule('/settings', view_func=SettingsView.as_view('settings'), methods=['GET', 'POST'])
     app.add_url_rule('/networks', view_func=NetworksView.as_view('networks'))
     app.add_url_rule('/users', view_func=UsersView.as_view('users'))
     app.add_url_rule('/user/', view_func=UserView.as_view('user'), methods=['POST',])
