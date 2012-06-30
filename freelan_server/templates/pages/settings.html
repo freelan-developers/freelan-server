@@ -23,7 +23,11 @@
 
 				<div class="setting-div">
 					<label for="authority_private_key_box"><strong>Authority private key</strong></label>
-					<textarea data-content-type="application/x-pem-key" type="text" id="authority_private_key_box" name="authority_private_key" placeholder="Paste the authority private key in PEM format." required="required">{{ authority_private_key }}</textarea>
+					<textarea {% if authority_private_key_error %}class="form-error"{% endif %} data-content-type="application/x-pem-key" type="text" id="authority_private_key_box" name="authority_private_key" placeholder="Paste the authority private key in PEM format." required="required">{{ authority_private_key }}</textarea>
+
+					{% if authority_private_key_error %}
+						<span class="errormsg">{{ authority_private_key_error }}</span>
+					{% endif %}
 				</div>
 
 				<input type="submit" value="Save settings" />

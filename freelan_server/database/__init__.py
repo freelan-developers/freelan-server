@@ -30,6 +30,44 @@ class Setting(DATABASE.Model):
         self.value = value
         self.creation_date = datetime.datetime.now()
 
+    @staticmethod
+    def get(key):
+        """
+        Get a setting with the specified key or create one if none exists.
+        """
+
+        setting = Setting.query.get(key)
+
+        if not setting:
+            setting = Setting(key)
+
+        return setting
+
+    @staticmethod
+    def get_value(key, default=None):
+        """
+        Get a setting's value.
+        """
+
+        setting = Setting.query.get(key)
+
+        if not setting:
+            return default
+
+        return setting.value
+
+    @staticmethod
+    def set_value(key, value):
+        """
+        Set a setting.
+
+        The setting change is added to the current database session, but it is still up to you to commit that session.
+        """
+
+        setting = Setting.get(key)
+        setting.value = value
+        DATABASE.session.add(setting)
+
 NetworkUserTable = DATABASE.Table(
     'network_user',
     DATABASE.Column('network_id', DATABASE.Integer, DATABASE.ForeignKey('network.id')),
