@@ -9,7 +9,7 @@
 <div class="form-box login-box">
 	<h2>Log in</h2>
 
-	<form method="post" action="{{ url_for('login') }}">
+	<form method="post" action="{{ url_for('login', next=next) }}">
 		<fieldset>
 			<div class="username-div">
 				<label for="username_box"><strong>Username</strong></label>
