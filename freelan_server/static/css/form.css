@@ -209,7 +209,7 @@ div.form-box label.remember strong {
 	user-select: none;
 }
 
-.login-box {
+div.login-box {
 	margin: 160px auto 0;
 	max-width: 280px;
 }
