@@ -45,8 +45,12 @@ class SettingsView(MethodView):
         if authority_certificate:
             try:
                 cert = m2.X509.load_cert_string(str(authority_certificate), m2.X509.FORMAT_PEM)
-                authority_certificate = cert.as_pem()
-                Setting.set_value('authority_certificate', authority_certificate)
+
+                if cert.check_ca():
+                    authority_certificate = cert.as_pem()
+                    Setting.set_value('authority_certificate', authority_certificate)
+                else:
+                    authority_certificate_error = 'The certificate must be a certificate authority (aka. self-signed).'
             except m2.X509.X509Error, ex:
                 authority_certificate_error = 'Certificate error: %s' % ex
         else:
