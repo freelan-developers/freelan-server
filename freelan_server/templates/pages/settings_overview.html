@@ -1,0 +1,16 @@
+{% extends "generic/page.html" %}
+
+{% block title %}Freelan Server - Settings overview{% endblock %}
+
+{% block page %}
+	<h1>Settings overview</h1>
+
+	<p>Here are the current settings for your server. Click <a href="{{ url_for('settings') }}">here</a> to change them.</p>
+
+	<h2>Authority certificate</h2>
+
+	<div>
+	{{ authority_certificate | x509_certificate | safe}}
+	</div>
+
+{% endblock %}

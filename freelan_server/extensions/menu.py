@@ -14,7 +14,7 @@ MENU_ENTRIES = (
         'icon': 'users',
     },
     {
-        'url': 'settings',
+        'url': 'settings_overview',
         'title': 'Settings',
         'icon': 'settings',
     },

@@ -26,3 +26,7 @@ def register_all_extensions(app):
     # Register the user filters
     from freelan_server.extensions.user import register_user_functions
     register_user_functions(app)
+
+    # Register the certificate functions
+    from freelan_server.extensions.certificate import register_certificate_functions
+    register_certificate_functions(app)
