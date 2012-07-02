@@ -14,7 +14,7 @@
 
 				<div class="authority-certificate-div">
 					<label for="authority_certificate_box"><strong>Authority certificate</strong></label>
-					<textarea {% if authority_certificate_error %}class="form-error"{% endif %} data-content-type="application/x-x509-ca-cert" id="authority_certificate_box" name="authority_certificate" placeholder="Paste the authority certificate in PEM format." required="required">{{ authority_certificate }}</textarea>
+					<textarea {% if authority_certificate_error %}class="form-error"{% endif %} data-content-type="application/x-x509-ca-cert" id="authority_certificate_box" name="authority_certificate" placeholder="Paste the authority certificate in PEM format.">{{ authority_certificate }}</textarea>
 
 					{% if authority_certificate_error %}
 						<span class="errormsg">{{ authority_certificate_error }}</span>
@@ -23,7 +23,7 @@
 
 				<div class="authority-private-key-div">
 					<label for="authority_private_key_box"><strong>Authority private key</strong></label>
-					<textarea {% if authority_private_key_error %}class="form-error"{% endif %} data-content-type="application/x-pem-key" id="authority_private_key_box" name="authority_private_key" placeholder="Paste the authority private key in PEM format." required="required">{{ authority_private_key }}</textarea>
+					<textarea {% if authority_private_key_error %}class="form-error"{% endif %} data-content-type="application/x-pem-key" id="authority_private_key_box" name="authority_private_key" placeholder="Paste the authority private key in PEM format.">{{ authority_private_key }}</textarea>
 				</div>
 
 				<div class="authority-private-key-passphrase-div">
