@@ -1,7 +1,7 @@
 {% if menu_entries %}
 	<ul>
 		{% for menu_entry in menu_entries %}
-			<li><a href="{{ url_for(menu_entry.url) }}" title="{{ menu_entry.title }}" class="menu-{{ menu_entry.url }} {% if current_menu_entry == menu_entry.url %}menu-active{% endif %}"><span>{{ menu_entry.title }}</span></a></li>
+			<li><a href="{{ url_for(menu_entry.url) }}" title="{{ menu_entry.title }}" class="menu-{{ menu_entry.icon }} {% if current_menu_entry == menu_entry.url %}menu-active{% endif %}"><span>{{ menu_entry.title }}</span></a></li>
 		{% endfor %}
 	</ul>
 {% endif %}

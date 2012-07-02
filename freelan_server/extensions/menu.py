@@ -6,14 +6,17 @@ MENU_ENTRIES = (
     {
         'url': 'networks',
         'title': 'Networks',
+        'icon': 'networks',
     },
     {
         'url': 'users',
         'title': 'Users',
+        'icon': 'users',
     },
     {
         'url': 'settings',
         'title': 'Settings',
+        'icon': 'settings',
     },
 #    {
 #        'url': 'status',
