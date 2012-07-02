@@ -37,23 +37,26 @@ class SettingsView(MethodView):
         """
 
         authority_certificate_error = None
-        authority_certificate = request.values['authority_certificate']
+        authority_certificate = str(request.values['authority_certificate'])
         authority_private_key_error = None
-        authority_private_key = request.values['authority_private_key']
+        authority_private_key = str(request.values['authority_private_key'])
+        authority_private_key_passphrase = str(request.values['authority_private_key_passphrase'] or '')
 
         if authority_certificate:
             try:
-                cert = m2.X509.load_cert_string(str(authority_certificate), m2.X509.FORMAT_PEM)
+                cert = m2.X509.load_cert_string(authority_certificate, m2.X509.FORMAT_PEM)
+                authority_certificate = cert.as_pem()
                 Setting.set_value('authority_certificate', authority_certificate)
             except m2.X509.X509Error, ex:
-                authority_certificate_error = 'Invalid certificate: %s' % ex
+                authority_certificate_error = 'Certificate error: %s' % ex
 
         if authority_private_key:
             try:
-                cert = m2.RSA.load_key_string(str(authority_private_key))
+                key = m2.RSA.load_key_string(authority_private_key, callback=(lambda v: authority_private_key_passphrase))
+                authority_private_key = key.as_pem(cipher=None)
                 Setting.set_value('authority_private_key', authority_private_key)
             except m2.RSA.RSAError, ex:
-                authority_private_key_error = 'Invalid private key: %s' % ex
+                authority_private_key_error = 'Private key error: %s' % ex
 
         DATABASE.session.commit()
 

@@ -12,18 +12,23 @@
 
 				<p>Go to the <a href={{ url_for('settings') }}>certificate generation wizard</a>.</p>
 
-				<div class="setting-div">
+				<div class="authority-certificate-div">
 					<label for="authority_certificate_box"><strong>Authority certificate</strong></label>
-					<textarea {% if authority_certificate_error %}class="form-error"{% endif %} data-content-type="application/x-x509-ca-cert" type="text" id="authority_certificate_box" name="authority_certificate" placeholder="Paste the authority certificate in PEM format." required="required">{{ authority_certificate }}</textarea>
+					<textarea {% if authority_certificate_error %}class="form-error"{% endif %} data-content-type="application/x-x509-ca-cert" id="authority_certificate_box" name="authority_certificate" placeholder="Paste the authority certificate in PEM format." required="required">{{ authority_certificate }}</textarea>
 
 					{% if authority_certificate_error %}
 						<span class="errormsg">{{ authority_certificate_error }}</span>
 					{% endif %}
 				</div>
 
-				<div class="setting-div">
+				<div class="authority-private-key-div">
 					<label for="authority_private_key_box"><strong>Authority private key</strong></label>
-					<textarea {% if authority_private_key_error %}class="form-error"{% endif %} data-content-type="application/x-pem-key" type="text" id="authority_private_key_box" name="authority_private_key" placeholder="Paste the authority private key in PEM format." required="required">{{ authority_private_key }}</textarea>
+					<textarea {% if authority_private_key_error %}class="form-error"{% endif %} data-content-type="application/x-pem-key" id="authority_private_key_box" name="authority_private_key" placeholder="Paste the authority private key in PEM format." required="required">{{ authority_private_key }}</textarea>
+				</div>
+
+				<div class="authority-private-key-passphrase-div">
+					<label for="authority_private_key_passphrase_box"><strong>Authority private key passphrase (if any)</strong></label>
+					<input {% if authority_private_key_error %}class="form-error"{% endif %} type="password" id="authority_private_key_passphrase_box" name="authority_private_key_passphrase" placeholder="The authority private key passphrase (if any)." />
 
 					{% if authority_private_key_error %}
 						<span class="errormsg">{{ authority_private_key_error }}</span>
