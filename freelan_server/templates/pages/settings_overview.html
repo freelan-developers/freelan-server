@@ -13,4 +13,10 @@
 	{{ authority_certificate | x509_certificate | safe}}
 	</div>
 
+	<h2>Authority private key</h2>
+
+	<div>
+	{{ authority_private_key | rsa_key | safe}}
+	</div>
+
 {% endblock %}

@@ -2,6 +2,8 @@
 X509 crypto related functions.
 """
 
+import binascii
+
 def register_crypto_functions(app):
     """
     Register crypto related methods to the specified Flask application.
@@ -119,5 +121,44 @@ def register_crypto_functions(app):
 
         else:
             result = empty('No certificate')
+
+        return result
+
+    @app.template_filter()
+    def rsa_key(key):
+        """
+        Outputs the RSA key.
+        """
+
+        if key:
+
+            def split_line(line):
+                """
+                Split the given line into several, smaller lines of the same size.
+                """
+
+                import re
+
+                return re.sub(r'(.{32})', lambda g: '%s<br />' % g.group(0), line)
+
+            exponent, modulus = key.pub()
+
+            result = '''
+            <dl class="rsa-key">
+                <dt>Exponent</dt>
+                <dd>%(exponent)s</dd>
+                <dt>Modulus size</dt>
+                <dd>%(modulus_size)s</dd>
+                <dt>Modulus</dt>
+                <dd>%(modulus)s</dd>
+            </dl>
+            ''' % {
+                'exponent': int(binascii.hexlify(exponent), 16),
+                'modulus_size': len(modulus),
+                'modulus': split_line(modulus.encode('hex').upper()),
+            }
+
+        else:
+            result = empty('No rsa key')
 
         return result
