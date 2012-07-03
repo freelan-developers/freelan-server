@@ -68,10 +68,14 @@ class SettingsView(MethodView):
 
         DATABASE.session.commit()
 
-        return render_template(
-            'pages/settings.html',
-            authority_certificate_error=authority_certificate_error,
-            authority_certificate=authority_certificate,
-            authority_private_key_error=authority_private_key_error,
-            authority_private_key=authority_private_key,
-        )
+        if authority_certificate_error or authority_private_key_error:
+            return render_template(
+                'pages/settings.html',
+                authority_certificate_error=authority_certificate_error,
+                authority_certificate=authority_certificate,
+                authority_private_key_error=authority_private_key_error,
+                authority_private_key=authority_private_key,
+            )
+
+        else:
+            return redirect(url_for('settings_overview'))

@@ -41,6 +41,8 @@ class SettingsOverviewView(MethodView):
             evp_pkey.assign_rsa(authority_private_key)
 
             certificate_verify_success = authority_certificate.verify(evp_pkey)
+        else:
+            certificate_verify_success = False
 
         return render_template(
             'pages/settings_overview.html',

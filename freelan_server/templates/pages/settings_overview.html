@@ -5,18 +5,26 @@
 {% block page %}
 	<h1>Settings overview</h1>
 
-	<p>Here are the current settings for your server. Click <a href="{{ url_for('settings') }}">here</a> to change them.</p>
+	{% if authority_certificate and authority_private_key %}
 
-	<h2>Authority certificate</h2>
+		<p>Here are the current settings for your server. Click <a href="{{ url_for('settings') }}">here</a> to change them or use the <a href="{{ url_for('settings_wizard') }}">certificate generation wizard</a>.</p>
 
-	<div>
-	{{ authority_certificate | x509_certificate | safe}}
-	</div>
+		<h2>Authority certificate</h2>
 
-	<h2>Authority private key</h2>
+		<div>
+		{{ authority_certificate | x509_certificate | safe}}
+		</div>
 
-	<div>
-	{{ authority_private_key | rsa_key | safe}}
-	</div>
+		<h2>Authority private key</h2>
+
+		<div>
+		{{ authority_private_key | rsa_key | safe}}
+		</div>
+
+	{% else %}
+
+		<p>No authority certificate is currently set. Click <a href="{{ url_for('settings') }}">here</a> to set one or use the <a href="{{ url_for('settings_wizard') }}">certificate generation wizard</a>.</p>
+
+	{% endif %}
 
 {% endblock %}
