@@ -8,6 +8,11 @@
 	color: silver;
 }
 
+.informative {
+	font-size: 80%;
+	color: #8a8a8a;
+}
+
 .warning {
 	color: #d7d730;
 }

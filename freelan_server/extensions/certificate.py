@@ -14,6 +14,35 @@ def register_certificate_functions(app):
 
         return '<em class="empty">%s</em>' % s
 
+    def informative(s):
+        """
+        Decorate the specified string with the informative markers and returns it.
+        """
+
+        return '<em class="informative">%s</em>' % s
+
+    @app.template_filter()
+    def x509_extensions(exts):
+        """
+        Outputs the X509 extensions.
+        """
+
+        if exts:
+            result = '<dl>'
+
+            for ext in exts:
+                result = result + '<dt>%(name)s%(critical)s</em></dt><dd>%(value)s</dd>' % {
+                    'name': ext.get_name(),
+                    'value': ext.get_value(),
+                    'critical': ext.get_critical() and informative(' (critical)') or '',
+                }
+
+            result = result + '</dl>'
+        else:
+            result = empty('No extensions')
+
+        return result
+
     @app.template_filter()
     def x509_name(name):
         """
@@ -56,7 +85,7 @@ def register_certificate_functions(app):
 
         if cert:
 
-            extensions = [cert.get_ext(i) for i in xrange(cert.get_ext_count())]
+            extensions = [cert.get_ext_at(i) for i in xrange(cert.get_ext_count())]
 
             result = '''
             <dl class="certificate">
@@ -85,7 +114,7 @@ def register_certificate_functions(app):
                 'not_before': cert.get_not_before(),
                 'not_after': cert.get_not_after(),
                 'fingerprint': cert.get_fingerprint(),
-                'extensions': extensions or empty('No extensions'),
+                'extensions': x509_extensions(extensions),
             }
 
         else:
