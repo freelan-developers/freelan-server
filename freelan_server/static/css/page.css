@@ -145,11 +145,18 @@ div.page-menu ul li a span {
 	font-family: monospace;
 }
 
-.page-content dl.certificate {
-	background: #f1f1f1;
+.page-content dl.x509-certificate {
+	background: url('../images/decoration/x509_certificate.png') #f1f1f1 100% 0% no-repeat;
 	border: 1px solid #e5e5e5;
 	margin-bottom: 1em;
 }
+
+.page-content dl.rsa-key {
+	background: url('../images/decoration/rsa_key.png') #f1f1f1 100% 0% no-repeat;
+	border: 1px solid #e5e5e5;
+	margin-bottom: 1em;
+}
+
 /* Tile lists */
 
 ul.tile-list {

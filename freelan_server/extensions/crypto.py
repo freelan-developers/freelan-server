@@ -1,10 +1,10 @@
 """
-X509 certificate related functions.
+X509 crypto related functions.
 """
 
-def register_certificate_functions(app):
+def register_crypto_functions(app):
     """
-    Register certificate related methods to the specified Flask application.
+    Register crypto related methods to the specified Flask application.
     """
 
     def empty(s):
@@ -28,7 +28,7 @@ def register_certificate_functions(app):
         """
 
         if exts:
-            result = '<dl>'
+            result = '<dl class="x509-extension">'
 
             for ext in exts:
                 result = result + '<dt>%(name)s%(critical)s</em></dt><dd>%(value)s</dd>' % {
@@ -52,7 +52,7 @@ def register_certificate_functions(app):
         if name:
 
             result = '''
-            <dl>
+            <dl class="x509-name">
                 <dt>Country</dt>
                 <dd>%(country)s</dd>
                 <dt>State</dt>
@@ -88,7 +88,7 @@ def register_certificate_functions(app):
             extensions = [cert.get_ext_at(i) for i in xrange(cert.get_ext_count())]
 
             result = '''
-            <dl class="certificate">
+            <dl class="x509-certificate">
                 <dt>Subject</dt>
                 <dd>%(subject)s</dd>
                 <dt>Issuer</dt>
