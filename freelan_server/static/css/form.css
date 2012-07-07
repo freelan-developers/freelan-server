@@ -131,6 +131,14 @@ input[type="checkbox"]:checked::after {
 	left: -5px;
 }
 
+input[type="radio"]:checked::after {
+	content: url('../images/forms/radiomark.png');
+	display: block;
+	position: absolute;
+	top: -5px;
+	left: -5px;
+}
+
 input[type="checkbox"]:hover,
 input[type="radio"]:hover {
 	border-color: #c6c6c6;
