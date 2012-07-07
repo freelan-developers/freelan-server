@@ -7,7 +7,7 @@
 
 	{% if authority_certificate and authority_private_key %}
 
-		<p>Here are the current settings for your server. Click <a href="{{ url_for('settings') }}">here</a> to change them or use the <a href="{{ url_for('settings_wizard') }}">certificate generation wizard</a>.</p>
+		<p>Here are the current settings for your server. Click <a href="{{ url_for('settings') }}">here</a> to change them or use the <a href="{{ url_for('settings_wizard') }}">settings wizard</a>.</p>
 
 		<h2>Authority certificate</h2>
 
@@ -23,7 +23,7 @@
 
 	{% else %}
 
-		<p>No authority certificate is currently set. Click <a href="{{ url_for('settings') }}">here</a> to set one or use the <a href="{{ url_for('settings_wizard') }}">certificate generation wizard</a>.</p>
+		<p>No authority certificate is currently set. Click <a href="{{ url_for('settings') }}">here</a> to set one or use the <a href="{{ url_for('settings_wizard') }}">settings wizard</a>.</p>
 
 	{% endif %}
 

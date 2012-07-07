@@ -1,0 +1,44 @@
+{% extends "generic/page.html" %}
+
+{% block title %}Freelan Server - Settings wizard{% endblock %}
+
+{% block page %}
+	<h1>Certificate generation wizard</h1>
+
+	<div class="form-box">
+		<form method="post" action="{{ url_for('settings_wizard', step=step) }}">
+			<fieldset>
+				<h2><strong>Step {{step}} on {{max_step}} - Private key generation</strong></h2>
+
+				{% if authority_private_key %}
+					<p>You already have a private key. What do you want to do with it ?</p>
+
+					<div>
+						<label>
+							<input type="radio" name="existing_authority_private_key_action" value="keep" checked="checked" />
+							<strong>Keep it</strong>
+						</label>
+						<label>
+							<input type="radio" id="existing_authority_private_key_action_generate" name="existing_authority_private_key_action" value="generate" />
+							<strong>Generate a new one</strong>
+						</label>
+					</div>
+
+					<noscript>
+						<p>These fields below are only considered if you choose to generate a new private key.</p>
+					</noscript>
+
+					<div class="conditional-visibility" data-conditional-visibility-target="existing_authority_private_key_action_generate">
+						<label for="key_size_box"><strong>Key size</strong></label>
+						<input type="number" id="key_size_box" name="key_size" value="2048" min="1024" max="8192" />
+					</div>
+
+				{% else %}
+				{% endif %}
+
+				<a class="button" href="{{ url_for('settings_overview') }}">Abort certificate generation</a>
+				<input type="submit" value="Next" />
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}
