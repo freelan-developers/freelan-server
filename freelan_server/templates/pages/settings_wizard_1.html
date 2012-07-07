@@ -48,14 +48,27 @@
 
 				<div class="conditional-visibility" data-conditional-visibility-target="authority_private_key_action_generate">
 					<h3><strong>Key generation</strong></h3>
+
 					<label for="key_size_box"><strong>Key size</strong></label>
 					<input type="number" id="key_size_box" name="key_size" value="2048" min="1024" max="8192" />
 				</div>
 
 				<div class="conditional-visibility" data-conditional-visibility-target="authority_private_key_action_load">
 					<h3><strong>Key loading </strong></h3>
-					<label for="key_file_box"><strong>Private key file</strong></label>
-					<input type="file" id="key_file_box" name="key_file" />
+
+					<div class="load-private-key-div">
+						<label for="load_private_key_box"><strong>Authority private key</strong></label>
+						<textarea {% if load_private_key_error %}class="form-error"{% endif %} data-content-type="application/x-pem-key" id="load_private_key_box" name="load_private_key" placeholder="Paste the load private key in PEM format.">{{ load_private_key }}</textarea>
+					</div>
+
+					<div class="load-private-key-passphrase-div">
+						<label for="load_private_key_passphrase_box"><strong>Authority private key passphrase (if any)</strong></label>
+						<input {% if load_private_key_error %}class="form-error"{% endif %} type="password" id="load_private_key_passphrase_box" name="load_private_key_passphrase" placeholder="The load private key passphrase (if any)." />
+
+						{% if load_private_key_error %}
+							<span class="errormsg">{{ load_private_key_error }}</span>
+						{% endif %}
+					</div>
 				</div>
 
 				<a class="button" href="{{ url_for('settings_overview') }}">Abort certificate generation</a>
