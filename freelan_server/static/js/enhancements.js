@@ -11,7 +11,7 @@ $(document).ready(function() {
 	transformActiveElements();
 
 	// Add the event actions
-	setupConditionalVisibilityElements();
+	setupConditionallyVisibleElements();
 });
 
 /**
@@ -42,9 +42,9 @@ function transformActiveElements() {
 /**
  * \brief Setup visibility actions.
  */
-function setupConditionalVisibilityElements() {
+function setupConditionallyVisibleElements() {
 	// Transform the conditionally visible elements.
-	$('.conditional-visibility').conditionalVisibility();
+	$('.conditionally-visible').conditionallyVisible();
 }
 
 /* The components functions */
@@ -106,7 +106,7 @@ function fileTextarea() {
 	}
 }
 
-function conditionalVisibility() {
+function conditionallyVisible() {
 
 	$(this).each(function () {
 
@@ -132,5 +132,5 @@ function conditionalVisibility() {
 jQuery.fn.extend({
 	updateListFilter: updateListFilter,
 	fileTextarea: fileTextarea,
-  conditionalVisibility: conditionalVisibility
+  conditionallyVisible: conditionallyVisible
 });
