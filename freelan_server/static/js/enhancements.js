@@ -115,9 +115,9 @@ function conditionalVisibility() {
 
 		$('input[name="' + target.attr('name') + '"]').bind('change', function () {
 			if (target.is(':checked')) {
-				element.show(200);
+				element.show(100);
 			} else {
-				element.hide(200);
+				element.hide(100);
 			}
 		});
 
