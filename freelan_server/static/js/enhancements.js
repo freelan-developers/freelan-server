@@ -9,6 +9,9 @@ $(document).ready(function() {
 
 	// Transform the active elements.
 	transformActiveElements();
+
+	// Add the event actions
+	setupConditionalVisibilityElements();
 });
 
 /**
@@ -34,6 +37,14 @@ function transformActiveElements() {
 	// Transform the certificate textareas
 	$('textarea[data-content-type="application/x-x509-ca-cert"]').fileTextarea();
 	$('textarea[data-content-type="application/x-pem-key"]').fileTextarea();
+}
+
+/**
+ * \brief Setup visibility actions.
+ */
+function setupConditionalVisibilityElements() {
+	// Transform the conditionally visible elements.
+	$('.conditional-visibility').conditionalVisibility();
 }
 
 /* The components functions */
@@ -95,9 +106,31 @@ function fileTextarea() {
 	}
 }
 
+function conditionalVisibility() {
+
+	$(this).each(function () {
+
+		var element = $(this);
+		var target = $(document.getElementById(element.attr('data-conditional-visibility-target')));
+
+		$('input[name="' + target.attr('name') + '"]').bind('change', function () {
+			if (target.is(':checked')) {
+				element.show(200);
+			} else {
+				element.hide(200);
+			}
+		});
+
+		if (!target.is(':checked')) {
+			element.hide();
+		}
+	});
+}
+
 /* Extend JQuery */
 
 jQuery.fn.extend({
 	updateListFilter: updateListFilter,
-	fileTextarea: fileTextarea
+	fileTextarea: fileTextarea,
+  conditionalVisibility: conditionalVisibility
 });
