@@ -168,6 +168,14 @@ div.form-box h2 {
 	position: relative;
 }
 
+div.form-box h3 {
+	font-size: 15px;
+	line-height: 16px;
+	height: 15px;
+	margin: 0 0 1em;
+	position: relative;
+}
+
 div.form-box div {
 	margin: 0 0 1.5em;
 }
