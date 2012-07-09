@@ -85,12 +85,24 @@ a.button {
 	box-sizing: border-box;
 }
 
-input[type="submit"]:hover,
-input[type="reset"]:hover,
+input[type="submit"][disabled="disabled"],
+input[type="reset"][disabled="disabled"],
+a.button.disabled {
+	cursor: not-allowed;
+	background-color: #4d4d4d;
+	border: 1px solid #303030;
+	color: #707070;
+}
+
 a.button:hover {
+	text-decoration: none;
+}
+
+input[type="submit"]:hover:not([disabled="disabled"]),
+input[type="reset"]:hover:not([disabled="disabled"]),
+a.button:hover:not(.disabled) {
 	border: 1px solid #2f5bb7;
 	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-	text-decoration: none;
 	background-color: #357ae8;
 	background-image: linear-gradient(top, #4d90fe, #357ae8);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);

@@ -10,29 +10,32 @@ from freelan_server.database import DATABASE, Setting
 
 import M2Crypto as m2
 
-@login_required
-def settings_wizard(step=None):
+class SettingsWizardView(MethodView):
     """
-    The settings wizardview.
+    The settings wizard view.
     """
 
-    min_step=1
-    max_step=3
+    decorators = [login_required]
 
-    # Redirect if step is not defined
-    if step is None:
-        return redirect(url_for('settings_wizard', step=min_step))
+    def get(self):
+        """
+        Get the settings page.
+        """
 
-    # Abort if step is invalid
-    if (step < min_step) or (step > max_step):
-        abort(404)
+        authority_certificate = Setting.get_value('authority_certificate')
+        authority_private_key = Setting.get_value('authority_private_key')
 
-    authority_private_key = Setting.get_value('authority_private_key')
+        return render_template(
+            'pages/settings_wizard.html',
+            authority_certificate=authority_certificate,
+            authority_private_key=authority_private_key,
+        )
 
-    return render_template(
-        'pages/settings_wizard_%s.html' % step,
-        step=step,
-        min_step=min_step,
-        max_step=max_step,
-        authority_private_key=authority_private_key,
-    )
+    def post(self):
+        """
+        Update the settings.
+        """
+
+        # TODO: Handle the request
+
+        pass

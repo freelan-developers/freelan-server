@@ -1,0 +1,175 @@
+{% extends "generic/page.html" %}
+
+{% block title %}Freelan Server - Settings wizard{% endblock %}
+
+{% block page %}
+	<h1>Certificate generation wizard</h1>
+
+	<div class="form-box">
+		<form method="post" action="{{ url_for('settings_wizard') }}" class="wizard">
+			<fieldset>
+				<h2><strong>Step 1 on 2 - Private key generation</strong></h2>
+
+				{% if authority_private_key %}
+					<p>You already have a private key. What do you want to do with it ?</p>
+				{% else %}
+					<p>You do not have a private key yet. What do you want to do ?</p>
+				{% endif %}
+
+				<div class="authority-private-key-action-div">
+					{% if authority_private_key %}
+						<label>
+							<input type="radio" name="authority_private_key_action" value="keep" checked="checked" />
+							<strong>Keep it</strong>
+						</label>
+						<label>
+							<input type="radio" id="authority_private_key_action_generate" name="authority_private_key_action" value="generate" />
+							<strong>Generate a new one</strong>
+						</label>
+						<label>
+							<input type="radio" id="authority_private_key_action_load" name="authority_private_key_action" value="load" />
+							<strong>Load another one</strong>
+						</label>
+					{% else %}
+						<label>
+							<input type="radio" id="authority_private_key_action_generate" name="authority_private_key_action" value="generate" checked="checked" />
+							<strong>Generate one</strong>
+						</label>
+						<label>
+							<input type="radio" id="authority_private_key_action_load" name="authority_private_key_action" value="load" />
+							<strong>Load one</strong>
+						</label>
+					{% endif %}
+				</div>
+
+				<noscript>
+					<p>These fields below are only used if you choose to generate a new private key.</p>
+				</noscript>
+
+				<div class="conditionally-visible" data-conditional-visibility-target="authority_private_key_action_generate">
+					<h3><strong>Key generation</strong></h3>
+
+					<label for="key_size_box"><strong>Key size</strong></label>
+					<input type="number" id="key_size_box" name="key_size" value="2048" min="1024" max="8192" />
+				</div>
+
+				<noscript>
+					<p>These fields below are only used if you choose to load a private key.</p>
+				</noscript>
+
+				<div class="conditionally-visible" data-conditional-visibility-target="authority_private_key_action_load">
+					<h3><strong>Key loading</strong></h3>
+
+					<div class="load-private-key-div">
+						<label for="load_private_key_box"><strong>Authority private key</strong></label>
+						<textarea {% if load_private_key_error %}class="form-error"{% endif %} data-content-type="application/x-pem-key" id="load_private_key_box" name="load_private_key" placeholder="Paste the private key in PEM format."></textarea>
+					</div>
+
+					<div class="load-private-key-passphrase-div">
+						<label for="load_private_key_passphrase_box"><strong>Authority private key passphrase (if any)</strong></label>
+						<input {% if load_private_key_error %}class="form-error"{% endif %} type="password" id="load_private_key_passphrase_box" name="load_private_key_passphrase" placeholder="The private key passphrase (if any)." />
+
+						{% if load_private_key_error %}
+							<span class="errormsg">{{ load_private_key_error }}</span>
+						{% endif %}
+					</div>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<h2><strong>Step 2 on 2 - Certificate generation</strong></h2>
+
+				{% if authority_certificate %}
+					<p>You already have a certificate. What do you want to do with it ?</p>
+				{% else %}
+					<p>You do not have a certificate yet. What do you want to do ?</p>
+				{% endif %}
+
+				<div class="authority-certificate-action-div">
+					{% if authority_certificate %}
+						<label>
+							<input type="radio" name="authority_certificate_action" value="keep" checked="checked" />
+							<strong>Keep it</strong>
+						</label>
+						<label>
+							<input type="radio" id="authority_certificate_action_generate" name="authority_certificate_action" value="generate" />
+							<strong>Generate a new one</strong>
+						</label>
+						<label>
+							<input type="radio" id="authority_certificate_action_load" name="authority_certificate_action" value="load" />
+							<strong>Load another one</strong>
+						</label>
+					{% else %}
+						<label>
+							<input type="radio" id="authority_certificate_action_generate" name="authority_certificate_action" value="generate" checked="checked" />
+							<strong>Generate one</strong>
+						</label>
+						<label>
+							<input type="radio" id="authority_certificate_action_load" name="authority_certificate_action" value="load" />
+							<strong>Load one</strong>
+						</label>
+					{% endif %}
+				</div>
+
+				<noscript>
+					<p>These fields below are only used if you choose to generate a new certificate.</p>
+				</noscript>
+
+				<div class="conditionally-visible" data-conditional-visibility-target="authority_certificate_action_generate">
+					<h3><strong>Certificate generation</strong></h3>
+
+					<div class="common-name-div">
+						<label for="common_name_box"><strong>Common name</strong></label>
+						<input type="text" id="common_name_box" name="common_name" placeholder="The certificate main name." />
+					</div>
+
+					<div class="organizational-unit-div">
+						<label for="organizational_unit_box"><strong>Organizational unit</strong></label>
+						<input type="text" id="organizational_unit_box" name="organizational_unit" placeholder="The organizational unit." />
+					</div>
+
+					<div class="organization-div">
+						<label for="organization_box"><strong>Organization</strong></label>
+						<input type="text" id="organization_box" name="organization" placeholder="The organization." />
+					</div>
+
+					<div class="location-div">
+						<label for="location_box"><strong>Location</strong></label>
+						<input type="text" id="location_box" name="location" placeholder="The location." />
+					</div>
+
+					<div class="state-div">
+						<label for="state_box"><strong>State</strong></label>
+						<input type="text" id="state_box" name="state" placeholder="The state." />
+					</div>
+
+					<div class="country-div">
+						<label for="country_box"><strong>Country</strong></label>
+						<input type="text" id="country_box" name="country" placeholder="The country." />
+					</div>
+				</div>
+
+				<noscript>
+					<p>These fields below are only used if you choose to load a certificate.</p>
+				</noscript>
+
+				<div class="conditionally-visible" data-conditional-visibility-target="authority_certificate_action_load">
+					<h3><strong>Certificate loading</strong></h3>
+
+					<div class="load-certificate-div">
+						<label for="load_certificate_box"><strong>Authority certificate</strong></label>
+						<textarea {% if load_certificate_error %}class="form-error"{% endif %} data-content-type="application/x-x509-ca-cert" id="load_certificate_box" name="load_certificate" placeholder="Paste the certificate in PEM format."></textarea>
+					</div>
+				</div>
+
+			</fieldset>
+
+			<fieldset class="wizard-buttons-fieldset">
+				<a class="button wizard-button-cancel" href="{{ url_for('settings_overview') }}">Cancel</a>
+				<a class="button javascript-only wizard-button-previous" href="">Go back</a>
+				<a class="button javascript-only wizard-button-next" href="">Continue</a>
+				<input class="wizard-button-submit" type="submit" value="Finish" />
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}
