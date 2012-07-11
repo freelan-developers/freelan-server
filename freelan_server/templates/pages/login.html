@@ -10,26 +10,36 @@
 	<h2>Log in</h2>
 
 	<form method="post" action="{{ url_for('login', next=next) }}">
+		{{ form.csrf_token }}
+
 		<fieldset>
 			<div class="username-div">
-				<label for="username_box"><strong>Username</strong></label>
-				<input type="text" id="username_box" name="username" placeholder="Enter your username" autofocus="autofocus" required="required" />
+				{{ form.username.label }}
+				{{ form.username(placeholder='Enter your username', autofocus='autofocus', class=form.username.errors and 'form-error' or None) }}
+
+				{% for error in form.username.errors %}
+					<span class="errormsg">{{ error }}</span>
+				{% endfor %}
 			</div>
 			
 			<div class="password-div">
-				<label for="password_box"><strong>Password</strong></label>
-				<input {%if login_error %}class="form-error"{% endif %} type="password" id="password_box" name="password" placeholder="Enter your password" required="required" />
+				{{ form.password.label }}
+				{{ form.password(placeholder='Enter your password', class=form.password.errors and 'form-error' or None) }}
 
-				{% if login_error %}
-					<span class="errormsg">{{ login_error }}</span>
-				{% endif %}
+				{% for error in form.password.errors %}
+					<span class="errormsg">{{ error }}</span>
+				{% endfor %}
 			</div>
 
 			<input type="submit" value="Log in" />
 
 			<label class="remember">
-				<input type="checkbox" name="remember" value="yes"/>
-				<strong>Remember me</strong>
+				{{ form.remember_me(class=form.remember_me.errors and 'form-error' or None) }}
+				<strong>{{ form.remember_me.label.text }}</strong>
+
+				{% for error in form.remember_me.errors %}
+					<span class="errormsg">{{ error }}</span>
+				{% endfor %}
 			</label>
 		</fieldset>
 	</form>

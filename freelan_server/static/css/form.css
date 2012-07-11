@@ -215,6 +215,8 @@ input[type="password"].form-error,
 input[type="tel"].form-error,
 input[type="text"].form-error,
 input[type="url"].form-error,
+input[type="checkbox"].form-error,
+input[type="radio"].form-error,
 textarea.form-error {
 	border: 1px solid #dd4b39;
 }
