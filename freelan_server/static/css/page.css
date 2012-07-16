@@ -20,8 +20,27 @@ h2 {
 	color: #8a8a8a;
 }
 
+.warning,
+.error {
+	border: 1px solid;
+	margin: 4px 8px;
+	padding: 4px;
+	border-radius: 4px;
+}
+
 .warning {
-	color: #d7d730;
+	color: #9f6000;
+	background-color: #feefb3;
+}
+
+.error {
+	color: #d8000c;
+	background-color: #ffbaba;
+}
+
+.warning strong,
+.error strong {
+	color: inherit;
 }
 
 /* Specific elements */

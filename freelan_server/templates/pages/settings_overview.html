@@ -19,7 +19,7 @@
 
 	{% else %}
 
-		<p class="warning">The certificate could not be loaded. Error was: {{ authority_certificate_error }}</p>
+		<p class="error">The certificate could not be loaded. Error was: <strong>{{ authority_certificate_error }}</strong></p>
 
 	{% endif %}
 
@@ -35,7 +35,7 @@
 		
 	{% else %}
 
-		<p class="warning">The private key could not be loaded. Error was: {{ authority_private_key_error }}</p>
+		<p class="error">The private key could not be loaded. Error was: <strong>{{ authority_private_key_error }}</strong></p>
 
 	{% endif %}
 
