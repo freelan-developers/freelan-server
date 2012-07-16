@@ -14,7 +14,7 @@
 	{% if authority_certificate %}
 
 		<div>
-		{{ authority_certificate | x509_certificate | safe}}
+		{{ authority_certificate | x509_certificate }}
 		</div>
 
 	{% else %}
@@ -30,7 +30,7 @@
 	{% if authority_private_key %}
 
 		<div>
-		{{ authority_private_key | rsa_key | safe}}
+		{{ authority_private_key | rsa_key }}
 		</div>
 		
 	{% else %}

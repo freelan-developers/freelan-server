@@ -4,6 +4,8 @@ X509 crypto related functions.
 
 import binascii
 
+from jinja2 import Markup
+
 def register_crypto_functions(app):
     """
     Register crypto related methods to the specified Flask application.
@@ -43,7 +45,7 @@ def register_crypto_functions(app):
         else:
             result = empty('No extensions')
 
-        return result
+        return Markup(result)
 
     @app.template_filter()
     def x509_name(name):
@@ -77,7 +79,7 @@ def register_crypto_functions(app):
         else:
             result = empty('No name')
 
-        return result
+        return Markup(result)
 
     @app.template_filter()
     def x509_certificate(cert):
@@ -122,7 +124,7 @@ def register_crypto_functions(app):
         else:
             result = empty('No certificate')
 
-        return result
+        return Markup(result)
 
     @app.template_filter()
     def rsa_key(key):
@@ -161,4 +163,4 @@ def register_crypto_functions(app):
         else:
             result = empty('No rsa key')
 
-        return result
+        return Markup(result)
