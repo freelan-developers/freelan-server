@@ -11,6 +11,21 @@ HOST = '::'
 # Whether to enable debug mode.
 DEBUG = False
 
+# The authority certificate file.
+#
+# An absolute path to the authority certificate file.
+AUTHORITY_CERTIFICATE_FILE = ''
+
+# The authority private key file.
+#
+# An absolute path to the authority private key file.
+AUTHORITY_PRIVATE_KEY_FILE = ''
+
+# The authority private key passphrase.
+#
+# If no passphrase is required, specify None.
+AUTHORITY_PRIVATE_KEY_PASSPHRASE = None
+
 # The database URI.
 #
 # For real installations, you probably want to change the target directory to a
