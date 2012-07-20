@@ -22,7 +22,11 @@ Freelan Server - New user
 
 				<div class="username-div">
 					{{ form.username.label }}
-					{{ form.username(placeholder='Enter a username', autofocus='autofocus', class=form.username.errors and 'form-error' or None) }}
+					{% if current_user.admin_flag or (current_user == user) %}
+						{{ form.username(placeholder='Enter a username', autofocus='autofocus', class=form.username.errors and 'form-error' or None) }}
+					{% else %}
+						{{ form.username(placeholder='Enter a username', autofocus='autofocus', readonly='readonly', class=form.username.errors and 'form-error' or None) }}
+					{% endif %}
 
 					{% for error in form.username.errors %}
 						<span class="errormsg">{{ error }}</span>
@@ -40,34 +44,44 @@ Freelan Server - New user
 					</div>
 				{% endif %}
 
-				<div class="new-password-div">
-					{{ form.new_password.label }}
-					{{ form.new_password(placeholder='Enter the new password', class=form.new_password.errors and 'form-error' or None) }}
+				{% if form.new_password %}
+					<div class="new-password-div">
+						{{ form.new_password.label }}
+						{{ form.new_password(placeholder='Enter the new password', class=form.new_password.errors and 'form-error' or None) }}
 
-					{% for error in form.new_password.errors %}
-						<span class="errormsg">{{ error }}</span>
-					{% endfor %}
-				</div>
+						{% for error in form.new_password.errors %}
+							<span class="errormsg">{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
 
-				<div class="new-password-repeat-div">
-					{{ form.new_password_repeat.label }}
-					{{ form.new_password_repeat(placeholder='Repeat the new password', class=form.new_password_repeat.errors and 'form-error' or None) }}
+				{% if form.new_password_repeat %}
+					<div class="new-password-repeat-div">
+						{{ form.new_password_repeat.label }}
+						{{ form.new_password_repeat(placeholder='Repeat the new password', class=form.new_password_repeat.errors and 'form-error' or None) }}
 
-					{% for error in form.new_password_repeat.errors %}
-						<span class="errormsg">{{ error }}</span>
-					{% endfor %}
-				</div>
+						{% for error in form.new_password_repeat.errors %}
+							<span class="errormsg">{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
 
-				<div class="email-div">
-					{{ form.email.label }}
-					{{ form.email(placeholder='Enter an email for the user', class=form.email.errors and 'form-error' or None) }}
+				{% if form.email %}
+					<div class="email-div">
+						{{ form.email.label }}
+						{{ form.email(placeholder='Enter an email for the user', class=form.email.errors and 'form-error' or None) }}
 
-					{% for error in form.email.errors %}
-						<span class="errormsg">{{ error }}</span>
-					{% endfor %}
-				</div>
+						{% for error in form.email.errors %}
+							<span class="errormsg">{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
 
-				<input type="submit" value="Update" />
+				{% if current_user.admin_flag or (current_user == user) %}
+					<input type="submit" value="Update" />
+				{% else %}
+					<input type="submit" value="Update" disabled="disabled" />
+				{% endif %}
 			</fieldset>
 		</form>
 	</div>

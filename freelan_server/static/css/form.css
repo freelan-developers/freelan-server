@@ -39,28 +39,38 @@ textarea {
 	resize: none;
 }
 
-input[type="email"]:hover,
-input[type="number"]:hover,
-input[type="password"]:hover,
-input[type="tel"]:hover,
-input[type="text"]:hover,
-input[type="url"]:hover,
-textarea:hover {
+input[type="email"]:hover:not([readonly]),
+input[type="number"]:hover:not([readonly]),
+input[type="password"]:hover:not([readonly]),
+input[type="tel"]:hover:not([readonly]),
+input[type="text"]:hover:not([readonly]),
+input[type="url"]:hover:not([readonly]),
+textarea:hover:not([readonly]) {
 	border: 1px solid #b9b9b9;
 	border-top: 1px solid #a0a0a0;
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-input[type="email"]:focus,
-input[type="number"]:focus,
-input[type="password"]:focus,
-input[type="tel"]:focus,
-input[type="text"]:focus,
-input[type="url"]:focus,
-textarea:focus {
+input[type="email"]:focus:not([readonly]),
+input[type="number"]:focus:not([readonly]),
+input[type="password"]:focus:not([readonly]),
+input[type="tel"]:focus:not([readonly]),
+input[type="text"]:focus:not([readonly]),
+input[type="url"]:focus:not([readonly]),
+textarea:focus:not([readonly]) {
 	outline: none;
 	border: 1px solid #4d90fe;
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+input[readonly],
+input[readonly],
+input[readonly],
+input[readonly],
+input[readonly],
+input[readonly],
+textarea[readonly] {
+	background-color: #e1e1e1;
 }
 
 input[type="submit"],
