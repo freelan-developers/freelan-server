@@ -31,5 +31,5 @@ def setup_views(app):
     app.add_url_rule('/settings_overview', view_func=SettingsOverviewView.as_view('settings_overview', app=app))
     app.add_url_rule('/networks', view_func=NetworksView.as_view('networks'))
     app.add_url_rule('/users', view_func=UsersView.as_view('users'))
-    app.add_url_rule('/user', view_func=UserView.as_view('user'), methods=['POST',])
-    app.add_url_rule('/user/<int:user_id>', view_func=UserView.as_view('user'), methods=['GET', 'PUT', 'DELETE',])
+    app.add_url_rule('/user', view_func=UserView.as_view('user'), methods=['PUT',])
+    app.add_url_rule('/user/<int:user_id>', view_func=UserView.as_view('user'), methods=['GET', 'POST', 'DELETE',])

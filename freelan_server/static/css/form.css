@@ -198,7 +198,11 @@ div.form-box label {
 }
 
 div.form-box input[type="text"],
-div.form-box input[type="password"] {
+div.form-box input[type="password"],
+div.form-box input[type="email"],
+div.form-box input[type="number"],
+div.form-box input[type="tel"],
+div.form-box input[type="url"] {
 	width: 100%;
 	height: 32px;
 	font-size: 15px;
@@ -219,6 +223,11 @@ input[type="checkbox"].form-error,
 input[type="radio"].form-error,
 textarea.form-error {
 	border: 1px solid #dd4b39;
+}
+
+div.form-box fieldset div {
+	/* This allows form divs to wrap around floating elements (like the avatar) */
+	overflow: hidden;
 }
 
 .errormsg {
@@ -243,6 +252,12 @@ div.form-box label.remember strong {
 	padding: 0 0 0 .4em;
 	-webkit-user-select: none;
 	user-select: none;
+}
+
+div.form-box img.avatar {
+	float: right;
+	border: 1px solid #ddd;
+	margin-left: 25px;
 }
 
 div.login-box {
