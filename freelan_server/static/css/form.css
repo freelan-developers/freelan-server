@@ -249,3 +249,8 @@ div.login-box {
 	margin: 160px auto 0;
 	max-width: 280px;
 }
+
+input[type="text"].list-filter {
+	border-radius: 2em;
+	background-color: #fafafa;
+}
