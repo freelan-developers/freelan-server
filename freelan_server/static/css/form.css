@@ -39,13 +39,27 @@ textarea {
 	resize: none;
 }
 
+select[multiple] {
+	display: inline-block;
+	width: 100%;
+	height: 190px;
+	margin: 0;
+	padding: 4px;
+	background: white;
+	border: 1px solid #d9d9d9;
+	border-top: 1px solid silver;
+	box-sizing: border-box;
+	border-radius: 1px;
+}
+
 input[type="email"]:hover:not([readonly]),
 input[type="number"]:hover:not([readonly]),
 input[type="password"]:hover:not([readonly]),
 input[type="tel"]:hover:not([readonly]),
 input[type="text"]:hover:not([readonly]),
 input[type="url"]:hover:not([readonly]),
-textarea:hover:not([readonly]) {
+textarea:hover:not([readonly]),
+select[multiple]:hover:not([disabled]) {
 	border: 1px solid #b9b9b9;
 	border-top: 1px solid #a0a0a0;
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -57,7 +71,8 @@ input[type="password"]:focus:not([readonly]),
 input[type="tel"]:focus:not([readonly]),
 input[type="text"]:focus:not([readonly]),
 input[type="url"]:focus:not([readonly]),
-textarea:focus:not([readonly]) {
+textarea:focus:not([readonly]),
+select[multiple]:focus:not([disabled]) {
 	outline: none;
 	border: 1px solid #4d90fe;
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -69,7 +84,8 @@ input[readonly],
 input[readonly],
 input[readonly],
 input[readonly],
-textarea[readonly] {
+textarea[readonly],
+select[multiple,readonly] {
 	background-color: #e1e1e1;
 }
 

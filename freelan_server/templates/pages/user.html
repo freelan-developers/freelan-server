@@ -77,6 +77,17 @@ Freelan Server - New user
 					</div>
 				{% endif %}
 
+				{% if form.networks %}
+					<div class="networks-div">
+						{{ form.networks.label }}
+						{{ form.networks(class=form.networks.errors and 'form-error' or None) }}
+
+						{% for error in form.networks.errors %}
+							<span class="errormsg">{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+
 				{% if current_user.admin_flag or (current_user == user) %}
 					<input type="submit" value="Update" />
 				{% else %}
