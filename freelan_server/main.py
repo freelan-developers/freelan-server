@@ -51,12 +51,23 @@ def init_database(args):
         print 'Added some user accounts with default password "password".'
 
         my_network = Network('My network')
+        foo_network = Network('Foo network')
+        bar_network = Network('Bar network')
+        virtual_network = Network('Virtual network')
+
         DATABASE.session.add(my_network)
+        DATABASE.session.add(foo_network)
+        DATABASE.session.add(bar_network)
+        DATABASE.session.add(virtual_network)
         print 'Added some networks.'
 
         my_network.users.append(alice)
         my_network.users.append(bob)
         my_network.users.append(chris)
+        foo_network.users.append(alice)
+        foo_network.users.append(bob)
+        bar_network.users.append(alice)
+        virtual_network.users.append(chris)
         print 'Added some users to the networks.'
 
     DATABASE.session.commit()
