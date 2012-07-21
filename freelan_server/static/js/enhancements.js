@@ -3,27 +3,19 @@
  */
 
 $(document).ready(function() {
-	
+
 	// Show javascript only elements.
-	enableJavascriptOnlyElements();
+	$('.javascript-only').removeClass('javascript-only');
 
 	// Transform the active elements.
 	transformActiveElements();
 
 	// Add the event actions.
-	setupConditionallyVisibleElements();
+	$('.conditionally-visible').conditionallyVisible();
 
 	// Transform the wizards.
-	transformWizards();
+	$('.wizard').wizard();
 });
-
-/**
- * \brief Removes the display: hidden attribute from "javascript-only"
- * elements.
- */
-function enableJavascriptOnlyElements() {
-	$('.javascript-only').removeClass('javascript-only');
-}
 
 /**
  * \brief Transform active elements.
@@ -33,28 +25,13 @@ function transformActiveElements() {
 	// The list filters.
 	$('input.list-filter[type="text"]').bind('input', updateListFilter);
 	$('input.list-filter[type="text"]').updateListFilter();
-	
+
 	// Hide the list filter defaults
 	$('.list-filter-default').hide();
 
 	// Transform the certificate textareas
 	$('textarea[data-content-type="application/x-x509-ca-cert"]').fileTextarea();
 	$('textarea[data-content-type="application/x-pem-key"]').fileTextarea();
-}
-
-/**
- * \brief Setup visibility actions.
- */
-function setupConditionallyVisibleElements() {
-	// Transform the conditionally visible elements.
-	$('.conditionally-visible').conditionallyVisible();
-}
-
-/**
- * \brief Transform wizards.
- */
-function transformWizards() {
-	$('.wizard').wizard();
 }
 
 /* The components functions */
@@ -145,7 +122,7 @@ function wizard() {
 
 	$(this).each(function () {
 
-		var form = $(this)
+		var form = $(this);
 		var fieldsets = $(this).children('fieldset:not(.wizard-buttons-fieldset)');
 		var cancel_button = $(this).find('.wizard-button-cancel');
 		var previous_button = $(this).find('.wizard-button-previous');
@@ -154,7 +131,7 @@ function wizard() {
 
 		// Set the current page.
 		var page_count = fieldsets.length;
-		
+
 		// The function to rule them all.
 		form.setPage = function (page, delay) {
 
@@ -222,6 +199,6 @@ function wizard() {
 jQuery.fn.extend({
 	updateListFilter: updateListFilter,
 	fileTextarea: fileTextarea,
-  conditionallyVisible: conditionallyVisible,
-  wizard: wizard
+	conditionallyVisible: conditionallyVisible,
+	wizard: wizard
 });
