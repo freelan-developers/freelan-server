@@ -205,8 +205,10 @@ function tagList() {
 
 		var tag_list = $(document.createElement('div'));
 		tag_list.addClass('tag-list');
+		select.after(tag_list);
 
 		var ul = $(document.createElement('ul'));
+		ul.addClass('tags');
 		tag_list.append(ul);
 
 		var input_li = $(document.createElement('li'));
@@ -217,10 +219,25 @@ function tagList() {
 		input.attr('type', 'text');
 		input_li.append(input);
 
+		var suggestions = $(document.createElement('ul'));
+		suggestions.addClass('suggestions');
+		tag_list.append(suggestions);
+
+		var no_result = $(document.createElement('li'));
+		no_result.addClass('empty');
+		no_result.text('No result');
+		suggestions.append(no_result);
+
+		function valueSelected(value) {
+			var option = options.filter('[value="' + value + '"]');
+
+			return option.is('[selected]');
+		}
+
 		function selectValue(value) {
 			var option = options.filter('[value="' + value + '"]');
 
-			option.attr('selected');
+			option.attr('selected', 'selected');
 		}
 
 		function unselectValue(value) {
@@ -239,7 +256,7 @@ function tagList() {
 			var li = $(document.createElement('li'));
 			li.addClass('tag');
 			li.attr('data-value', value);
-			li.html(label);
+			li.text(label);
 
 			var a = $(document.createElement('a'));
 			a.attr('href', '');
@@ -249,17 +266,57 @@ function tagList() {
 			ul.prepend(li);
 		}
 
+		function updateFilter() {
+
+			var top = tag_list.position().top + tag_list.outerHeight();
+			var left = input.position().left;
+
+			suggestions.css({ top: top + "px", left: left + "px" });
+
+			var filter_text = input.val();
+			var items = suggestions.children('li.value');
+			var unselected_items = items.filter(function () { return !valueSelected($(this).attr('data-value')); });
+			var filtered_items = unselected_items.filter(function () { return ($(this).attr('data-label').indexOf(filter_text) > -1); });
+
+			items.hide();
+
+			if (filtered_items.length) {
+				no_result.hide();
+				filtered_items.show();
+				input.removeClass('empty');
+			} else {
+				no_result.show();
+				input.addClass('empty');
+			}
+		}
+
 		// Convenience: clicking on the tag_list focuses the input.
 		tag_list.click(function() { input.focus(); });
 
 		// Convenience: focusing or bluring the input, apply/disable a style on the
 		// tag_list.
-		input.focus(function() { tag_list.addClass('focused'); });
-		input.blur(function() { tag_list.removeClass('focused'); });
+		input.focus(function() { tag_list.addClass('focused'); updateFilter(); suggestions.show(); });
+		input.blur(function(evt) { tag_list.removeClass('focused'); suggestions.hide(); input.val(''); });
+
+		input.bind('input', function(evt) {
+			updateFilter();
+		});
 
 		input.keydown(function(evt) {
 			if (evt.which == 13) {
 				evt.preventDefault();
+
+				var items = suggestions.children('li.value:visible');
+
+				if (items.length) {
+					var value = $(items[0]).attr('data-value');
+					var text = $(items[0]).attr('data-label');
+					selectValue(value);
+					addTag(value, text);
+					input.val('');
+
+					updateFilter();
+				}
 			} else if (evt.which == 8) {
 
 				// If the input is empty, remove the last tag.
@@ -274,17 +331,37 @@ function tagList() {
 						last_tag.remove();
 					}
 				}
+
+				updateFilter();
 			}
+		});
+
+		// Populates the suggestions
+		options.each(function() {
+			var option = $(this);
+			var item = $(document.createElement('li'));
+			item.addClass('value');
+			item.attr('data-value', option.val());
+			item.attr('data-label', option.text());
+			item.text(option.text());
+
+			item.mousedown(function() {
+				selectValue(option.val());
+				addTag(option.val(), option.text());
+				input.val('');
+			});
+
+			suggestions.prepend(item);
 		});
 
 		// Populates the list with the selected options
 		options.filter(':selected').each(function () {
 			var option = $(this);
-			addTag(option.val(), option.html());
+			addTag(option.val(), option.text());
 		});
 
-		//select.hide();
-		select.after(tag_list);
+		suggestions.hide();
+		select.hide();
 	});
 }
 

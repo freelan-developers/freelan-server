@@ -311,13 +311,13 @@ input[type="text"].list-filter {
 	background-color: #fafafa;
 }
 
-div.form-box div.tag-list > ul {
+div.form-box div.tag-list > ul.tags {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-div.form-box div.tag-list > ul > li {
+div.form-box div.tag-list > ul.tags > li {
 	display: block;
 	float: left;
 	margin: 4px 4px 0px 0;
@@ -326,17 +326,17 @@ div.form-box div.tag-list > ul > li {
 	vertical-align: middle;
 }
 
-div.form-box div.tag-list > ul > li.tag {
+div.form-box div.tag-list > ul.tags > li.tag {
 	padding: 2px 4px;
 	border: 1px solid #ddd;
 	background: #ececec;
 }
 
-div.form-box div.tag-list > ul > li.input {
+div.form-box div.tag-list > ul.tags > li.input {
 	padding: 2px 0;
 }
 
-div.form-box div.tag-list > ul > li.tag > a {
+div.form-box div.tag-list > ul.tags > li.tag > a {
 	background: url('../images/forms/cross.png') 0px 0px no-repeat;
 	width: 11px;
 	height: 11px;
@@ -346,11 +346,11 @@ div.form-box div.tag-list > ul > li.tag > a {
 	margin-left: 4px;
 }
 
-div.form-box div.tag-list > ul > li.tag > a:hover {
+div.form-box div.tag-list > ul.tags > li.tag > a:hover {
 	background: url('../images/forms/cross.png') -12px 0px no-repeat;
 }
 
-div.form-box div.tag-list > ul > li.input > input[type="text"] {
+div.form-box div.tag-list > ul.tags > li.input > input[type="text"] {
 	background: transparent;
 	height: 100%;
 	margin: 0;
@@ -358,4 +358,35 @@ div.form-box div.tag-list > ul > li.input > input[type="text"] {
 	border: none;
 	outline: inherit;
 	box-shadow: inherit;
+}
+
+div.form-box div.tag-list > ul.suggestions {
+	position: absolute;
+	display: inline-block;
+	list-style: none;
+	margin: 0;
+	padding: 8px 0;
+	border: 1px solid #ddd;
+	background-color: #fafafa;
+	z-index: 100;
+	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+div.form-box div.tag-list > ul.suggestions > li {
+	margin: 0;
+	padding: 0 8px;
+	box-sizing: border-box;
+	cursor: pointer;
+	border-left: 3px solid transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+div.form-box div.tag-list > ul.suggestions > li:hover:not(.empty) {
+	background-color: #f1f1f1;
+	box-sizing: border-box;
+	border-left: 3px solid #4d90fe;
 }
