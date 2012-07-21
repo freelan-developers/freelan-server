@@ -52,6 +52,19 @@ select[multiple] {
 	border-radius: 1px;
 }
 
+div.form-box div.tag-list {
+	display: inline-block;
+	width: 100%;
+	margin: 0;
+	padding: 0 4px 4px 4px;
+	background: white;
+	border: 1px solid #d9d9d9;
+	border-top: 1px solid silver;
+	box-sizing: border-box;
+	border-radius: 1px;
+	cursor: text;
+}
+
 input[type="email"]:hover:not([readonly]),
 input[type="number"]:hover:not([readonly]),
 input[type="password"]:hover:not([readonly]),
@@ -59,7 +72,8 @@ input[type="tel"]:hover:not([readonly]),
 input[type="text"]:hover:not([readonly]),
 input[type="url"]:hover:not([readonly]),
 textarea:hover:not([readonly]),
-select[multiple]:hover:not([disabled]) {
+select[multiple]:hover:not([disabled]),
+div.form-box div.tag-list:hover {
 	border: 1px solid #b9b9b9;
 	border-top: 1px solid #a0a0a0;
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -72,7 +86,8 @@ input[type="tel"]:focus:not([readonly]),
 input[type="text"]:focus:not([readonly]),
 input[type="url"]:focus:not([readonly]),
 textarea:focus:not([readonly]),
-select[multiple]:focus:not([disabled]) {
+select[multiple]:focus:not([disabled]),
+div.form-box div.tag-list.focused {
 	outline: none;
 	border: 1px solid #4d90fe;
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -294,4 +309,53 @@ div.login-box {
 input[type="text"].list-filter {
 	border-radius: 2em;
 	background-color: #fafafa;
+}
+
+div.form-box div.tag-list > ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+div.form-box div.tag-list > ul > li {
+	display: block;
+	float: left;
+	margin: 4px 4px 0px 0;
+	box-sizing: border-box;
+	border-radius: 8px;
+	vertical-align: middle;
+}
+
+div.form-box div.tag-list > ul > li.tag {
+	padding: 2px 4px;
+	border: 1px solid #ddd;
+	background: #ececec;
+}
+
+div.form-box div.tag-list > ul > li.input {
+	padding: 2px 0;
+}
+
+div.form-box div.tag-list > ul > li.tag > a {
+	background: url('../images/forms/cross.png') 0px 0px no-repeat;
+	width: 11px;
+	height: 11px;
+	display: inline-block;
+	position: relative;
+	top: 2px;
+	margin-left: 4px;
+}
+
+div.form-box div.tag-list > ul > li.tag > a:hover {
+	background: url('../images/forms/cross.png') -12px 0px no-repeat;
+}
+
+div.form-box div.tag-list > ul > li.input > input[type="text"] {
+	background: transparent;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: inherit;
+	box-shadow: inherit;
 }

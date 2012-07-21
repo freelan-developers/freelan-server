@@ -15,6 +15,9 @@ $(document).ready(function() {
 
 	// Transform the wizards.
 	$('.wizard').wizard();
+
+	// Transform the multiple selects into tag lists.
+	$('select[multiple]').tagList();
 });
 
 /**
@@ -194,11 +197,103 @@ function wizard() {
 	});
 }
 
+function tagList() {
+
+	$(this).each(function () {
+		var select = $(this);
+		var options = select.children('option');
+
+		var tag_list = $(document.createElement('div'));
+		tag_list.addClass('tag-list');
+
+		var ul = $(document.createElement('ul'));
+		tag_list.append(ul);
+
+		var input_li = $(document.createElement('li'));
+		input_li.addClass('input');
+		ul.append(input_li);
+
+		var input = $(document.createElement('input'));
+		input.attr('type', 'text');
+		input_li.append(input);
+
+		function selectValue(value) {
+			var option = options.filter('[value="' + value + '"]');
+
+			option.attr('selected');
+		}
+
+		function unselectValue(value) {
+			var option = options.filter('[value="' + value + '"]');
+
+			option.removeAttr('selected');
+		}
+
+		function removeTag(value) {
+			var li = ul.children('li.tag[data-value="' + value + '"]');
+
+			li.remove();
+		}
+
+		function addTag(value, label) {
+			var li = $(document.createElement('li'));
+			li.addClass('tag');
+			li.attr('data-value', value);
+			li.html(label);
+
+			var a = $(document.createElement('a'));
+			a.attr('href', '');
+			a.click(function() { removeTag(value); unselectValue(value); return false; });
+			li.append(a);
+
+			ul.prepend(li);
+		}
+
+		// Convenience: clicking on the tag_list focuses the input.
+		tag_list.click(function() { input.focus(); });
+
+		// Convenience: focusing or bluring the input, apply/disable a style on the
+		// tag_list.
+		input.focus(function() { tag_list.addClass('focused'); });
+		input.blur(function() { tag_list.removeClass('focused'); });
+
+		input.keydown(function(evt) {
+			if (evt.which == 13) {
+				evt.preventDefault();
+			} else if (evt.which == 8) {
+
+				// If the input is empty, remove the last tag.
+				if (input.val() == '') {
+					evt.preventDefault();
+
+					var last_tag = ul.children('li.tag:last');
+
+					if (last_tag) {
+						var value = last_tag.attr('data-value');
+						unselectValue(value);
+						last_tag.remove();
+					}
+				}
+			}
+		});
+
+		// Populates the list with the selected options
+		options.filter(':selected').each(function () {
+			var option = $(this);
+			addTag(option.val(), option.html());
+		});
+
+		//select.hide();
+		select.after(tag_list);
+	});
+}
+
 /* Extend JQuery */
 
 jQuery.fn.extend({
 	updateListFilter: updateListFilter,
 	fileTextarea: fileTextarea,
 	conditionallyVisible: conditionallyVisible,
-	wizard: wizard
+	wizard: wizard,
+	tagList: tagList,
 });
