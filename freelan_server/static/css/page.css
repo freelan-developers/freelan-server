@@ -205,9 +205,13 @@ ul.tile-list li {
 	padding: 0;
 }
 
+ul.tile-list li a {
+	display: inline-block;
+}
+
 div.tile {
 	display: inline-block;
-	width: 150px;
+	min-width: 160px;
 	height: 50px;
 	border: 1px solid #ddd;
 	padding: 4px;
@@ -217,6 +221,7 @@ div.tile {
 	background: #f4f4f4;
 	background-image: -webkit-linear-gradient(top, white, #f4f4f4);
 	background-image: linear-gradient(top, white, #f4f4f4);
+	white-space: nowrap;
 	overflow: hidden;
 }
 
@@ -237,10 +242,11 @@ div.tile img {
 }
 
 div.tile span {
-	display: block;
+	display: inline-block;
 }
 
-div.tile span.username {
+div.tile span.username,
+div.tile span.name {
 	color: black;
 }
 

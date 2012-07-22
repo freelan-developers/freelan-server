@@ -5,7 +5,7 @@
 				<img src="{{ user.email | gravatar(size=48) }}" alt="{{ user.username }}" />
 			{% endif %}
 
-			<span class="username"><strong>{{ user.username }}</strong></span>
+			<span class="username"><strong>{{ user.username }}</strong></span><br />
 			{% if user.admin_flag %}
 				<span class="information">Administrator</span>
 			{% else %}
