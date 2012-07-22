@@ -33,6 +33,21 @@ Freelan Server - New user
 					{% endfor %}
 				</div>
 				
+				{% if form.admin_flag %}
+					<div class="admin-flag-div">
+						<label>
+							{{ form.admin_flag(class=form.admin_flag.errors and 'form-error' or None) }}
+							{{ form.admin_flag.label.text }}
+
+							{% for error in form.admin_flag.errors %}
+								<span class="errormsg">{{ error }}</span>
+							{% endfor %}
+						</label>
+					</div>
+				{% elif current_user.admin_flag %}
+					<p class="information"><em>You have administrative privileges.</em></p>
+				{% endif %}
+
 				{% if form.current_password %}
 					<div class="current-password-div">
 						{{ form.current_password.label }}

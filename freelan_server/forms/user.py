@@ -18,3 +18,4 @@ class UserForm(Form):
     new_password_repeat = PasswordField('Repeat new password', [validators.EqualTo('new_password', message='Passwords must match.')])
     email = EmailField('Email', [validators.Required()])
     networks = QuerySelectMultipleField(query_factory=lambda: Network.query.all(), allow_blank=True, widget=Select(multiple=True, labelizer=lambda network: network.name))
+    admin_flag = BooleanField('Has administrative privileges');

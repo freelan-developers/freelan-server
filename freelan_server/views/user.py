@@ -37,6 +37,9 @@ class UserView(MethodView):
                 del form.new_password
                 del form.new_password_repeat
                 del form.email
+                del form.admin_flag
+        else:
+            del form.admin_flag
 
         if form.validate_on_submit():
 
