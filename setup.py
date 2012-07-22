@@ -6,6 +6,7 @@ setup(
     long_description=__doc__,
     packages=[
         'freelan_server',
+        'freelan_server.database',
         'freelan_server.extensions',
         'freelan_server.forms',
         'freelan_server.views',
