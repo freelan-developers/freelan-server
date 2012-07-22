@@ -202,6 +202,7 @@ function tagList() {
 	$(this).each(function () {
 		var select = $(this);
 		var options = select.children('option');
+		var disable_blur = false;
 
 		var tag_list = $(document.createElement('div'));
 		tag_list.addClass('tag-list');
@@ -296,7 +297,7 @@ function tagList() {
 		// Convenience: focusing or bluring the input, apply/disable a style on the
 		// tag_list.
 		input.focus(function() { tag_list.addClass('focused'); updateFilter(); suggestions.show(); });
-		input.blur(function(evt) { tag_list.removeClass('focused'); suggestions.hide(); input.val(''); });
+		input.blur(function(evt) { tag_list.removeClass('focused'); if (!disable_blur) { suggestions.hide(); input.val(''); } });
 
 		input.bind('input', function(evt) {
 			updateFilter();
@@ -336,6 +337,19 @@ function tagList() {
 			}
 		});
 
+		suggestions.mouseenter(function () {
+			disable_blur = true;
+		});
+
+		suggestions.mouseleave(function () {
+			disable_blur = false;
+
+			if (!input.is(':focus')) {
+				suggestions.hide();
+				input.val('');
+			}
+		});
+
 		// Populates the suggestions
 		options.each(function() {
 			var option = $(this);
@@ -345,7 +359,7 @@ function tagList() {
 			item.attr('data-label', option.text());
 			item.text(option.text());
 
-			item.mousedown(function() {
+			item.click(function() {
 				selectValue(option.val());
 				addTag(option.val(), option.text());
 				input.val('');
