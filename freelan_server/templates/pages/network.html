@@ -21,9 +21,9 @@ Freelan Server - New network
 				<div class="name-div">
 					{{ form.name.label }}
 					{% if current_user.admin_flag %}
-						{{ form.name(placeholder='Enter a name', autofocus='autofocus', class=form.name.errors and 'form-error' or None) }}
+						{{ form.name(placeholder='Enter a name', autofocus='autofocus', class=form.name.errors and 'form-error' or '') }}
 					{% else %}
-						{{ form.name(placeholder='Enter a name', autofocus='autofocus', readonly='readonly', class=form.name.errors and 'form-error' or None) }}
+						{{ form.name(placeholder='Enter a name', autofocus='autofocus', readonly='readonly', class=form.name.errors and 'form-error' or '') }}
 					{% endif %}
 
 					{% for error in form.name.errors %}
@@ -34,7 +34,7 @@ Freelan Server - New network
 				{% if form.users %}
 					<div class="users-div">
 						{{ form.users.label }}
-						{{ form.users(class=form.users.errors and 'form-error' or None) }}
+						{{ form.users(class=form.users.errors and 'form-error' or '') }}
 
 						{% for error in form.users.errors %}
 							<span class="errormsg">{{ error }}</span>

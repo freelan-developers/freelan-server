@@ -23,9 +23,9 @@ Freelan Server - New user
 				<div class="username-div">
 					{{ form.username.label }}
 					{% if current_user.admin_flag or (current_user == user) %}
-						{{ form.username(placeholder='Enter a username', autofocus='autofocus', class=form.username.errors and 'form-error' or None) }}
+						{{ form.username(placeholder='Enter a username', autofocus='autofocus', class=form.username.errors and 'form-error' or '') }}
 					{% else %}
-						{{ form.username(placeholder='Enter a username', autofocus='autofocus', readonly='readonly', class=form.username.errors and 'form-error' or None) }}
+						{{ form.username(placeholder='Enter a username', autofocus='autofocus', readonly='readonly', class=form.username.errors and 'form-error' or '') }}
 					{% endif %}
 
 					{% for error in form.username.errors %}
@@ -36,7 +36,7 @@ Freelan Server - New user
 				{% if form.admin_flag %}
 					<div class="admin-flag-div">
 						<label>
-							{{ form.admin_flag(class=form.admin_flag.errors and 'form-error' or None) }}
+							{{ form.admin_flag(class=form.admin_flag.errors and 'form-error' or '') }}
 							{{ form.admin_flag.label.text }}
 
 							{% for error in form.admin_flag.errors %}
@@ -51,7 +51,7 @@ Freelan Server - New user
 				{% if form.current_password %}
 					<div class="current-password-div">
 						{{ form.current_password.label }}
-						{{ form.current_password(placeholder='Enter your current password', class=form.current_password.errors and 'form-error' or None) }}
+						{{ form.current_password(placeholder='Enter your current password', class=form.current_password.errors and 'form-error' or '') }}
 
 						{% for error in form.current_password.errors %}
 							<span class="errormsg">{{ error }}</span>
@@ -62,7 +62,7 @@ Freelan Server - New user
 				{% if form.new_password %}
 					<div class="new-password-div">
 						{{ form.new_password.label }}
-						{{ form.new_password(placeholder='Enter the new password', class=form.new_password.errors and 'form-error' or None) }}
+						{{ form.new_password(placeholder='Enter the new password', class=form.new_password.errors and 'form-error' or '') }}
 
 						{% for error in form.new_password.errors %}
 							<span class="errormsg">{{ error }}</span>
@@ -73,7 +73,7 @@ Freelan Server - New user
 				{% if form.new_password_repeat %}
 					<div class="new-password-repeat-div">
 						{{ form.new_password_repeat.label }}
-						{{ form.new_password_repeat(placeholder='Repeat the new password', class=form.new_password_repeat.errors and 'form-error' or None) }}
+						{{ form.new_password_repeat(placeholder='Repeat the new password', class=form.new_password_repeat.errors and 'form-error' or '') }}
 
 						{% for error in form.new_password_repeat.errors %}
 							<span class="errormsg">{{ error }}</span>
@@ -84,7 +84,7 @@ Freelan Server - New user
 				{% if form.email %}
 					<div class="email-div">
 						{{ form.email.label }}
-						{{ form.email(placeholder='Enter an email for the user', class=form.email.errors and 'form-error' or None) }}
+						{{ form.email(placeholder='Enter an email for the user', class=form.email.errors and 'form-error' or '') }}
 
 						{% for error in form.email.errors %}
 							<span class="errormsg">{{ error }}</span>
@@ -95,7 +95,7 @@ Freelan Server - New user
 				{% if form.networks %}
 					<div class="networks-div">
 						{{ form.networks.label }}
-						{{ form.networks(class=form.networks.errors and 'form-error' or None) }}
+						{{ form.networks(class=form.networks.errors and 'form-error' or '') }}
 
 						{% for error in form.networks.errors %}
 							<span class="errormsg">{{ error }}</span>
