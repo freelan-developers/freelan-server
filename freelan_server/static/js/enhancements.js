@@ -265,7 +265,13 @@ function tagList() {
 			a.click(function() { removeTag(value); unselectValue(value); return false; });
 			li.append(a);
 
-			ul.prepend(li);
+			var last_tag = ul.children('li.tag:last');
+
+			if (last_tag.length) {
+				li.insertAfter(last_tag);
+			} else {
+				ul.prepend(li);
+			}
 		}
 
 		function updateFilter() {
@@ -379,7 +385,13 @@ function tagList() {
 				input.val('');
 			});
 
-			suggestions.prepend(item);
+			var last_item = suggestions.children('li.value:last');
+
+			if (last_item.length) {
+				item.insertAfter(last_item);
+			} else {
+				suggestions.prepend(item);
+			}
 		});
 
 		// Populates the list with the selected options
