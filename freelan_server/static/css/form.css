@@ -374,7 +374,7 @@ div.form-box div.tag-list > ul.suggestions {
 
 div.form-box div.tag-list > ul.suggestions > li {
 	margin: 0;
-	padding: 0 8px;
+	padding: 2px 8px;
 	box-sizing: border-box;
 	cursor: pointer;
 	border-left: 3px solid transparent;
