@@ -1,0 +1,53 @@
+{% extends "generic/page.html" %}
+
+{% block title %}
+	{% if network %}
+Freelan Server - Network: {{ network.name }}
+	{% else %}
+Freelan Server - New network
+	{% endif %}
+{% endblock %}
+
+{% block page %}
+	<h1>Network: <b>{{ network.name }}</b></h1>
+
+	<div class="form-box">
+		<form method="post" action="{{ url_for('network', network_id=network.id) }}">
+			{{ form.csrf_token }}
+
+			<fieldset>
+				<img class="avatar" src="{{ url_for('static', filename='images/menu/networks.png') }}" alt="A network icon" />
+
+				<div class="name-div">
+					{{ form.name.label }}
+					{% if current_user.admin_flag %}
+						{{ form.name(placeholder='Enter a name', autofocus='autofocus', class=form.name.errors and 'form-error' or None) }}
+					{% else %}
+						{{ form.name(placeholder='Enter a name', autofocus='autofocus', readonly='readonly', class=form.name.errors and 'form-error' or None) }}
+					{% endif %}
+
+					{% for error in form.name.errors %}
+						<span class="errormsg">{{ error }}</span>
+					{% endfor %}
+				</div>
+				
+				{% if form.users %}
+					<div class="users-div">
+						{{ form.users.label }}
+						{{ form.users(class=form.users.errors and 'form-error' or None) }}
+
+						{% for error in form.users.errors %}
+							<span class="errormsg">{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+
+				{% if current_user.admin_flag %}
+					<input type="submit" value="Update" />
+				{% else %}
+					<input type="submit" value="Update" disabled="disabled" />
+				{% endif %}
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}

@@ -4,4 +4,7 @@
 
 {% block page %}
 	<h1>Networks</h1>
+	<p>There is currently <strong>{{ networks | count }}</strong> network(s).</p>
+
+	{{ render_network_list('network-list', networks) }}
 {% endblock %}

@@ -27,6 +27,10 @@ def register_all_extensions(app):
     from freelan_server.extensions.user import register_user_functions
     register_user_functions(app)
 
+    # Register the network filters
+    from freelan_server.extensions.network import register_network_functions
+    register_network_functions(app)
+
     # Register the crypto functions
     from freelan_server.extensions.crypto import register_crypto_functions
     register_crypto_functions(app)

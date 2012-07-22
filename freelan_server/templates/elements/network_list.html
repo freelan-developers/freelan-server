@@ -1,0 +1,12 @@
+{% if networks %}
+<div class="javascript-only">
+	<p>Filter networks by name: <input type="text" class="list-filter" data-associated-list="{{ list_name }}" data-filter-attribute="data-name" /></p>
+	<p class="list-filter-default" data-associated-list="{{ list_name }}">No network matches the specified filter.</p>
+</div>
+
+<ul class="network-list tile-list" data-list-name="{{ list_name }}">
+	{% for network in networks %}
+		{% include "elements/network_list_item.html" %}
+	{% endfor %}
+</ul>
+{% endif %}

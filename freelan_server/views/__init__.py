@@ -9,6 +9,7 @@ from freelan_server.views.login import LoginView
 from freelan_server.views.logout import LogoutView
 from freelan_server.views.settings_overview import SettingsOverviewView
 from freelan_server.views.networks import NetworksView
+from freelan_server.views.network import NetworkView
 from freelan_server.views.users import UsersView
 from freelan_server.views.user import UserView
 
@@ -30,6 +31,8 @@ def setup_views(app):
     app.add_url_rule('/logout', view_func=LogoutView.as_view('logout'))
     app.add_url_rule('/settings_overview', view_func=SettingsOverviewView.as_view('settings_overview', app=app))
     app.add_url_rule('/networks', view_func=NetworksView.as_view('networks'))
+    app.add_url_rule('/network', view_func=NetworkView.as_view('network'), methods=['PUT',])
+    app.add_url_rule('/network/<int:network_id>', view_func=NetworkView.as_view('network'), methods=['GET', 'POST', 'DELETE',])
     app.add_url_rule('/users', view_func=UsersView.as_view('users'))
     app.add_url_rule('/user', view_func=UserView.as_view('user'), methods=['PUT',])
     app.add_url_rule('/user/<int:user_id>', view_func=UserView.as_view('user'), methods=['GET', 'POST', 'DELETE',])
