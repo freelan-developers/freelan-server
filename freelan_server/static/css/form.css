@@ -383,10 +383,15 @@ div.form-box div.tag-list > ul.suggestions > li {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	box-sizing: border-box;
 }
 
-div.form-box div.tag-list > ul.suggestions > li:hover:not(.empty) {
+div.form-box div.tag-list > ul.suggestions > li.value.selection {
 	background-color: #f1f1f1;
-	box-sizing: border-box;
+	border-left: 3px solid #ddd;
+}
+
+div.form-box div.tag-list > ul.suggestions > li.value:hover {
+	background-color: #f1f1f1;
 	border-left: 3px solid #4d90fe;
 }

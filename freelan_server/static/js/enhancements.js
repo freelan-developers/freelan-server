@@ -203,6 +203,7 @@ function tagList() {
 		var select = $(this);
 		var options = select.children('option');
 		var disable_blur = false;
+		var selection_index = 0;
 
 		var tag_list = $(document.createElement('div'));
 		tag_list.addClass('tag-list');
@@ -280,10 +281,15 @@ function tagList() {
 			var filtered_items = unselected_items.filter(function () { return ($(this).attr('data-label').toUpperCase().indexOf(filter_text) > -1); });
 
 			items.hide();
+			items.removeClass('selection');
 
 			if (filtered_items.length) {
 				no_result.hide();
 				filtered_items.show();
+
+				var index = (selection_index >= filtered_items.length) ? filtered_items.length - 1 : selection_index;
+
+				$(filtered_items[index]).addClass('selection');
 				input.removeClass('empty');
 			} else {
 				no_result.show();
@@ -304,10 +310,10 @@ function tagList() {
 		});
 
 		input.keydown(function(evt) {
-			if (evt.which == 13) {
+			if (evt.which == 13) { // Return
 				evt.preventDefault();
 
-				var items = suggestions.children('li.value:visible');
+				var items = suggestions.children('li.value.selection');
 
 				if (items.length) {
 					var value = $(items[0]).attr('data-value');
@@ -315,10 +321,11 @@ function tagList() {
 					selectValue(value);
 					addTag(value, text);
 					input.val('');
+					selection_index = 0;
 
 					updateFilter();
 				}
-			} else if (evt.which == 8) {
+			} else if (evt.which == 8) { // Backspace
 
 				// If the input is empty, remove the last tag.
 				if (input.val() == '') {
@@ -333,6 +340,13 @@ function tagList() {
 					}
 				}
 
+				updateFilter();
+			} else if (evt.which == 38) { // Up
+				selection_index = (selection_index > 0) ? selection_index - 1 : 0;
+				updateFilter();
+			} else if (evt.which == 40) { // Down
+				var filtered_items_count = suggestions.children('li.value').filter(':visible').length;
+				selection_index = (selection_index < filtered_items_count - 1) ? selection_index + 1 : filtered_items_count - 1;
 				updateFilter();
 			}
 		});
