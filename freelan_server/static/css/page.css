@@ -225,6 +225,12 @@ div.tile {
 	overflow: hidden;
 }
 
+div.tile.special {
+	background: #ffffd4;
+	background-image: -webkit-linear-gradient(top, white, #ffffd4);
+	background-image: linear-gradient(top, white, #ffffd4);
+}
+
 div.tile:hover {
 	border-color: #58c;
 	background: #7af;

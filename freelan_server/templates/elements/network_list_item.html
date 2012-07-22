@@ -1,6 +1,6 @@
 <li data-name="{{ network.name }}">
 	<a href="{{ url_for('network', network_id=network.id) }}">
-		<div class="tile network">
+		<div class="tile network {{ current_user in network.users and 'special' or '' }}">
 			<img src="{{ url_for('static', filename='images/menu/networks.png') }}" alt="A network icon" />
 
 			<span class="name"><strong>{{ network.name }}</strong></span><br />

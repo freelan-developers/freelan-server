@@ -1,6 +1,6 @@
 <li data-username="{{ user.username }}">
 	<a href="{{ url_for('user', user_id=user.id) }}">
-		<div class="tile user">
+		<div class="tile user {{ user.admin_flag and 'special' or '' }}">
 			{% if user.email %}
 				<img src="{{ user.email | gravatar(size=48) }}" alt="{{ user.username }}" />
 			{% endif %}
