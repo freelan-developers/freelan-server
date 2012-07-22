@@ -254,15 +254,16 @@ div.form-box input[type="file"] {
 	margin: 0 0 .5em;
 }
 
-input[type="email"].form-error,
-input[type="number"].form-error,
-input[type="password"].form-error,
-input[type="tel"].form-error,
-input[type="text"].form-error,
-input[type="url"].form-error,
-input[type="checkbox"].form-error,
-input[type="radio"].form-error,
-textarea.form-error {
+div.form-box input[type="email"].form-error,
+div.form-box input[type="number"].form-error,
+div.form-box input[type="password"].form-error,
+div.form-box input[type="tel"].form-error,
+div.form-box input[type="text"].form-error,
+div.form-box input[type="url"].form-error,
+div.form-box input[type="checkbox"].form-error,
+div.form-box input[type="radio"].form-error,
+div.form-box textarea.form-error,
+div.form-box div.tag-list.form-error {
 	border: 1px solid #dd4b39;
 }
 

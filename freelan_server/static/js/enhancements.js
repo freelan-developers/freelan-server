@@ -206,6 +206,7 @@ function tagList() {
 		var selection_index = 0;
 
 		var tag_list = $(document.createElement('div'));
+		tag_list.attr('class', select.attr('class'));
 		tag_list.addClass('tag-list');
 		select.after(tag_list);
 
