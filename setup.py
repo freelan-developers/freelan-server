@@ -4,7 +4,12 @@ setup(
     name='Freelan Server',
     version='1.0',
     long_description=__doc__,
-    packages=['freelan_server'],
+    packages=[
+        'freelan_server',
+        'freelan_server.extensions',
+        'freelan_server.forms',
+        'freelan_server.views',
+    ],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
