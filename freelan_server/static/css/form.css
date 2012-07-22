@@ -65,6 +65,10 @@ div.form-box div.tag-list {
 	cursor: text;
 }
 
+div.form-box div.tag-list[disabled] {
+	cursor: default;
+}
+
 input[type="email"]:hover:not([readonly]),
 input[type="number"]:hover:not([readonly]),
 input[type="password"]:hover:not([readonly]),
@@ -73,7 +77,7 @@ input[type="text"]:hover:not([readonly]),
 input[type="url"]:hover:not([readonly]),
 textarea:hover:not([readonly]),
 select[multiple]:hover:not([disabled]),
-div.form-box div.tag-list:hover {
+div.form-box div.tag-list:hover:not([disabled]) {
 	border: 1px solid #b9b9b9;
 	border-top: 1px solid #a0a0a0;
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);

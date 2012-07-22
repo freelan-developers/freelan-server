@@ -210,6 +210,10 @@ function tagList() {
 		tag_list.addClass('tag-list');
 		select.after(tag_list);
 
+		if (select.attr('disabled')) {
+			tag_list.attr('disabled', '');
+		}
+
 		var ul = $(document.createElement('ul'));
 		ul.addClass('tags');
 		tag_list.append(ul);
@@ -261,10 +265,12 @@ function tagList() {
 			li.attr('data-value', value);
 			li.text(label);
 
-			var a = $(document.createElement('a'));
-			a.attr('href', '');
-			a.click(function() { removeTag(value); unselectValue(value); return false; });
-			li.append(a);
+			if (!tag_list.attr('disabled')) {
+				var a = $(document.createElement('a'));
+				a.attr('href', '');
+				a.click(function() { removeTag(value); unselectValue(value); return false; });
+				li.append(a);
+			}
 
 			var last_tag = ul.children('li.tag:last');
 
@@ -304,13 +310,17 @@ function tagList() {
 			}
 		}
 
-		// Convenience: clicking on the tag_list focuses the input.
-		tag_list.click(function() { input.focus(); });
+		if (tag_list.attr('disabled')) {
+			input.attr('disabled', '');
+		} else {
+			// Convenience: clicking on the tag_list focuses the input.
+			tag_list.click(function() { input.focus(); });
 
-		// Convenience: focusing or bluring the input, apply/disable a style on the
-		// tag_list.
-		input.focus(function() { tag_list.addClass('focused'); updateFilter(); suggestions.show(); });
-		input.blur(function(evt) { tag_list.removeClass('focused'); if (!disable_blur) { suggestions.hide(); input.val(''); } });
+			// Convenience: focusing or bluring the input, apply/disable a style on the
+			// tag_list.
+			input.focus(function() { tag_list.addClass('focused'); updateFilter(); suggestions.show(); });
+			input.blur(function(evt) { tag_list.removeClass('focused'); if (!disable_blur) { suggestions.hide(); input.val(''); } });
+		}
 
 		input.bind('input', function(evt) {
 			updateFilter();
