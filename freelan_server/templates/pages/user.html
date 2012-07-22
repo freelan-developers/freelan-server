@@ -95,7 +95,11 @@ Freelan Server - New user
 				{% if form.networks %}
 					<div class="networks-div">
 						{{ form.networks.label }}
-						{{ form.networks(class=form.networks.errors and 'form-error' or '') }}
+						{% if current_user.admin_flag %}
+							{{ form.networks(class=form.networks.errors and 'form-error' or '') }}
+						{% else %}
+							{{ form.networks(class=form.networks.errors and 'form-error' or '', disabled='') }}
+						{% endif %}
 
 						{% for error in form.networks.errors %}
 							<span class="errormsg">{{ error }}</span>

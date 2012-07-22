@@ -34,7 +34,11 @@ Freelan Server - New network
 				{% if form.users %}
 					<div class="users-div">
 						{{ form.users.label }}
-						{{ form.users(class=form.users.errors and 'form-error' or '') }}
+						{% if current_user.admin_flag %}
+							{{ form.users(class=form.users.errors and 'form-error' or '') }}
+						{% else %}
+							{{ form.users(class=form.users.errors and 'form-error' or '', disabled='') }}
+						{% endif %}
 
 						{% for error in form.users.errors %}
 							<span class="errormsg">{{ error }}</span>
