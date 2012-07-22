@@ -295,7 +295,7 @@ div.form-box label.remember strong {
 	user-select: none;
 }
 
-div.form-box img.avatar {
+div.form-box .avatar {
 	float: right;
 	border: 1px solid #ddd;
 	margin-left: 25px;
