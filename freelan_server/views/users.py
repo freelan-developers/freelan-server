@@ -23,4 +23,3 @@ class UsersView(MethodView):
         users = User.query.order_by(desc(User.admin_flag)).order_by(User.username).all()
 
         return render_template('pages/users.html', users=users)
-
