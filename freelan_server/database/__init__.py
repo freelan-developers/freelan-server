@@ -30,7 +30,7 @@ class User(DATABASE.Model, UserMixin):
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
     admin_flag = DATABASE.Column(DATABASE.Boolean(), nullable=False)
 
-    def __init__(self, username, email, password, admin_flag=False):
+    def __init__(self, username='', email=None, password='', admin_flag=False):
         """
         Initializes a new user.
         """

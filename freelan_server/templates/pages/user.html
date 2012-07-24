@@ -9,10 +9,18 @@ Freelan Server - New user
 {% endblock %}
 
 {% block page %}
-	<h1>User: <b>{{ user.username }}</b></h1>
+	{% if user %}
+		<h1>User: <b>{{ user.username }}</b></h1>
+	{% else %}
+		<h1>New user</h1>
+	{% endif %}
 
 	<div class="form-box">
-		<form method="post" action="{{ url_for('user', user_id=user.id) }}">
+		{% if user %}
+			<form method="post" action="{{ url_for('user', user_id=user.id) }}">
+		{% else %}
+			<form method="post" action="{{ url_for('user/create') }}">
+		{% endif %}
 			{{ form.csrf_token }}
 
 			<fieldset>
