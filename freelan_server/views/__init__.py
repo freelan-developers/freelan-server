@@ -11,7 +11,7 @@ from freelan_server.views.settings_overview import SettingsOverviewView
 from freelan_server.views.networks import NetworksView
 from freelan_server.views.network import NetworkView
 from freelan_server.views.users import UsersView
-from freelan_server.views.user import UserView, UserCreateView
+from freelan_server.views.user import UserView, UserCreateView, UserDeleteView
 
 @login_required
 def root():
@@ -35,4 +35,5 @@ def setup_views(app):
     app.add_url_rule('/network/<int:network_id>', view_func=NetworkView.as_view('network'), methods=['GET', 'POST', 'DELETE',])
     app.add_url_rule('/users', view_func=UsersView.as_view('users'))
     app.add_url_rule('/user/create', view_func=UserCreateView.as_view('user/create'), methods=['GET', 'POST'])
-    app.add_url_rule('/user/<int:user_id>', view_func=UserView.as_view('user'), methods=['GET', 'POST', 'DELETE',])
+    app.add_url_rule('/user/<int:user_id>', view_func=UserView.as_view('user'), methods=['GET', 'POST'])
+    app.add_url_rule('/user/<int:user_id>/delete', view_func=UserDeleteView.as_view('user/delete'), methods=['POST'])

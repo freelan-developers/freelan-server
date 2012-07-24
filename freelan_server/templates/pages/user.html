@@ -122,5 +122,18 @@ Freelan Server - New user
 				{% endif %}
 			</fieldset>
 		</form>
+
+		{% if user and current_user.admin_flag and (current_user != user) %}
+			<div class="dangerzone">
+				<h2>Danger zone</h2>
+
+				<form method="post" action="{{ url_for('user/delete', user_id=user.id) }}">
+					<h3>Delete this user</h3>
+
+					<input type="submit" value="Delete user" />
+					<p>The deleted user can <strong>not</strong> be recovered once deleted !</p>
+				</form>
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}

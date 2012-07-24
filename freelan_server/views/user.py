@@ -95,10 +95,6 @@ class UserView(MethodView):
 
         return render_template('pages/user.html', form=form, user=user)
 
-    def delete(self, user_id):
-        #TODO: Implement
-        return render_template('pages/user.html')
-
 class UserCreateView(MethodView):
     """
     The user create view.
@@ -149,3 +145,28 @@ class UserCreateView(MethodView):
                 form_attribute.errors.append('Database error: "%s".' % ex.orig)
 
         return render_template('pages/user.html', form=form, user=user)
+
+class UserDeleteView(MethodView):
+    """
+    The user delete view.
+    """
+
+    decorators = [login_required]
+
+    def post(self, user_id):
+
+        if not current_user.admin_flag:
+            abort(403)
+
+        user = User.query.get(user_id)
+
+        if not user:
+            abort(404)
+
+        if user == current_user:
+            abort(403)
+
+        DATABASE.session.delete(user)
+        DATABASE.session.commit()
+
+        return redirect(url_for('users'))

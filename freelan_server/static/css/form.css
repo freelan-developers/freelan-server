@@ -139,6 +139,16 @@ a.button.disabled {
 	color: #707070;
 }
 
+.dangerzone input[type="submit"],
+.dangerzone input[type="reset"],
+.dangerzone a.button {
+	margin: 0;
+	border: 1px solid #e00;
+	background: #f97171;
+	background: -moz-linear-gradient(#f97171,#df3e3e);
+	background: -webkit-linear-gradient(#f97171,#df3e3e);
+}
+
 a.button:hover {
 	text-decoration: none;
 }
@@ -150,6 +160,17 @@ a.button:hover:not(.disabled) {
 	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
 	background-color: #357ae8;
 	background-image: linear-gradient(top, #4d90fe, #357ae8);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.dangerzone input[type="submit"]:hover:not([disabled="disabled"]),
+.dangerzone input[type="reset"]:hover:not([disabled="disabled"]),
+.dangerzone a.button:hover:not(.disabled) {
+	border: 1px solid #f00;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	background: #e97171;
+	background: -moz-linear-gradient(#e97171,#cf3e3e);
+	background: -webkit-linear-gradient(#e97171,#cf3e3e);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
@@ -400,4 +421,44 @@ div.form-box div.tag-list > ul.suggestions > li.value.selection {
 div.form-box div.tag-list > ul.suggestions > li.value:hover {
 	background-color: #f1f1f1;
 	border-left: 3px solid #4d90fe;
+}
+
+div.form-box div.dangerzone {
+	border: 1px solid #ddd;
+	background: white;
+	margin-top: 2em;
+	opacity: 0.3;
+}
+
+div.form-box div.dangerzone:hover {
+	opacity: 1;
+}
+
+div.form-box div.dangerzone h2 {
+	font-weight: bold;
+	padding: 10px;
+	margin: 0 0 1em 0;
+	background: #f97171;
+	background: -moz-linear-gradient(#f97171,#df3e3e);
+	background: -webkit-linear-gradient(#f97171,#df3e3e);
+	border-bottom: 1px solid #900;
+	color: white;
+	text-shadow: 0 -1px 0 #900;
+}
+
+div.form-box div.dangerzone h3 {
+	font-weight: bold;
+	margin: 1em 0 0 0;
+}
+
+div.form-box div.dangerzone p {
+	margin: 1em 0 0 0;
+}
+
+div.form-box div.dangerzone form {
+	margin: 8px;
+}
+
+div.form-box div.dangerzone form input {
+	float: right;
 }
