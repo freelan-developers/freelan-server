@@ -116,9 +116,9 @@ Freelan Server - New user
 				{% endif %}
 
 				{% if current_user.admin_flag or (current_user == user) %}
-					<input type="submit" value="Update" />
+					<input type="submit" value="{{ user and 'Update' or 'Create' }}" />
 				{% else %}
-					<input type="submit" value="Update" disabled="disabled" />
+					<input type="submit" value="{{ user and 'Update' or 'Create' }}" disabled="disabled" />
 				{% endif %}
 			</fieldset>
 		</form>
