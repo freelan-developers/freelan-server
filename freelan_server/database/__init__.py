@@ -82,7 +82,7 @@ class Network(DATABASE.Model):
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
     users = DATABASE.relationship('User', secondary=NetworkUserTable, backref='networks')
 
-    def __init__(self, name):
+    def __init__(self, name=''):
         """
         Initialize a new network.
         """

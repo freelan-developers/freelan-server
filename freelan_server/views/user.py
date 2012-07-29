@@ -131,6 +131,7 @@ class UserCreateView(MethodView):
             try:
                 DATABASE.session.commit()
             except IntegrityError as ex:
+                user = None
                 DATABASE.session.rollback()
 
                 m = re.search('column (\w+) is not unique', str(ex.orig))

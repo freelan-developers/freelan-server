@@ -9,10 +9,18 @@ Freelan Server - New network
 {% endblock %}
 
 {% block page %}
-	<h1>Network: <b>{{ network.name }}</b></h1>
+	{% if network %}
+		<h1>Network: <b>{{ network.name }}</b></h1>
+	{% else %}
+		<h1>New network</h1>
+	{% endif %}
 
 	<div class="form-box">
-		<form method="post" action="{{ url_for('network', network_id=network.id) }}">
+		{% if network %}
+			<form method="post" action="{{ url_for('network', network_id=network.id) }}">
+		{% else %}
+			<form method="post" action="{{ url_for('network/create') }}">
+		{% endif %}
 			{{ form.csrf_token }}
 
 			<fieldset>
@@ -47,11 +55,24 @@ Freelan Server - New network
 				{% endif %}
 
 				{% if current_user.admin_flag %}
-					<input type="submit" value="Update" />
+					<input type="submit" value="{{ network and 'Update' or 'Create' }}" />
 				{% else %}
-					<input type="submit" value="Update" disabled="disabled" />
+					<input type="submit" value="{{ network and 'Update' or 'Create' }}" disabled="disabled" />
 				{% endif %}
 			</fieldset>
 		</form>
+
+		{% if network and current_user.admin_flag %}
+			<div class="dangerzone">
+				<h2>Danger zone</h2>
+
+				<form method="post" action="{{ url_for('network/delete', network_id=network.id) }}">
+					<h3>Delete this network</h3>
+
+					<input type="submit" value="Delete network" />
+					<p>The deleted network can <strong>not</strong> be recovered once deleted !</p>
+				</form>
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}

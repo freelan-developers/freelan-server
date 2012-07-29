@@ -4,7 +4,7 @@
 
 {% block page %}
 	<h1>Networks</h1>
-	<p>There is currently <strong>{{ networks | count }}</strong> network(s).</p>
+	<p>There is currently <strong>{{ networks | count }}</strong> network(s). Click <a href="{{ url_for('network/create') }}">here</a> to create a new one.</p>
 
 	{{ render_network_list('network-list', networks) }}
 {% endblock %}
