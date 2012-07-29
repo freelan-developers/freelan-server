@@ -4,7 +4,7 @@
 
 {% block page %}
 	<h1>Users</h1>
-	<p>There is currently <strong>{{ users | count }}</strong> registered user(s).</p>
+	<p>There is currently <strong>{{ users | count }}</strong> registered user(s). Click <a href="{{ url_for('user/create') }}">here</a> to create a new one.</p>
 
 	{{ render_user_list('user-list', users) }}
 {% endblock %}
