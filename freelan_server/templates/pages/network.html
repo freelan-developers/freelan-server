@@ -54,6 +54,32 @@ Freelan Server - New network
 					</div>
 				{% endif %}
 
+				<div class="ipv4_address">
+					{{ form.ipv4_address.label }}
+					{% if current_user.admin_flag %}
+						{{ form.ipv4_address(placeholder='IPv4 address', class=form.ipv4_address.errors and 'form-error' or '') }}
+					{% else %}
+						{{ form.ipv4_address(placeholder='IPv4 address', readonly='readonly', class=form.ipv4_address.errors and 'form-error' or '') }}
+					{% endif %}
+
+					{% for error in form.ipv4_address.errors %}
+						<span class="errormsg">{{ error }}</span>
+					{% endfor %}
+				</div>
+				
+				<div class="ipv6_address">
+					{{ form.ipv6_address.label }}
+					{% if current_user.admin_flag %}
+						{{ form.ipv6_address(placeholder='IPv6 address', class=form.ipv6_address.errors and 'form-error' or '') }}
+					{% else %}
+						{{ form.ipv6_address(placeholder='IPv6 address', readonly='readonly', class=form.ipv6_address.errors and 'form-error' or '') }}
+					{% endif %}
+
+					{% for error in form.ipv6_address.errors %}
+						<span class="errormsg">{{ error }}</span>
+					{% endfor %}
+				</div>
+				
 				{% if current_user.admin_flag %}
 					<input type="submit" value="{{ network and 'Update' or 'Create' }}" />
 				{% else %}

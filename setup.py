@@ -22,6 +22,7 @@ setup(
         'Flask-Gravatar',
         'Flask-WTF',
         'M2Crypto',
+        'IPy',
     ],
     entry_points = {
         'console_scripts': [

@@ -81,6 +81,8 @@ class Network(DATABASE.Model):
     name = DATABASE.Column(DATABASE.String(80), unique=True, nullable=False)
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
     users = DATABASE.relationship('User', secondary=NetworkUserTable, backref='networks')
+    ipv4_address = DATABASE.Column(DATABASE.String(64), unique=False, nullable=True)
+    ipv6_address = DATABASE.Column(DATABASE.String(64), unique=False, nullable=True)
 
     def __init__(self, name=''):
         """
@@ -89,3 +91,5 @@ class Network(DATABASE.Model):
 
         self.name = name
         self.creation_date = datetime.datetime.now()
+        self.ipv4_address = None
+        self.ipv6_address = None
