@@ -193,11 +193,13 @@ def list_networks(args):
     print 'Listing %s existing network(s):' % len(networks)
 
     for network in networks:
-        print '%(name)s | %(users_len)s user(s). Created on %(creation_date)s | %(users)s' % {
+        print '%(name)s | %(users_len)s user(s). Created on %(creation_date)s | %(users)s | %(ipv4_address)s | %(ipv6_address)s' % {
             'name': network.name,
             'creation_date': network.creation_date,
             'users_len': len(network.users),
-            'users': ', '.join([user.username for user in network.users])
+            'users': ', '.join([user.username for user in network.users]),
+            'ipv4_address': network.ipv4_address or 'No IPv4 address',
+            'ipv6_address': network.ipv6_address or 'No IPv6 address',
         }
 
 def create_network(args):
