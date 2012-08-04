@@ -57,9 +57,9 @@ Freelan Server - New network
 				<div class="ipv4_address">
 					{{ form.ipv4_address.label }}
 					{% if current_user.admin_flag %}
-						{{ form.ipv4_address(placeholder='IPv4 address', class=form.ipv4_address.errors and 'form-error' or '') }}
+						{{ form.ipv4_address(placeholder='IPv4 network', class=form.ipv4_address.errors and 'form-error' or '') }}
 					{% else %}
-						{{ form.ipv4_address(placeholder='IPv4 address', readonly='readonly', class=form.ipv4_address.errors and 'form-error' or '') }}
+						{{ form.ipv4_address(placeholder='IPv4 network', readonly='readonly', class=form.ipv4_address.errors and 'form-error' or '') }}
 					{% endif %}
 
 					{% for error in form.ipv4_address.errors %}
@@ -70,9 +70,9 @@ Freelan Server - New network
 				<div class="ipv6_address">
 					{{ form.ipv6_address.label }}
 					{% if current_user.admin_flag %}
-						{{ form.ipv6_address(placeholder='IPv6 address', class=form.ipv6_address.errors and 'form-error' or '') }}
+						{{ form.ipv6_address(placeholder='IPv6 network', class=form.ipv6_address.errors and 'form-error' or '') }}
 					{% else %}
-						{{ form.ipv6_address(placeholder='IPv6 address', readonly='readonly', class=form.ipv6_address.errors and 'form-error' or '') }}
+						{{ form.ipv6_address(placeholder='IPv6 network', readonly='readonly', class=form.ipv6_address.errors and 'form-error' or '') }}
 					{% endif %}
 
 					{% for error in form.ipv6_address.errors %}
