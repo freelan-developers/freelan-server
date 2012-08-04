@@ -3,7 +3,7 @@ Specific fields.
 """
 
 from wtforms import TextField
-from IPy import IP
+from ip import IP
 
 from freelan_server.extensions.widgets import IPTextInput
 
@@ -65,15 +65,15 @@ class IPTextField(TextField):
 
         if self.data:
             try:
-                self.data = str(self.ip_address)
+                ip = self.ip_address
             except Exception, ex:
                 if self.network_only:
                     if self.ip_version == IPTextField.IP_VERSION_4:
-                        raise ValueError('An IPv4 network address is expected. Example: 10.0.0.0/16, 192.168.0.0/24')
+                        raise ValueError('An IPv4 network address with a prefix length is expected. Example: 10.0.0.0/16, 192.168.0.0/24')
                     elif self.ip_version == IPTextField.IP_VERSION_6:
-                        raise ValueError('An IPv6 network address is expected. Example: fe80::/64, fe80::ab00/8')
+                        raise ValueError('An IPv6 network address with a prefix length is expected. Example: fe80::/64, fe80::ab00/8')
                     else:
-                        raise ValueError('An IPv4 or IPv6 network address is expected. Example: 10.0.0.0/16, fe80::/64')
+                        raise ValueError('An IPv4 or IPv6 network address with a prefix length is expected. Example: 10.0.0.0/16, fe80::/64')
                 else:
                     if self.ip_version == IPTextField.IP_VERSION_4:
                         raise ValueError('An IPv4 address is expected. Example: 10.0.0.1, 192.168.0.1')
@@ -81,6 +81,11 @@ class IPTextField(TextField):
                         raise ValueError('An IPv6 address is expected. Example: fe80::1, fe80::ab01')
                     else:
                         raise ValueError('An IPv4 or IPv6 address is expected. Example: 10.0.0.1, fe80::1')
+
+            if self.network_only and not ip.isNetwork():
+                raise ValueError('An non-empty network address with a prefix length is expected.')
+
+            self.data = str(ip)
         else:
             self.data = None
 
