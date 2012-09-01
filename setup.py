@@ -10,6 +10,7 @@ setup(
         'freelan_server.extensions',
         'freelan_server.forms',
         'freelan_server.views',
+        'freelan_server.views.api',
     ],
     include_package_data=True,
     zip_safe=False,

@@ -13,6 +13,8 @@ from freelan_server.views.network import NetworkView, NetworkCreateView, Network
 from freelan_server.views.users import UsersView
 from freelan_server.views.user import UserView, UserCreateView, UserDeleteView
 
+from freelan_server.views.api.login import ApiLoginView
+
 @login_required
 def root():
     """
@@ -38,3 +40,4 @@ def setup_views(app):
     app.add_url_rule('/user/create', view_func=UserCreateView.as_view('user/create'), methods=['GET', 'POST'])
     app.add_url_rule('/user/<int:user_id>', view_func=UserView.as_view('user'), methods=['GET', 'POST'])
     app.add_url_rule('/user/<int:user_id>/delete', view_func=UserDeleteView.as_view('user/delete'), methods=['POST'])
+    app.add_url_rule('/api/login', view_func=ApiLoginView.as_view('api_login'))
