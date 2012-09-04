@@ -24,9 +24,9 @@ class ApiLoginView(MethodView):
             'version': distribution.version,
         }
 
-        user = User.query.filter_by(username=request.json['username']).first()
+        user = User.query.filter_by(username=request.json.get('username')).first()
 
-        if user and user.check_password(request.json['password']):
+        if user and user.check_password(request.json.get('password')):
             session.regenerate()
             login_user(user, remember=False)
         else:
