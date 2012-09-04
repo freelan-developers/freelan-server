@@ -40,4 +40,4 @@ def setup_views(app):
     app.add_url_rule('/user/create', view_func=UserCreateView.as_view('user/create'), methods=['GET', 'POST'])
     app.add_url_rule('/user/<int:user_id>', view_func=UserView.as_view('user'), methods=['GET', 'POST'])
     app.add_url_rule('/user/<int:user_id>/delete', view_func=UserDeleteView.as_view('user/delete'), methods=['POST'])
-    app.add_url_rule('/api/login', view_func=ApiLoginView.as_view('api_login'))
+    app.add_url_rule('/api/login', view_func=ApiLoginView.as_view('api_login'), methods=['POST'])
