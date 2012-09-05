@@ -27,6 +27,11 @@ class ApiLoginView(MethodView):
         user = User.query.filter_by(username=request.json.get('username')).first()
 
         if user and user.check_password(request.json.get('password')):
+
+            # Fix for a bug in Flask-KVSession
+            if not hasattr(session, 'sid_s'):
+                session.sid_s = None
+
             session.regenerate()
             login_user(user, remember=False)
         else:
