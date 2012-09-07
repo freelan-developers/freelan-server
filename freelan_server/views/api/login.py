@@ -15,6 +15,9 @@ class ApiLoginView(MethodView):
     The API login view.
     """
 
+    def get(self):
+        pass
+
     def post(self):
 
         distribution = pkg_resources.require('freelan_server')[0]
