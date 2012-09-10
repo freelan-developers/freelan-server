@@ -2,7 +2,7 @@
 The API information view.
 """
 
-import pkg_resources
+from freelan_server.extensions.version import NAME, VERSION
 
 from flask.views import MethodView
 
@@ -15,12 +15,10 @@ class ApiInformationView(MethodView):
 
     def get(self):
 
-        distribution = pkg_resources.require('freelan_server')[0]
-
         result = {
-            'name': distribution.project_name,
-            'major': distribution.version.split('.')[0],
-            'minor': distribution.version.split('.')[1],
+            'name': NAME,
+            'major': VERSION.split('.')[0],
+            'minor': VERSION.split('.')[1],
             'login_url': url_for('api/login'),
         }
 
