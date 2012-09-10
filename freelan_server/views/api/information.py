@@ -20,6 +20,7 @@ class ApiInformationView(MethodView):
             'major': VERSION.split('.')[0],
             'minor': VERSION.split('.')[1],
             'login_url': url_for('api/login'),
+            'sign_url': url_for('api/sign'),
         }
 
         return jsonify(**result)

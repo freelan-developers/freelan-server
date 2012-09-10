@@ -7,7 +7,7 @@ import base64
 
 from flask.views import MethodView
 
-from flask import url_for, request, session, jsonify
+from flask import request, session, jsonify
 from flask_login import login_user
 from freelan_server.database import User
 
