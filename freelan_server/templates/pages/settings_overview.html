@@ -29,9 +29,7 @@
 
 	{% if authority_private_key %}
 
-		<div>
-		{{ authority_private_key | rsa_key }}
-		</div>
+		<p class="success">Private key loaded successfully.</p>
 		
 	{% else %}
 
