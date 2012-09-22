@@ -7,6 +7,10 @@ def register_all_extensions(app):
     Register login-related methods to the specified Flask application.
     """
 
+    # Register the configuration information
+    from freelan_server.extensions.configuration import register_configuration_information
+    register_configuration_information(app)
+
     # Register the login mechanism
     from freelan_server.extensions.login import register_login_information
     register_login_information(app)
