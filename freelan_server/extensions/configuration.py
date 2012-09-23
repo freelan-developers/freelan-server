@@ -14,8 +14,8 @@ def register_configuration_information(app):
     authority_private_key_passphrase = app.config['AUTHORITY_PRIVATE_KEY_PASSPHRASE'] or ''
 
     try:
-        authority_certificate = m2.X509.load_cert_string(
-            open(authority_certificate_file, 'r').read(),
+        authority_certificate = m2.X509.load_cert(
+            authority_certificate_file,
             m2.X509.FORMAT_PEM
         )
         authority_certificate_error = None
@@ -25,8 +25,8 @@ def register_configuration_information(app):
         authority_certificate_error = str(ex)
 
     try:
-        authority_private_key = m2.RSA.load_key_string(
-            open(authority_private_key_file, 'r').read(),
+        authority_private_key = m2.RSA.load_key(
+            authority_private_key_file,
             callback=(lambda v: authority_private_key_passphrase or '')
         )
         authority_private_key_error = None
