@@ -78,12 +78,17 @@ class ApiSignView(MethodView):
 
         certificate.set_not_after(not_after)
 
+        # The issued certificate shall not be used as a certificate authority
         certificate.add_ext(X509.new_extension('basicConstraints', 'CA:FALSE'))
 
+        # Sign the certificate
         pkey = EVP.PKey()
         pkey.assign_rsa(self.app.config['AUTHORITY_PRIVATE_KEY'], capture=False)
 
         certificate.sign(pkey, 'sha1')
 
+        result = {
+            'certificate': base64.b64encode(certificate.as_der()),
+        }
 
-        return jsonify()
+        return jsonify(result)
