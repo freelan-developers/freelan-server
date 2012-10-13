@@ -50,7 +50,9 @@ class UserView(MethodView):
 
         form = create_form(user)
 
-        return render_template('pages/user.html', form=form, user=user)
+        referrer = url_for('users')
+
+        return render_template('pages/user.html', form=form, user=user, referrer=referrer)
 
     def post(self, user_id):
 
@@ -60,6 +62,8 @@ class UserView(MethodView):
             abort(404)
 
         form = create_form(user)
+
+        referrer = url_for('users')
 
         if form.validate_on_submit():
 
@@ -93,7 +97,7 @@ class UserView(MethodView):
 
                     form_attribute.errors.append('Database error: "%s".' % ex.orig)
 
-        return render_template('pages/user.html', form=form, user=user)
+        return render_template('pages/user.html', form=form, user=user, referrer=referrer)
 
 class UserCreateView(MethodView):
     """
@@ -109,7 +113,9 @@ class UserCreateView(MethodView):
 
         form = create_form()
 
-        return render_template('pages/user.html', form=form, user=None)
+        referrer = url_for('users')
+
+        return render_template('pages/user.html', form=form, user=None, referrer=referrer)
 
     def post(self):
 
@@ -119,6 +125,8 @@ class UserCreateView(MethodView):
         user = None
 
         form = create_form()
+
+        referrer = url_for('users')
 
         if form.validate_on_submit():
             user = User()
@@ -145,7 +153,7 @@ class UserCreateView(MethodView):
 
                 form_attribute.errors.append('Database error: "%s".' % ex.orig)
 
-        return render_template('pages/user.html', form=form, user=user)
+        return render_template('pages/user.html', form=form, user=user, referrer=referrer)
 
 class UserDeleteView(MethodView):
     """

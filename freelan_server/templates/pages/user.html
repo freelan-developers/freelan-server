@@ -115,11 +115,15 @@ Freelan Server - New user
 					</div>
 				{% endif %}
 
-				{% if current_user.admin_flag or (current_user == user) %}
-					<input type="submit" value="{{ user and 'Update' or 'Create' }}" />
-				{% else %}
-					<input type="submit" value="{{ user and 'Update' or 'Create' }}" disabled="disabled" />
-				{% endif %}
+				<div class="submit-div">
+					{% if current_user.admin_flag or (current_user == user) %}
+						<input type="submit" value="{{ user and 'Update' or 'Create' }}" />
+					{% else %}
+						<input type="submit" value="{{ user and 'Update' or 'Create' }}" disabled="disabled" />
+					{% endif %}
+
+					<a class="button default" href="{{ referrer }}">Cancel</a>
+				</div>
 			</fieldset>
 		</form>
 
