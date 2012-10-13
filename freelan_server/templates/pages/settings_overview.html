@@ -5,7 +5,9 @@
 {% block page %}
 	<h1>Settings overview</h1>
 
-	<p>Here are the current settings for your server:</p>
+	<p>Here are the current settings for your server.</p>
+
+	<p class="information">Those settings are read-only for security reasons and thus <strong>cannot</strong> be changed within the web application.</p>
 
 	<h2>Authority certificate</h2>
 
@@ -13,7 +15,7 @@
 
 	{% if authority_certificate %}
 
-		<div>
+		<div class="collapsable" data-collapsed-text="Show certificate">
 		{{ authority_certificate | x509_certificate }}
 		</div>
 

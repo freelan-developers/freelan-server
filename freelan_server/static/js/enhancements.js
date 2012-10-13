@@ -18,6 +18,9 @@ $(document).ready(function() {
 
 	// Transform the multiple selects into tag lists.
 	$('select[multiple]').tagList();
+
+	// Enable collapsable elements.
+	$('.collapsable').collapsable();
 });
 
 /**
@@ -416,6 +419,35 @@ function tagList() {
 	});
 }
 
+function collapsable() {
+
+	$(this).each(function () {
+
+		var element = $(this);
+
+		var collapsed_text = element.attr('data-collapsed-text');
+
+		var div = $(document.createElement('div'));
+		var uncollapse = $(document.createElement('a'));
+
+		uncollapse.addClass('button');
+		uncollapse.addClass('default');
+		uncollapse.text(collapsed_text);
+
+		div.append(uncollapse);
+		
+		element.hide();
+
+		element.before(div);
+
+		uncollapse.click(function() {
+
+			$(this).hide();
+			element.show(200);
+		});
+	});
+}
+
 /* Extend JQuery */
 
 jQuery.fn.extend({
@@ -424,4 +456,5 @@ jQuery.fn.extend({
 	conditionallyVisible: conditionallyVisible,
 	wizard: wizard,
 	tagList: tagList,
+	collapsable: collapsable
 });
