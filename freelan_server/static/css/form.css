@@ -132,6 +132,13 @@ a.button {
 	-webkit-transition: background 200ms ease-in-out 0;
 }
 
+input[type="submit"].default,
+input[type="reset"].default,
+a.button.default {
+	background-color: #a0a0a0;
+	border: 1px solid #808080;
+}
+
 input[type="submit"][disabled="disabled"],
 input[type="reset"][disabled="disabled"],
 a.button.disabled {
@@ -162,6 +169,16 @@ a.button:hover:not(.disabled) {
 	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
 	background-color: #357ae8;
 	background-image: linear-gradient(top, #4d90fe, #357ae8);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+input[type="submit"].default:hover:not([disabled="disabled"]),
+input[type="reset"].default:hover:not([disabled="disabled"]),
+a.button.default:hover:not(.disabled) {
+	border: 1px solid #505050;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	background-color: #808080;
+	background-image: linear-gradient(top, #a0a0a0, #808080);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
