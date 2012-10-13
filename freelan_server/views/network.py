@@ -37,7 +37,9 @@ class NetworkView(MethodView):
 
         form = create_form(network)
 
-        return render_template('pages/network.html', form=form, network=network)
+        referrer = url_for('networks')
+
+        return render_template('pages/network.html', form=form, network=network, referrer=referrer)
 
     def post(self, network_id):
 
@@ -50,6 +52,8 @@ class NetworkView(MethodView):
             abort(404)
 
         form = create_form(network)
+
+        referrer = url_for('networks')
 
         if form.validate_on_submit():
 
@@ -73,7 +77,7 @@ class NetworkView(MethodView):
 
                 form_attribute.errors.append('Database error: "%s".' % ex.orig)
 
-        return render_template('pages/network.html', form=form, network=network)
+        return render_template('pages/network.html', form=form, network=network, referrer=referrer)
 
 class NetworkCreateView(MethodView):
     """
@@ -89,7 +93,9 @@ class NetworkCreateView(MethodView):
 
         form = create_form()
 
-        return render_template('pages/network.html', form=form, network=None)
+        referrer = url_for('networks')
+
+        return render_template('pages/network.html', form=form, network=None, referrer=referrer)
 
     def post(self):
 
@@ -99,6 +105,8 @@ class NetworkCreateView(MethodView):
         network = None
 
         form = create_form()
+
+        referrer = url_for('networks')
 
         if form.validate_on_submit():
             network = Network()
@@ -124,7 +132,7 @@ class NetworkCreateView(MethodView):
 
                 form_attribute.errors.append('Database error: "%s".' % ex.orig)
 
-        return render_template('pages/network.html', form=form, network=network)
+        return render_template('pages/network.html', form=form, network=network, referrer=referrer)
 
 class NetworkDeleteView(MethodView):
     """
