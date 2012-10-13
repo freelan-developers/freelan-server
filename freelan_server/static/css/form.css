@@ -128,6 +128,8 @@ a.button {
 	background-color: #4d90fe;
 	background-image: linear-gradient(top, #4d90fe, #4787ed);
 	box-sizing: border-box;
+	transition: background 200ms ease-in-out 0;
+	-webkit-transition: background 200ms ease-in-out 0;
 }
 
 input[type="submit"][disabled="disabled"],
@@ -428,6 +430,8 @@ div.form-box div.dangerzone {
 	background: white;
 	margin-top: 2em;
 	opacity: 0.3;
+	transition: opacity 200ms ease-in-out 0;
+	-webkit-transition: opacity 200ms ease-in-out 0;
 }
 
 div.form-box div.dangerzone:hover {

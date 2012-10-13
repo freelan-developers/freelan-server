@@ -113,6 +113,8 @@ div.page-menu ul li a {
 	opacity: 0.3;
 	padding-top: 48px;
 	color: #444;
+	transition: opacity 200ms ease-in-out 0;
+	-webkit-transition: opacity 200ms ease-in-out 0;
 }
 
 div.page-menu ul li a:hover {
