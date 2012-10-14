@@ -15,6 +15,7 @@ from freelan_server.views.user import UserView, UserCreateView, UserDeleteView
 
 from freelan_server.views.api.information import ApiInformationView
 from freelan_server.views.api.login import ApiLoginView
+from freelan_server.views.api.join_network import ApiJoinNetworkView
 from freelan_server.views.api.sign import ApiSignView
 
 @login_required
@@ -44,4 +45,5 @@ def setup_views(app):
     app.add_url_rule('/user/<int:user_id>/delete', view_func=UserDeleteView.as_view('user/delete'), methods=['POST'])
     app.add_url_rule('/api/information', view_func=ApiInformationView.as_view('api/information'), methods=['GET'])
     app.add_url_rule('/api/login', view_func=ApiLoginView.as_view('api/login'), methods=['GET', 'POST'])
+    app.add_url_rule('/api/join_network', view_func=ApiJoinNetworkView.as_view('api/join_network', app=app), methods=['POST'])
     app.add_url_rule('/api/sign', view_func=ApiSignView.as_view('api/sign', app=app), methods=['POST'])

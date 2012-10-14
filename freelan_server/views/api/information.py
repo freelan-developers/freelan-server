@@ -20,6 +20,7 @@ class ApiInformationView(MethodView):
             'major': VERSION.split('.')[0],
             'minor': VERSION.split('.')[1],
             'login_url': url_for('api/login'),
+            'join_network_url': url_for('api/join_network'),
             'sign_url': url_for('api/sign'),
         }
 
