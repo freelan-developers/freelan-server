@@ -2,6 +2,8 @@
 Database models.
 """
 
+import base64
+
 from freelan_server import APPLICATION
 
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -9,6 +11,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 
 import datetime
+
+import M2Crypto as m2
 
 DATABASE = SQLAlchemy(APPLICATION)
 
@@ -72,7 +76,35 @@ class User(DATABASE.Model, UserMixin):
 
         self.password_hash = generate_password_hash(password)
 
+    def get_certificate(self):
+        """
+        Get the last generated certificate.
+        """
+
+        if self.certificate_string:
+
+            try:
+                return m2.X509.load_cert_string(
+                    base64.b64decode(self.certificate_string),
+                    m2.X509.FORMAT_DER
+                )
+
+            except:
+                self.certificate_string = None
+
+    def set_certificate(self, certificate):
+        """
+        Set the last generated certificate.
+        """
+
+        if certificate:
+            self.certificate_string = base64.b64encode(certificate.as_der())
+
+        else:
+            self.certificate_string = None
+
     password = property(fset=set_password)
+    certificate = property(fget=get_certificate, fset=set_certificate)
 
 class Network(DATABASE.Model):
     """

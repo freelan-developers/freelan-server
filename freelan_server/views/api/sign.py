@@ -87,8 +87,10 @@ class ApiSignView(MethodView):
 
         certificate.sign(pkey, 'sha1')
 
+        current_user.certificate = certificate
+
         result = {
-            'certificate': base64.b64encode(certificate.as_der()),
+            'certificate': current_user.certificate_string,
         }
 
         return jsonify(result)
