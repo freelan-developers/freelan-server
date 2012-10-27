@@ -53,7 +53,9 @@ Freelan Server - New user
 						</label>
 					</div>
 				{% elif current_user.admin_flag %}
-					<p class="information"><em>You have administrative privileges.</em></p>
+					<div class="admin-flag-div">
+						<p class="information"><em>You have administrative privileges.</em></p>
+					</div>
 				{% endif %}
 
 				{% if form.current_password %}

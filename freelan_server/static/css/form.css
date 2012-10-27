@@ -277,6 +277,13 @@ div.form-box div {
 	margin: 0 0 1.5em;
 }
 
+div.form-box div .information,
+div.form-box div .success,
+div.form-box div .warning,
+div.form-box div .error{
+	margin: 0;
+}
+
 div.form-box label {
 	display: block;
 	margin: 0 0 .5em;
