@@ -36,7 +36,13 @@ class ApiJoinNetworkView(MethodView):
         if not network or not network in current_user.networks:
             return 'No network match the specified name. ("%s")' % network_name, 403
 
+        users_certificates = [user.certificate_string for user in network.users if (user != current_user) and user.certificate_string]
+
+        # FIXME: Make the following IP addresses dynamic
         result = {
+            'ipv4_address': '9.0.0.1',
+            'ipv6_address': 'fe80::1',
+            'users_certificates': 'users_certificates',
         }
 
         return jsonify(result)
