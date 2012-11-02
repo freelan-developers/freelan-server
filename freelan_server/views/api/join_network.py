@@ -40,9 +40,9 @@ class ApiJoinNetworkView(MethodView):
 
         # FIXME: Make the following IP addresses dynamic
         result = {
-            'ipv4_address': '9.0.0.1',
-            'ipv6_address': 'fe80::1',
-            'users_certificates': 'users_certificates',
+            'ipv4_address_prefix_length': '9.0.0.1/24',
+            'ipv6_address_prefix_length': 'fe80::1/64',
+            'users_certificates': users_certificates,
         }
 
         return jsonify(result)
