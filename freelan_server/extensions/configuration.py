@@ -2,6 +2,8 @@
 Configuration related information.
 """
 
+import os
+
 import M2Crypto as m2
 
 def register_configuration_information(app):
@@ -11,6 +13,16 @@ def register_configuration_information(app):
 
     authority_certificate_file = app.config['AUTHORITY_CERTIFICATE_FILE']
     authority_private_key_file = app.config['AUTHORITY_PRIVATE_KEY_FILE']
+
+    if 'FREELAN_SERVER_CONFIGURATION_FILE' in os.environ:
+        base_path = os.path.abspath(os.path.dirname(os.environ['FREELAN_SERVER_CONFIGURATION_FILE']))
+
+        if not os.path.isfile(authority_certificate_file) and not os.path.isabs(authority_certificate_file):
+            authority_certificate_file = os.path.join(base_path, authority_certificate_file)
+
+        if not os.path.isfile(authority_private_key_file) and not os.path.isabs(authority_private_key_file):
+            authority_private_key_file = os.path.join(base_path, authority_private_key_file)
+
     authority_private_key_passphrase = app.config['AUTHORITY_PRIVATE_KEY_PASSPHRASE'] or ''
 
     try:
