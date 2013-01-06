@@ -120,9 +120,19 @@ def list_users_memberships(args):
 
     from freelan_server.database import User, Network
 
-    users = User.query.all()
+    if args.username:
+        users = User.query.filter_by(username=args.username).all()
 
-    print 'Listing memberships for %s existing account(s):' % len(users)
+        if not users:
+            print 'No such user: %s' % args.username
+            return 1
+
+        print 'Listing memberships for user: %s' % users[0].username
+
+    else:
+        users = User.query.all()
+
+        print 'Listing memberships for %s existing account(s):' % len(users)
 
     for user in users:
         print
@@ -130,7 +140,16 @@ def list_users_memberships(args):
         if user.networks:
             print u'%s:' % user.username
 
-            for network in user.networks:
+            if args.network:
+                networks = Network.query.filter_by(name=args.network).all()
+
+                if not networks:
+                    print 'No such network: %s' % args.network
+
+            else:
+                networks = user.networks
+
+            for network in networks:
                 active_memberships = user.get_active_memberships(network)
 
                 if active_memberships:
@@ -383,8 +402,10 @@ def main():
     user_list_parser = user_action_parser.add_parser('list', help='List the existing users.')
     user_list_parser.set_defaults(func=list_users)
 
-    user_list_parser = user_action_parser.add_parser('membership', help='List the existing users memberships.')
-    user_list_parser.set_defaults(func=list_users_memberships)
+    user_membership_parser = user_action_parser.add_parser('membership', help='List the existing users memberships.')
+    user_membership_parser.set_defaults(func=list_users_memberships)
+    user_membership_parser.add_argument('-u', '--username', help='The user username to filter with.')
+    user_membership_parser.add_argument('-n', '--network', help='The network name to filter with.')
 
     user_create_parser = user_action_parser.add_parser('create', help='Create a user.')
     user_create_parser.add_argument('username', help='The user username.')
