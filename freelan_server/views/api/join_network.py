@@ -37,12 +37,15 @@ class ApiJoinNetworkView(MethodView):
             return 'No network match the specified name. ("%s")' % network_name, 403
 
         users_certificates = [user.certificate_string for user in network.users if (user != current_user) and user.certificate_string]
+        # TODO: Implement the line below
+        users_endpoints = []
 
         # FIXME: Make the following IP addresses dynamic
         result = {
-            'ipv4_address_prefix_length': '9.0.0.1/24',
-            'ipv6_address_prefix_length': 'fe80::1/64',
+            'ipv4_address_prefix_length': '9.0.0.2/24',
+            'ipv6_address_prefix_length': 'fe80::2/64',
             'users_certificates': users_certificates,
+            'users_endpoints': users_endpoints,
         }
 
         return jsonify(result)
