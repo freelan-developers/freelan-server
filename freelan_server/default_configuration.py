@@ -29,6 +29,9 @@ AUTHORITY_PRIVATE_KEY_PASSPHRASE = None
 # The issued certificate validity duration, in days.
 CERTIFICATE_VALIDITY_DURATION = 3
 
+# The network membership duration, in seconds.
+NETWORK_MEMBERSHIP_VALIDITY_DURATION = 300
+
 # The database URI.
 #
 # For real installations, you probably want to change the target directory to a

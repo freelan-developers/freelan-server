@@ -35,4 +35,3 @@ class ApiGetAuthorityCertificateView(MethodView):
         }
 
         return jsonify(**result)
-

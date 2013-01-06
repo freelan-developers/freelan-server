@@ -34,6 +34,7 @@ class User(DATABASE.Model, UserMixin):
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
     admin_flag = DATABASE.Column(DATABASE.Boolean(), nullable=False)
     certificate_string = DATABASE.Column(DATABASE.String(), nullable=True)
+    active_memberships = DATABASE.relationship('ActiveMembership', backref='user')
 
     def __init__(self, username='', email=None, password='', admin_flag=False, certificate=None):
         """
@@ -103,6 +104,51 @@ class User(DATABASE.Model, UserMixin):
         else:
             self.certificate_string = None
 
+    def join_network(self, network, endpoints, validity_date):
+        """
+        Join a network.
+        """
+
+        if not self in network.users:
+            raise ValueError('Unable to join a network the user doesn\'t belong to.')
+
+        endpoints = set(
+            ep for ep in endpoints if ep not in (
+                x.endpoint for x in self.active_memberships
+            )
+        )
+
+        for endpoint in endpoints:
+            self.active_memberships.append(
+                ActiveMembership(
+                    user=self,
+                    network=network,
+                    endpoint=endpoint,
+                    validity_date=validity_date,
+                )
+            )
+
+    def leave_network(self, network):
+        """
+        Leave a network.
+        """
+
+        if not self in network.users:
+            raise ValueError('Unable to leave a network the user doesn\'t belong to.')
+
+        self.active_memberships = [x for x in self.active_memberships if x.network != network]
+
+    def get_active_memberships(self, network):
+        """
+        Get the user active memberships on the specified network if any, or an
+        empty list otherwise.
+        """
+
+        if not self in network.users:
+            raise ValueError('Unable to check active membership to a network the user doesn\'t belong to.')
+
+        return [x for x in self.active_memberships if x.network == network]
+
     password = property(fset=set_password)
     certificate = property(fget=get_certificate, fset=set_certificate)
 
@@ -117,6 +163,7 @@ class Network(DATABASE.Model):
     users = DATABASE.relationship('User', secondary=NetworkUserTable, backref='networks')
     ipv4_address = DATABASE.Column(DATABASE.String(64), unique=False, nullable=True)
     ipv6_address = DATABASE.Column(DATABASE.String(64), unique=False, nullable=True)
+    active_memberships = DATABASE.relationship('ActiveMembership', backref='network')
 
     def __init__(self, name=''):
         """
@@ -127,3 +174,26 @@ class Network(DATABASE.Model):
         self.creation_date = datetime.datetime.now()
         self.ipv4_address = None
         self.ipv6_address = None
+
+class ActiveMembership(DATABASE.Model):
+    """
+    Represents the active membership of a user to a network.
+    """
+
+    id = DATABASE.Column(DATABASE.Integer, primary_key=True)
+    user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'))
+    network_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('network.id'))
+    endpoint = DATABASE.Column(DATABASE.String(64), unique=False, nullable=False)
+    validity_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
+    creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
+
+    def __init__(self, user, network, endpoint, validity_date):
+        """
+        Initialize a new active membership.
+        """
+
+        self.user = user
+        self.network = network
+        self.endpoint = endpoint
+        self.validity_date = validity_date
+        self.creation_date = datetime.datetime.now()

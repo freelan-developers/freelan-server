@@ -5,6 +5,8 @@ The API sign view.
 import base64
 from datetime import datetime, timedelta
 
+from freelan_server.database import DATABASE
+
 from M2Crypto import RSA, X509, EVP, ASN1
 
 from flask.views import MethodView
@@ -88,6 +90,8 @@ class ApiSignView(MethodView):
         certificate.sign(pkey, 'sha1')
 
         current_user.certificate = certificate
+
+        DATABASE.session.commit()
 
         result = {
             'certificate': current_user.certificate_string,

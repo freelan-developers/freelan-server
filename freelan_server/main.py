@@ -2,8 +2,6 @@
 The library entry point.
 """
 
-import os
-import sys
 from argparse import ArgumentParser
 
 def run(args):
@@ -114,6 +112,33 @@ def list_users(args):
             'creation_date': user.creation_date,
             'networks': ', '.join([network.name for network in user.networks])
         }
+
+def list_users_memberships(args):
+    """
+    List the users memberships.
+    """
+
+    from freelan_server.database import User, Network
+
+    users = User.query.all()
+
+    print 'Listing memberships for %s existing account(s):' % len(users)
+
+    for user in users:
+        print
+
+        if user.networks:
+            print u'%s:' % user.username
+
+            for network in user.networks:
+                active_memberships = user.get_active_memberships(network)
+
+                if active_memberships:
+                    print u'* %s: %s' % (network.name, ', '.join(x.endpoint for x in active_memberships))
+                else:
+                    print u'* %s: no memberships' % network.name
+        else:
+            print u'%s: no networks' % user.username
 
 def create_user(args):
     """
@@ -357,6 +382,9 @@ def main():
 
     user_list_parser = user_action_parser.add_parser('list', help='List the existing users.')
     user_list_parser.set_defaults(func=list_users)
+
+    user_list_parser = user_action_parser.add_parser('membership', help='List the existing users memberships.')
+    user_list_parser.set_defaults(func=list_users_memberships)
 
     user_create_parser = user_action_parser.add_parser('create', help='Create a user.')
     user_create_parser.add_argument('username', help='The user username.')
