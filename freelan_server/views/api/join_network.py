@@ -2,13 +2,11 @@
 The API join network view.
 """
 
-from datetime import datetime, timedelta
-
 from freelan_server.database import Network
 
 from flask.views import MethodView
 
-from flask import request, session, jsonify
+from flask import request, jsonify
 from flask_login import current_user, login_required
 
 class ApiJoinNetworkView(MethodView):
@@ -25,6 +23,8 @@ class ApiJoinNetworkView(MethodView):
         app is the application.
         """
 
+        super(ApiJoinNetworkView, self).__init__()
+
         self.app = app
 
     def post(self):
@@ -36,7 +36,11 @@ class ApiJoinNetworkView(MethodView):
         if not network or not network in current_user.networks:
             return 'No network match the specified name. ("%s")' % network_name, 403
 
-        users_certificates = [user.certificate_string for user in network.users if (user != current_user) and user.certificate_string]
+        users_certificates = [
+            user.certificate_string for user in network.users
+            if (user != current_user) and user.certificate_string
+        ]
+
         # TODO: Implement the line below
         users_endpoints = []
 
