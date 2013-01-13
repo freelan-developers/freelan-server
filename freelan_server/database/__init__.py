@@ -104,7 +104,7 @@ class User(DATABASE.Model, UserMixin):
         else:
             self.certificate_string = None
 
-    def join_network(self, network, endpoints, validity_date):
+    def join_network(self, network, endpoints):
         """
         Join a network.
         """
@@ -112,21 +112,19 @@ class User(DATABASE.Model, UserMixin):
         if not self in network.users:
             raise ValueError('Unable to join a network the user doesn\'t belong to.')
 
-        endpoints = set(
-            ep for ep in endpoints if ep not in (
-                x.endpoint for x in self.active_memberships
-            )
-        )
+        existing_endpoints = dict((x.endpoint, x) for x in self.active_memberships)
 
         for endpoint in endpoints:
-            self.active_memberships.append(
-                ActiveMembership(
-                    user=self,
-                    network=network,
-                    endpoint=endpoint,
-                    validity_date=validity_date,
+            if endpoint in existing_endpoints:
+                existing_endpoints[endpoint].creation_date = datetime.datetime.now()
+            else:
+                self.active_memberships.append(
+                    ActiveMembership(
+                        user=self,
+                        network=network,
+                        endpoint=endpoint,
+                    )
                 )
-            )
 
     def leave_network(self, network):
         """
@@ -184,10 +182,9 @@ class ActiveMembership(DATABASE.Model):
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'))
     network_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('network.id'))
     endpoint = DATABASE.Column(DATABASE.String(64), unique=False, nullable=False)
-    validity_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
 
-    def __init__(self, user, network, endpoint, validity_date):
+    def __init__(self, user, network, endpoint):
         """
         Initialize a new active membership.
         """
@@ -195,5 +192,4 @@ class ActiveMembership(DATABASE.Model):
         self.user = user
         self.network = network
         self.endpoint = endpoint
-        self.validity_date = validity_date
         self.creation_date = datetime.datetime.now()

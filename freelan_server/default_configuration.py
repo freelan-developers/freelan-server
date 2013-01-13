@@ -4,6 +4,7 @@ The default configuration.
 
 import os
 import tempfile
+from datetime import timedelta
 
 # The host to listen on.
 HOST = '::'
@@ -30,7 +31,7 @@ AUTHORITY_PRIVATE_KEY_PASSPHRASE = None
 CERTIFICATE_VALIDITY_DURATION = 3
 
 # The network membership duration, in seconds.
-NETWORK_MEMBERSHIP_VALIDITY_DURATION = 300
+NETWORK_MEMBERSHIP_VALIDITY_DURATION = timedelta(seconds=300)
 
 # The database URI.
 #

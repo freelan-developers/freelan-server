@@ -2,7 +2,7 @@
 The API join network view.
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from freelan_server.database import DATABASE, Network
 
@@ -73,7 +73,6 @@ class ApiJoinNetworkView(MethodView):
         current_user.join_network(
             network=network,
             endpoints=endpoints,
-            validity_date=datetime.now() + timedelta(seconds=self.app.config['NETWORK_MEMBERSHIP_VALIDITY_DURATION']),
         )
 
         DATABASE.session.commit()
@@ -86,7 +85,7 @@ class ApiJoinNetworkView(MethodView):
         users_endpoints = [
             ep for ep in (
                 am.endpoint for am in network.active_memberships
-                if (am.user != current_user) and (am.validity_date > datetime.now())
+                if (am.user != current_user) and ((datetime.now() - am.creation_date) <= self.app.config['NETWORK_MEMBERSHIP_VALIDITY_DURATION'])
             )
         ]
 
