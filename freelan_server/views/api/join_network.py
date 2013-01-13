@@ -11,6 +11,8 @@ from flask.views import MethodView
 from flask import request, jsonify
 from flask_login import current_user, login_required
 
+import IPy
+
 class ApiJoinNetworkView(MethodView):
     """
     The API join network view.
@@ -41,6 +43,32 @@ class ApiJoinNetworkView(MethodView):
 
         if not endpoints:
             return 'No endpoints specified.', 403
+
+        def replace_host_part(endpoint):
+            try:
+                index = endpoint.rindex(':')
+                host_part = endpoint[:index]
+                port_part = endpoint[index + 1:]
+
+                if host_part.startswith('[') and host_part.endswith(']'):
+                    host_part = host_part[1:-1]
+
+                ip_address = IPy.IP(host_part)
+
+                if not ip_address.ip:
+                    new_host_part = request.host[:request.host.rindex(':')]
+
+                    if ':' in new_host_part:
+                        return '[%s]:%s' % (new_host_part, port_part)
+                    else:
+                        return '%s:%s' % (new_host_part, port_part)
+
+            except ValueError:
+                pass
+
+            return endpoint
+
+        endpoints = list(set(map(replace_host_part, endpoints)))
 
         current_user.join_network(
             network=network,
