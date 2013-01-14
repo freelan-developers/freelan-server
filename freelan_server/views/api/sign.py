@@ -59,12 +59,12 @@ class ApiSignView(MethodView):
 
         # Set the certificate subject
         subject_name = X509.X509_Name()
-        subject_name.CN = certificate_request.get_subject().CN
-        subject_name.OU = self.app.config['AUTHORITY_CERTIFICATE'].get_subject().OU
-        subject_name.O = self.app.config['AUTHORITY_CERTIFICATE'].get_subject().O
-        subject_name.L = self.app.config['AUTHORITY_CERTIFICATE'].get_subject().L
-        subject_name.ST = self.app.config['AUTHORITY_CERTIFICATE'].get_subject().ST
-        subject_name.C = self.app.config['AUTHORITY_CERTIFICATE'].get_subject().C
+        subject_name.CN = certificate_request.get_subject().CN or ''
+        subject_name.OU = self.app.config['AUTHORITY_CERTIFICATE'].get_subject().OU or ''
+        subject_name.O = self.app.config['AUTHORITY_CERTIFICATE'].get_subject().O or ''
+        subject_name.L = self.app.config['AUTHORITY_CERTIFICATE'].get_subject().L or ''
+        subject_name.ST = self.app.config['AUTHORITY_CERTIFICATE'].get_subject().ST or ''
+        subject_name.C = self.app.config['AUTHORITY_CERTIFICATE'].get_subject().C or ''
 
         certificate.set_subject(subject_name)
 
