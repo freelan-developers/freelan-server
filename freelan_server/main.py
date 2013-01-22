@@ -371,6 +371,8 @@ def main():
 
     parser = ArgumentParser()
 
+    parser.add_argument('-d', '--debug', action='store_true', help='Enable debug output.')
+
     # The subparsers
     action_parser = parser.add_subparsers()
 
@@ -467,7 +469,11 @@ def main():
 
     try:
         return args.func(args)
-    except Exception, ex:
-        print 'Error: %s' % ex
-        return 1
 
+    except Exception, ex:
+        if args.debug:
+            raise
+        else:
+            print 'Error: %s' % ex
+
+        return 1
