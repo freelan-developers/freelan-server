@@ -7,6 +7,7 @@ import base64
 from freelan_server import APPLICATION
 
 from flask.ext.sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.associationproxy import association_proxy
 
 from flask_login import UserMixin
 
@@ -16,11 +17,47 @@ import M2Crypto as m2
 
 DATABASE = SQLAlchemy(APPLICATION)
 
-NetworkUserTable = DATABASE.Table(
-    'network_user',
-    DATABASE.Column('network_id', DATABASE.Integer, DATABASE.ForeignKey('network.id')),
-    DATABASE.Column('user_id', DATABASE.Integer, DATABASE.ForeignKey('user.id')),
-)
+class UserInNetwork(DATABASE.Model):
+    """
+    Represents a user within a network.
+    """
+
+    network_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('network.id'), primary_key=True)
+    user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'), primary_key=True)
+    creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
+    ipv4_address = DATABASE.Column(DATABASE.String(64), unique=False, nullable=True)
+    ipv6_address = DATABASE.Column(DATABASE.String(64), unique=False, nullable=True)
+    raw_endpoints = DATABASE.relationship('Endpoint', backref='user_in_network', primaryjoin='(Endpoint.user_in_network_network_id == UserInNetwork.network_id) & (Endpoint.user_in_network_user_id == UserInNetwork.user_id)')
+    endpoints = association_proxy('raw_endpoints', 'value')
+
+    def __init__(self, network=None, user=None):
+        """
+        Initializes a new user-in-network.
+        """
+
+        self.creation_date = datetime.datetime.now()
+        self.network = network
+        self.user = user
+
+class Endpoint(DATABASE.Model):
+    """
+    Represents an endpoint.
+    """
+
+    id = DATABASE.Column(DATABASE.Integer, primary_key=True)
+    user_in_network_network_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user_in_network.network_id'))
+    user_in_network_user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user_in_network.user_id'))
+    creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
+    value = DATABASE.Column(DATABASE.String(64), unique=False, nullable=False)
+    __table_args__ = (DATABASE.UniqueConstraint('user_in_network_network_id', 'user_in_network_user_id', 'value', name='endpoint_uc'),)
+
+    def __init__(self, value):
+        """
+        Initializes a new user-in-network.
+        """
+
+        self.creation_date = datetime.datetime.now()
+        self.value = value
 
 class User(DATABASE.Model, UserMixin):
     """
@@ -34,7 +71,8 @@ class User(DATABASE.Model, UserMixin):
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
     admin_flag = DATABASE.Column(DATABASE.Boolean(), nullable=False)
     certificate_string = DATABASE.Column(DATABASE.String(), nullable=True)
-    active_memberships = DATABASE.relationship('ActiveMembership', backref='user')
+    memberships = DATABASE.relationship('UserInNetwork', backref='user')
+    networks = association_proxy('memberships', 'network', creator=lambda network: UserInNetwork(network=network))
 
     def __init__(self, username='', email=None, password='', admin_flag=False, certificate=None):
         """
@@ -109,43 +147,25 @@ class User(DATABASE.Model, UserMixin):
         Join a network.
         """
 
-        if not self in network.users:
+        membership = UserInNetwork.query.filter_by(user=self, network=network).first()
+
+        if not membership:
             raise ValueError('Unable to join a network the user doesn\'t belong to.')
 
-        existing_endpoints = dict((x.endpoint, x) for x in self.active_memberships)
-
         for endpoint in endpoints:
-            if endpoint in existing_endpoints:
-                existing_endpoints[endpoint].creation_date = datetime.datetime.now()
-            else:
-                self.active_memberships.append(
-                    ActiveMembership(
-                        user=self,
-                        network=network,
-                        endpoint=endpoint,
-                    )
-                )
+            membership.endpoints.append(endpoint)
 
     def leave_network(self, network):
         """
         Leave a network.
         """
 
-        if not self in network.users:
+        membership = UserInNetwork.query.filter_by(user=self, network=network).first()
+
+        if not membership:
             raise ValueError('Unable to leave a network the user doesn\'t belong to.')
 
-        self.active_memberships = [x for x in self.active_memberships if x.network != network]
-
-    def get_active_memberships(self, network):
-        """
-        Get the user active memberships on the specified network if any, or an
-        empty list otherwise.
-        """
-
-        if not self in network.users:
-            raise ValueError('Unable to check active membership to a network the user doesn\'t belong to.')
-
-        return [x for x in self.active_memberships if x.network == network]
+        membership.endpoints = []
 
     password = property(fset=set_password)
     certificate = property(fget=get_certificate, fset=set_certificate)
@@ -158,10 +178,10 @@ class Network(DATABASE.Model):
     id = DATABASE.Column(DATABASE.Integer, primary_key=True)
     name = DATABASE.Column(DATABASE.String(80), unique=True, nullable=False)
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
-    users = DATABASE.relationship('User', secondary=NetworkUserTable, backref='networks')
     ipv4_address = DATABASE.Column(DATABASE.String(64), unique=False, nullable=True)
     ipv6_address = DATABASE.Column(DATABASE.String(64), unique=False, nullable=True)
-    active_memberships = DATABASE.relationship('ActiveMembership', backref='network')
+    memberships = DATABASE.relationship('UserInNetwork', backref='network')
+    users = association_proxy('memberships', 'user', creator=lambda user: UserInNetwork(user=user))
 
     def __init__(self, name=''):
         """
@@ -172,24 +192,3 @@ class Network(DATABASE.Model):
         self.creation_date = datetime.datetime.now()
         self.ipv4_address = None
         self.ipv6_address = None
-
-class ActiveMembership(DATABASE.Model):
-    """
-    Represents the active membership of a user to a network.
-    """
-
-    id = DATABASE.Column(DATABASE.Integer, primary_key=True)
-    user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'))
-    network_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('network.id'))
-    endpoint = DATABASE.Column(DATABASE.String(64), unique=False, nullable=False)
-    creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
-
-    def __init__(self, user, network, endpoint):
-        """
-        Initialize a new active membership.
-        """
-
-        self.user = user
-        self.network = network
-        self.endpoint = endpoint
-        self.creation_date = datetime.datetime.now()

@@ -118,7 +118,7 @@ def list_users_memberships(args):
     List the users memberships.
     """
 
-    from freelan_server.database import User, Network
+    from freelan_server.database import User, Network, UserInNetwork
 
     if args.username:
         users = User.query.filter_by(username=args.username).all()
@@ -150,10 +150,11 @@ def list_users_memberships(args):
                 networks = user.networks
 
             for network in networks:
-                active_memberships = user.get_active_memberships(network)
 
-                if active_memberships:
-                    print u'* %s: %s' % (network.name, ', '.join(x.endpoint for x in active_memberships))
+                membership = UserInNetwork.query.filter_by(user=user, network=network).first()
+
+                if membership:
+                    print u'* %s: %s' % (network.name, ', '.join(membership.endpoints))
                 else:
                     print u'* %s: no memberships' % network.name
         else:
