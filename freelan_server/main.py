@@ -151,7 +151,7 @@ def list_users_memberships(args):
 
             for network in networks:
 
-                membership = UserInNetwork.query.filter_by(user=user, network=network).first()
+                membership = user.get_membership(network)
 
                 if membership:
                     print u'* %s: %s' % (network.name, ', '.join(membership.endpoints))

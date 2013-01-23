@@ -142,12 +142,19 @@ class User(DATABASE.Model, UserMixin):
         else:
             self.certificate_string = None
 
+    def get_membership(self, network):
+        """
+        Get the network membership.
+        """
+
+        return UserInNetwork.query.filter_by(user=self, network=network).first()
+
     def join_network(self, network, endpoints):
         """
         Join a network.
         """
 
-        membership = UserInNetwork.query.filter_by(user=self, network=network).first()
+        membership = self.get_membership(network)
 
         if not membership:
             raise ValueError('Unable to join a network the user doesn\'t belong to.')
@@ -163,7 +170,7 @@ class User(DATABASE.Model, UserMixin):
         Leave a network.
         """
 
-        membership = UserInNetwork.query.filter_by(user=self, network=network).first()
+        membership = self.get_membership(network)
 
         if not membership:
             raise ValueError('Unable to leave a network the user doesn\'t belong to.')
