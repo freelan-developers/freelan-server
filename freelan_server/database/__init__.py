@@ -71,7 +71,7 @@ class User(DATABASE.Model, UserMixin):
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
     admin_flag = DATABASE.Column(DATABASE.Boolean(), nullable=False)
     certificate_string = DATABASE.Column(DATABASE.String(), nullable=True)
-    memberships = DATABASE.relationship('UserInNetwork', backref='user')
+    memberships = DATABASE.relationship('UserInNetwork', backref=DATABASE.backref('user', uselist=False), cascade='all')
     networks = association_proxy('memberships', 'network', creator=lambda network: UserInNetwork(network=network))
 
     def __init__(self, username='', email=None, password='', admin_flag=False, certificate=None):
@@ -174,7 +174,7 @@ class Network(DATABASE.Model):
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
     ipv4_address = DATABASE.Column(DATABASE.String(64), unique=False, nullable=True)
     ipv6_address = DATABASE.Column(DATABASE.String(64), unique=False, nullable=True)
-    memberships = DATABASE.relationship('UserInNetwork', backref='network')
+    memberships = DATABASE.relationship('UserInNetwork', backref=DATABASE.backref('network', uselist=False), cascade='all')
     users = association_proxy('memberships', 'user', creator=lambda user: UserInNetwork(user=user))
 
     def __init__(self, name=''):
