@@ -82,10 +82,15 @@ class ApiJoinNetworkView(MethodView):
             if (user != current_user) and user.certificate_string
         ]
 
-        # FIXME: Doesn't work as intended: always returns an empty list
         memberships = [membership for membership in network.memberships if membership.user != current_user]
-        all_endpoints = [endpoint for endpoint in membership.raw_endpoints for membership in memberships]
-        valid_endpoints = [endpoint for endpoint in all_endpoints if (datetime.now() - endpoint.creation_date) <= self.app.config['NETWORK_MEMBERSHIP_VALIDITY_DURATION']]
+
+        valid_endpoints = []
+        now = datetime.now()
+
+        for membership in memberships:
+            for raw_endpoint in membership.raw_endpoints:
+                if (now - raw_endpoint.creation_date) <= self.app.config['NETWORK_MEMBERSHIP_VALIDITY_DURATION']:
+                    valid_endpoints.append(raw_endpoint.value)
 
         # FIXME: Make the following IP addresses dynamic
         result = {
