@@ -153,6 +153,9 @@ class User(DATABASE.Model, UserMixin):
             raise ValueError('Unable to join a network the user doesn\'t belong to.')
 
         for endpoint in endpoints:
+            if endpoint in membership.endpoints:
+                membership.endpoints.remove(endpoint)
+
             membership.endpoints.append(endpoint)
 
     def leave_network(self, network):
