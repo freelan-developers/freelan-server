@@ -22,13 +22,15 @@ class UserInNetwork(DATABASE.Model):
     Represents a user within a network.
     """
 
-    network_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('network.id'), primary_key=True)
-    user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'), primary_key=True)
+    id = DATABASE.Column(DATABASE.Integer, primary_key=True)
+    network_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('network.id', ondelete='CASCADE'), nullable=False)
+    user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
     ipv4_address = DATABASE.Column(DATABASE.String(64), unique=False, nullable=True)
     ipv6_address = DATABASE.Column(DATABASE.String(64), unique=False, nullable=True)
-    raw_endpoints = DATABASE.relationship('Endpoint', backref='user_in_network', primaryjoin='(Endpoint.user_in_network_network_id == UserInNetwork.network_id) & (Endpoint.user_in_network_user_id == UserInNetwork.user_id)')
+    raw_endpoints = DATABASE.relationship('Endpoint', backref='user_in_network')
     endpoints = association_proxy('raw_endpoints', 'value')
+    __table_args__ = (DATABASE.UniqueConstraint('network_id', 'user_id', name='user_in_network_uc'),)
 
     def __init__(self, network=None, user=None):
         """
@@ -45,11 +47,10 @@ class Endpoint(DATABASE.Model):
     """
 
     id = DATABASE.Column(DATABASE.Integer, primary_key=True)
-    user_in_network_network_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user_in_network.network_id'))
-    user_in_network_user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user_in_network.user_id'))
+    user_in_network_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user_in_network.id'))
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False)
     value = DATABASE.Column(DATABASE.String(64), unique=False, nullable=False)
-    __table_args__ = (DATABASE.UniqueConstraint('user_in_network_network_id', 'user_in_network_user_id', 'value', name='endpoint_uc'),)
+    __table_args__ = (DATABASE.UniqueConstraint('user_in_network_id', 'value', name='endpoint_uc'),)
 
     def __init__(self, value):
         """
