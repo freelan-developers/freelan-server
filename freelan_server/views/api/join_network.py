@@ -70,7 +70,7 @@ class ApiJoinNetworkView(MethodView):
 
         endpoints = list(set(map(replace_host_part, endpoints)))
 
-        current_user.join_network(
+        current_user.set_endpoints(
             network=network,
             endpoints=endpoints,
         )

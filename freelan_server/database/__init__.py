@@ -149,33 +149,17 @@ class User(DATABASE.Model, UserMixin):
 
         return UserInNetwork.query.filter_by(user=self, network=network).first()
 
-    def join_network(self, network, endpoints):
+    def set_endpoints(self, network, endpoints):
         """
-        Join a network.
-        """
-
-        membership = self.get_membership(network)
-
-        if not membership:
-            raise ValueError('Unable to join a network the user doesn\'t belong to.')
-
-        for endpoint in endpoints:
-            if endpoint in membership.endpoints:
-                membership.endpoints.remove(endpoint)
-
-            membership.endpoints.append(endpoint)
-
-    def leave_network(self, network):
-        """
-        Leave a network.
+        Set the endpoints.
         """
 
         membership = self.get_membership(network)
 
         if not membership:
-            raise ValueError('Unable to leave a network the user doesn\'t belong to.')
+            raise ValueError('Unable to set endpoints for a network the user doesn\'t belong to.')
 
-        membership.endpoints = []
+        membership.endpoints = endpoints or []
 
     password = property(fset=set_password)
     certificate = property(fget=get_certificate, fset=set_certificate)
