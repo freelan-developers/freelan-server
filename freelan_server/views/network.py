@@ -70,7 +70,7 @@ class NetworkView(MethodView):
 
                 attribute = m and m.group(1) or None
 
-                if hasattr(form, attribute):
+                if attribute and hasattr(form, attribute):
                     form_attribute = getattr(form, attribute)
                 else:
                     form_attribute = form.name
