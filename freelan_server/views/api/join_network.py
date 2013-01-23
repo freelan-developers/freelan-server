@@ -56,7 +56,7 @@ class ApiJoinNetworkView(MethodView):
                 ip_address = IPy.IP(host_part)
 
                 if not ip_address.ip:
-                    new_host_part = request.host[:request.host.rindex(':')]
+                    new_host_part = request.remote_addr
 
                     if ':' in new_host_part:
                         return '[%s]:%s' % (new_host_part, port_part)
