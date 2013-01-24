@@ -23,23 +23,23 @@ def init_database(args):
 
     print 'Initializing the database...'
 
-    from freelan_server.database import DATABASE, User, Network
+    from freelan_server.database import DATABASE, User, Network, UserInNetwork
 
     DATABASE.create_all()
 
     if args.password:
-        DATABASE.session.add(User('admin', 'admin@admin.com', args.password, True))
+        DATABASE.session.add(User(username='admin', email='admin@admin.com', password=args.password, admin_flag=True))
         print 'Added an "admin" account with the specified password.'
     else:
-        DATABASE.session.add(User('admin', 'admin@admin.com', 'password', True))
+        DATABASE.session.add(User(username='admin', email='admin@admin.com', password='password', admin_flag=True))
         print 'Added an "admin" account with the default password "password".'
 
     if args.add_test_data:
-        alice = User('alice', 'alice@users.com', 'password')
-        bob = User('bob', 'bob@users.com', 'password')
-        chris = User('chris', 'chris@users.com', 'password')
-        denis = User('denis', 'denis@users.com', 'password')
-        eleanor = User('eleanor', 'eleanor@users.com', 'password')
+        alice = User(username='alice', email='alice@users.com', password='password')
+        bob = User(username='bob', email='bob@users.com', password='password')
+        chris = User(username='chris', email='chris@users.com', password='password')
+        denis = User(username='denis', email='denis@users.com', password='password')
+        eleanor = User(username='eleanor', email='eleanor@users.com', password='password')
 
         DATABASE.session.add(alice)
         DATABASE.session.add(bob)
@@ -48,10 +48,10 @@ def init_database(args):
         DATABASE.session.add(eleanor)
         print 'Added some user accounts with default password "password".'
 
-        my_network = Network('My network')
-        foo_network = Network('Foo network')
-        bar_network = Network('Bar network')
-        virtual_network = Network('Virtual network')
+        my_network = Network(name='My network')
+        foo_network = Network(name='Foo network')
+        bar_network = Network(name='Bar network')
+        virtual_network = Network(name='Virtual network')
 
         DATABASE.session.add(my_network)
         DATABASE.session.add(foo_network)
@@ -59,13 +59,13 @@ def init_database(args):
         DATABASE.session.add(virtual_network)
         print 'Added some networks.'
 
-        my_network.users.append(alice)
-        my_network.users.append(bob)
-        my_network.users.append(chris)
-        foo_network.users.append(alice)
-        foo_network.users.append(bob)
-        bar_network.users.append(alice)
-        virtual_network.users.append(chris)
+        DATABASE.session.add(UserInNetwork(user=alice, network=my_network))
+        DATABASE.session.add(UserInNetwork(user=bob, network=my_network))
+        DATABASE.session.add(UserInNetwork(user=chris, network=my_network))
+        DATABASE.session.add(UserInNetwork(user=alice, network=foo_network))
+        DATABASE.session.add(UserInNetwork(user=bob, network=foo_network))
+        DATABASE.session.add(UserInNetwork(user=alice, network=bar_network))
+        DATABASE.session.add(UserInNetwork(user=chris, network=virtual_network))
         print 'Added some users to the networks.'
 
     DATABASE.session.commit()

@@ -13,7 +13,7 @@
 			</li>
 			<li>
 				<a href="{{ url_for('networks') }}">
-					{{ current_user.networks | count }} network(s)
+					{{ current_user.memberships | count }} network(s)
 				</a>
 			</li>
 			<li><a href="{{ url_for('logout') }}">Log out</a></li>
