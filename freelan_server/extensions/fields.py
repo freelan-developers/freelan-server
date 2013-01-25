@@ -2,10 +2,19 @@
 Specific fields.
 """
 
-from wtforms import TextField
+from wtforms import Field, TextField
 from ip import IP
 
-from freelan_server.extensions.widgets import IPTextInput
+from freelan_server.extensions.widgets import Simple, IPTextInput
+
+class ConstantField(Field):
+    """
+    A constant field.
+    """
+    widget = Simple()
+
+    def process_formdata(self, valuelist):
+        pass
 
 class IPTextField(TextField):
     """

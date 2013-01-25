@@ -105,15 +105,60 @@ Freelan Server - New user
 				{% if form.networks %}
 					<div class="networks-div">
 						{{ form.networks.label }}
-						{% if current_user.admin_flag %}
-							{{ form.networks(class=form.networks.errors and 'form-error' or '') }}
-						{% else %}
-							{{ form.networks(class=form.networks.errors and 'form-error' or '', disabled='') }}
-						{% endif %}
 
-						{% for error in form.networks.errors %}
-							<span class="errormsg">{{ error }}</span>
-						{% endfor %}
+						<table class="membership">
+							<thead>
+								<tr>
+									<th colspan="2">Network</th>
+									<th>IPv4 address</th>
+									<th>IPv6 address</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								{% for network_form in form.networks %}
+									<tr>
+										<td colspan="2">
+											{{ network_form.csrf_token }}
+
+											<label>
+												{{ network_form.is_member(class=network_form.is_member.errors and 'form-error' or None) }}
+												{{ network_form.network_name(element='strong') }}
+
+												{% for error in network_form.is_member.errors %}
+													<span class="errormsg">{{ error }}</span>
+												{% endfor %}
+											</label>
+										</td>
+
+										<td>
+											{% if current_user.admin_flag %}
+												{{ network_form.ipv4_address(placeholder='Auto-assigned IPv4 address', class=network_form.ipv4_address.errors and 'form-error' or '') }}
+											{% else %}
+												{{ network_form.ipv4_address(placeholder='Auto-assigned IPv4 address', readonly='readonly', class=network_form.ipv4_address.errors and 'form-error' or '') }}
+											{% endif %}
+
+											{% for error in network_form.ipv4_address.errors %}
+												<span class="errormsg">{{ error }}</span>
+											{% endfor %}
+										</td>
+
+										<td>
+											{% if current_user.admin_flag %}
+												{{ network_form.ipv6_address(placeholder='Auto-assigned IPv6 address', class=network_form.ipv6_address.errors and 'form-error' or '') }}
+											{% else %}
+												{{ network_form.ipv6_address(placeholder='Auto-assigned IPv6 address', readonly='readonly', class=network_form.ipv6_address.errors and 'form-error' or '') }}
+											{% endif %}
+
+											{% for error in network_form.ipv6_address.errors %}
+												<span class="errormsg">{{ error }}</span>
+											{% endfor %}
+										</td>
+									</tr>
+
+								{% endfor %}
+							</tbody>
+						</table>
 					</div>
 				{% endif %}
 

@@ -6,6 +6,25 @@ from jinja2 import Markup
 from wtforms.widgets import Select as wtfSelect
 from wtforms.widgets import TextInput as wtfTextInput
 
+class Simple(object):
+    """
+    Renders a span.
+    """
+
+    def __call__(self, field, **kw):
+
+        if 'element' in kw:
+            element = kw['element']
+            del kw['element']
+        else:
+            element = 'span'
+
+        return Markup('<%(element)s %(attributes)s>%(text)s</%(element)s>' % {
+            'element': element,
+            'text': field.data,
+            'attributes': ' '.join(map(lambda x: '%s="%s"' % x, kw.items())),
+        })
+
 class Select(wtfSelect):
     """
     Renders a select input.

@@ -39,22 +39,7 @@ Freelan Server - New network
 					{% endfor %}
 				</div>
 				
-				{% if form.users %}
-					<div class="users-div">
-						{{ form.users.label }}
-						{% if current_user.admin_flag %}
-							{{ form.users(class=form.users.errors and 'form-error' or '') }}
-						{% else %}
-							{{ form.users(class=form.users.errors and 'form-error' or '', disabled='') }}
-						{% endif %}
-
-						{% for error in form.users.errors %}
-							<span class="errormsg">{{ error }}</span>
-						{% endfor %}
-					</div>
-				{% endif %}
-
-				<div class="ipv4_address">
+				<div class="ipv4_address-div">
 					{{ form.ipv4_address.label }}
 					{% if current_user.admin_flag %}
 						{{ form.ipv4_address(placeholder='IPv4 network', class=form.ipv4_address.errors and 'form-error' or '') }}
@@ -67,7 +52,7 @@ Freelan Server - New network
 					{% endfor %}
 				</div>
 				
-				<div class="ipv6_address">
+				<div class="ipv6_address-div">
 					{{ form.ipv6_address.label }}
 					{% if current_user.admin_flag %}
 						{{ form.ipv6_address(placeholder='IPv6 network', class=form.ipv6_address.errors and 'form-error' or '') }}
@@ -80,6 +65,66 @@ Freelan Server - New network
 					{% endfor %}
 				</div>
 				
+				{% if form.members %}
+					<div class="members-div">
+						{{ form.members.label }}
+
+						<table class="membership">
+							<thead>
+								<tr>
+									<th colspan="2">User</th>
+									<th>IPv4 address</th>
+									<th>IPv6 address</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								{% for member_form in form.members %}
+									<tr>
+										<td colspan="2">
+											{{ member_form.csrf_token }}
+
+											<label>
+												{{ member_form.is_member(class=member_form.is_member.errors and 'form-error' or None) }}
+												{{ member_form.username(element='strong') }}
+
+												{% for error in member_form.is_member.errors %}
+													<span class="errormsg">{{ error }}</span>
+												{% endfor %}
+											</label>
+										</td>
+
+										<td>
+											{% if current_user.admin_flag %}
+												{{ member_form.ipv4_address(placeholder='Auto-assigned IPv4 address', class=member_form.ipv4_address.errors and 'form-error' or '') }}
+											{% else %}
+												{{ member_form.ipv4_address(placeholder='Auto-assigned IPv4 address', readonly='readonly', class=member_form.ipv4_address.errors and 'form-error' or '') }}
+											{% endif %}
+
+											{% for error in member_form.ipv4_address.errors %}
+												<span class="errormsg">{{ error }}</span>
+											{% endfor %}
+										</td>
+
+										<td>
+											{% if current_user.admin_flag %}
+												{{ member_form.ipv6_address(placeholder='Auto-assigned IPv6 address', class=member_form.ipv6_address.errors and 'form-error' or '') }}
+											{% else %}
+												{{ member_form.ipv6_address(placeholder='Auto-assigned IPv6 address', readonly='readonly', class=member_form.ipv6_address.errors and 'form-error' or '') }}
+											{% endif %}
+
+											{% for error in member_form.ipv6_address.errors %}
+												<span class="errormsg">{{ error }}</span>
+											{% endfor %}
+										</td>
+									</tr>
+
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				{% endif %}
+
 				<div class="submit-div">
 					{% if current_user.admin_flag %}
 						<input type="submit" value="{{ network and 'Update' or 'Create' }}" />

@@ -287,6 +287,11 @@ div.form-box div .error{
 div.form-box label {
 	display: block;
 	margin: 0 0 .5em;
+	cursor: pointer;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
 }
 
 div.form-box input[type="text"],
