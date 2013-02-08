@@ -31,6 +31,17 @@
 				{% endfor %}
 			</div>
 
+			{% if form.recaptcha %}
+				<div class="recaptcha-div">
+					{{ form.recaptcha.label }}
+					{{ form.recaptcha }}
+
+					{% for error in form.recaptcha.errors %}
+						<span class="errormsg">{{ error }}</span>
+					{% endfor %}
+				</div>
+			{% endif %}
+
 			<input type="submit" value="Log in" />
 
 			<label class="remember">
@@ -44,6 +55,12 @@
 		</fieldset>
 	</form>
 </div>
+
+{% if register_enabled %}
+	<div class="comment-box">
+		<p>Not registered ? Click <a href="{{ url_for('register') }}">here</a> to change that !</p>
+	</div>
+{% endif %}
 
 {# The footer #}
 {% include 'elements/footer.html' %}

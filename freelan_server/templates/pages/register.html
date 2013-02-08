@@ -1,0 +1,84 @@
+{# The register page #}
+
+{% extends "generic/main.html" %}
+
+{% block title %}Freelan Server - Register{% endblock %}
+
+{% block content %}
+
+<div class="form-box register-box">
+	<h2>Register</h2>
+
+	<form method="post" action="{{ url_for('register') }}">
+		{{ form.csrf_token }}
+
+		<fieldset>
+				<div class="username-div">
+					{{ form.username.label }}
+					{{ form.username(placeholder='Enter a username', autofocus='autofocus', class=form.username.errors and 'form-error' or '') }}
+
+					{% for error in form.username.errors %}
+						<span class="errormsg">{{ error }}</span>
+					{% endfor %}
+				</div>
+				
+				{% if form.password %}
+					<div class="password-div">
+						{{ form.password.label }}
+						{{ form.password(placeholder='Enter the new password', class=form.password.errors and 'form-error' or '') }}
+
+						{% for error in form.password.errors %}
+							<span class="errormsg">{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+
+				{% if form.password_repeat %}
+					<div class="password-repeat-div">
+						{{ form.password_repeat.label }}
+						{{ form.password_repeat(placeholder='Repeat the new password', class=form.password_repeat.errors and 'form-error' or '') }}
+
+						{% for error in form.password_repeat.errors %}
+							<span class="errormsg">{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+
+				{% if form.email %}
+					<div class="email-div">
+						{{ form.email.label }}
+						{{ form.email(placeholder='Enter an email for the user', class=form.email.errors and 'form-error' or '') }}
+
+						{% for error in form.email.errors %}
+							<span class="errormsg">{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+
+				{% if form.recaptcha %}
+					<div class="recaptcha-div">
+						{{ form.recaptcha.label }}
+						{{ form.recaptcha }}
+
+						{% for error in form.recaptcha.errors %}
+							<span class="errormsg">{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+
+				<div class="submit-div">
+					<input type="submit" value="Submit" />
+					<a class="button default" href="{{ referrer or url_for('login') }}">Cancel</a>
+				</div>
+		</fieldset>
+	</form>
+</div>
+
+<div class="comment-box">
+	<p>Already registered ? Click <a href="{{ url_for('login') }}">here</a> to login.</p>
+</div>
+
+{# The footer #}
+{% include 'elements/footer.html' %}
+
+{% endblock %}

@@ -358,9 +358,19 @@ div.form-box .avatar {
 	margin-left: 25px;
 }
 
-div.login-box {
+div.login-box,
+div.register-box {
 	margin: 160px auto 0;
 	max-width: 280px;
+}
+
+div.comment-box {
+	margin: 1em auto;
+	text-align: center;
+}
+
+div.comment-box p {
+	font-style: italic;
 }
 
 input[type="text"].list-filter {

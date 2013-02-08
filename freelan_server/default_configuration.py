@@ -12,6 +12,12 @@ HOST = '::'
 # Whether to enable debug mode.
 DEBUG = False
 
+# Enable or disable the register option.
+#
+# If you decide to enable it, you probably should setup a recaptcha to prevent
+# spam.
+REGISTER_ENABLED = False
+
 # The authority certificate file.
 #
 # An absolute path to the authority certificate file.
@@ -50,3 +56,11 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///%s' % os.path.join(
 # Failing to do so would allow anyone to steal sessions and you don't want
 # that, do you ?
 SECRET_KEY = 'please change this secret key'
+
+# Recaptcha settings.
+#
+# You may set those to add a captcha to the login and registration forms.
+RECAPTCHA_USE_SSL = False
+RECAPTCHA_PUBLIC_KEY = ''
+RECAPTCHA_PRIVATE_KEY = ''
+RECAPTCHA_OPTIONS = {'theme': 'white'}

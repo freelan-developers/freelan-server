@@ -2,7 +2,7 @@
 The login form.
 """
 
-from flask_wtf import Form, TextField, PasswordField, BooleanField, validators
+from flask_wtf import Form, TextField, PasswordField, RecaptchaField, BooleanField, validators
 
 class LoginForm(Form):
     """
@@ -10,4 +10,5 @@ class LoginForm(Form):
     """
     username = TextField('Username', [validators.Required(), validators.Length(min=1, max=80)])
     password = PasswordField('Password', [validators.Required()])
+    recaptcha = RecaptchaField()
     remember_me = BooleanField('Remember me')

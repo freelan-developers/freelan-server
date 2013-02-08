@@ -14,9 +14,23 @@ class LoginView(MethodView):
     The login view.
     """
 
+    def __init__(self, app):
+        """
+        Initialize the view.
+
+        app is the application.
+        """
+
+        super(LoginView, self).__init__()
+
+        self.app = app
+
     def get(self):
 
         form = LoginForm()
+
+        if not self.app.config['RECAPTCHA_PRIVATE_KEY']:
+            delattr(form, 'recaptcha')
 
         if form.validate_on_submit():
             user = User.query.filter_by(username=form.username.data).first()
@@ -29,6 +43,6 @@ class LoginView(MethodView):
             else:
                 form.password.errors.append('The username or password is incorrect.')
 
-        return render_template('pages/login.html', form=form)
+        return render_template('pages/login.html', form=form, register_enabled=self.app.config['REGISTER_ENABLED'])
 
     post = get
