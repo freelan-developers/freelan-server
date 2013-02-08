@@ -19,6 +19,10 @@ def create_form(user=None):
 
     form = UserForm(obj=user)
 
+    # Only an administrator might edit the network membership.
+    if not current_user.admin_flag:
+        del form.networks
+
     # If we are editing a user that is not the current user, we don't need
     # to specify the current password.
     if user != current_user:

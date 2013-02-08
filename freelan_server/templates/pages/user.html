@@ -132,11 +132,7 @@ Freelan Server - New user
 										</td>
 
 										<td>
-											{% if current_user.admin_flag %}
-												{{ network_form.ipv4_address(placeholder='Auto-assigned IPv4 address', class=network_form.ipv4_address.errors and 'form-error' or '') }}
-											{% else %}
-												{{ network_form.ipv4_address(placeholder='Auto-assigned IPv4 address', readonly='readonly', class=network_form.ipv4_address.errors and 'form-error' or '') }}
-											{% endif %}
+											{{ network_form.ipv4_address(placeholder='Auto-assigned IPv4 address', class=network_form.ipv4_address.errors and 'form-error' or '') }}
 
 											{% for error in network_form.ipv4_address.errors %}
 												<span class="errormsg">{{ error }}</span>
@@ -144,11 +140,7 @@ Freelan Server - New user
 										</td>
 
 										<td>
-											{% if current_user.admin_flag %}
-												{{ network_form.ipv6_address(placeholder='Auto-assigned IPv6 address', class=network_form.ipv6_address.errors and 'form-error' or '') }}
-											{% else %}
-												{{ network_form.ipv6_address(placeholder='Auto-assigned IPv6 address', readonly='readonly', class=network_form.ipv6_address.errors and 'form-error' or '') }}
-											{% endif %}
+											{{ network_form.ipv6_address(placeholder='Auto-assigned IPv6 address', class=network_form.ipv6_address.errors and 'form-error' or '') }}
 
 											{% for error in network_form.ipv6_address.errors %}
 												<span class="errormsg">{{ error }}</span>
@@ -159,6 +151,52 @@ Freelan Server - New user
 								{% endfor %}
 							</tbody>
 						</table>
+					</div>
+				{% else %}
+					<div class="networks-div">
+						<label>Networks</label>
+
+						{% if not user.memberships %}
+							<p class="empty"><em>The user does not belong to any network.</em></p>
+						{% else %}
+							<table class="membership">
+								<thead>
+									<tr>
+										<th>Network</th>
+										<th>IPv4 address</th>
+										<th>IPv6 address</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									{% for network in user.networks %}
+										{% if network.is_member %}
+											<tr>
+												<td>
+													<strong><a href="{{ url_for('network', network_id=network.network_id) }}">{{ network.network_name }}</a></strong>
+												</td>
+
+												<td>
+													{% if network.ipv4_address %}
+														<span class="ipv4_address">{{ network.ipv4_address }}</span>
+													{% else %}
+														<span class="ipv4_address empty">Auto-assigned</span>
+													{% endif %}
+												</td>
+
+												<td>
+													{% if network.ipv6_address %}
+														<span class="ipv6_address">{{ network.ipv6_address }}</span>
+													{% else %}
+														<span class="ipv6_address empty">Auto-assigned</span>
+													{% endif %}
+												</td>
+											</tr>
+										{% endif %}
+									{% endfor %}
+								</tbody>
+							</table>
+						{% endif %}
 					</div>
 				{% endif %}
 

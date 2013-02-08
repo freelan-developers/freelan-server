@@ -123,6 +123,52 @@ Freelan Server - New network
 							</tbody>
 						</table>
 					</div>
+				{% else %}
+					<div class="members-div">
+						<label>Members</label>
+
+						{% if not network.memberships %}
+							<p class="empty"><em>The network does not have any members.</em></p>
+						{% else %}
+							<table class="membership">
+								<thead>
+									<tr>
+										<th>User</th>
+										<th>IPv4 address</th>
+										<th>IPv6 address</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									{% for member in network.members %}
+										{% if member.is_member %}
+											<tr>
+												<td>
+													<strong><a href="{{ url_for('user', user_id=member.user_id) }}">{{ member.username }}</a></strong>
+												</td>
+
+												<td>
+													{% if member.ipv4_address %}
+														<span class="ipv4_address">{{ member.ipv4_address }}</span>
+													{% else %}
+														<span class="ipv4_address empty">Auto-assigned</span>
+													{% endif %}
+												</td>
+
+												<td>
+													{% if member.ipv6_address %}
+														<span class="ipv6_address">{{ member.ipv6_address }}</span>
+													{% else %}
+														<span class="ipv6_address empty">Auto-assigned</span>
+													{% endif %}
+												</td>
+											</tr>
+										{% endif %}
+									{% endfor %}
+								</tbody>
+							</table>
+						{% endif %}
+					</div>
 				{% endif %}
 
 				<div class="submit-div">

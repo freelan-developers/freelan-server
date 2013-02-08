@@ -19,6 +19,9 @@ def create_form(network=None):
 
     form = NetworkForm(obj=network)
 
+    if not current_user.admin_flag:
+        delattr(form, 'members')
+
     return form
 
 class NetworkView(MethodView):
