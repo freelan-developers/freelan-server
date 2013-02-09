@@ -130,9 +130,21 @@ class User(DATABASE.Model, UserMixin):
 
         return UserInNetwork.query.filter_by(user=self, network=network).first()
 
+    def get_endpoints(self, network):
+        """
+        Get the endpoints associated to the specified network.
+        """
+
+        membership = self.get_membership(network)
+
+        if not membership:
+            raise ValueError('Unable to get endpoints for a network the user doesn\'t belong to.')
+
+        return membership.endpoints
+
     def set_endpoints(self, network, endpoints):
         """
-        Set the endpoints.
+        Set the endpoints associated to the specified network.
         """
 
         membership = self.get_membership(network)
