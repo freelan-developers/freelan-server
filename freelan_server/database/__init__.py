@@ -286,6 +286,13 @@ class Network(DATABASE.Model):
 
     members = property(get_members, set_members)
 
+    def get_membership(self, user):
+        """
+        Get the user membership.
+        """
+
+        return UserInNetwork.query.filter_by(user=user, network=self).first()
+
     def get_endpoints(self, validity_duration=None):
         """
         Get the endpoints.
@@ -301,3 +308,27 @@ class Network(DATABASE.Model):
                     endpoints.append(endpoint)
 
         return endpoints
+
+    def get_ipv4_address(self, user):
+        """
+        Get the IPv4 address of a user in the network.
+        """
+
+        membership = self.get_membership(user)
+
+        if not membership:
+            raise ValueError('Unable to get the IPv4 address of a user that does not belong to the network.')
+
+        #TODO: Implement
+
+    def get_ipv6_address(self, user):
+        """
+        Get the IPv6 address of a user in the network.
+        """
+
+        membership = self.get_membership(user)
+
+        if not membership:
+            raise ValueError('Unable to get the IPv6 address of a user that does not belong to the network.')
+
+        #TODO: Implement
