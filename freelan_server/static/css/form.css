@@ -335,6 +335,84 @@ div.form-box fieldset div {
 	color: #dd4b39;
 }
 
+div.form-box .ip-address-input {
+	font-family: monospace;
+}
+
+div.form-box .ipv4-address-input {
+	min-width: 13em;
+}
+
+div.form-box .ipv6-address-input {
+	min-width: 28em;
+}
+
+div.form-box table {
+	display: inline-block;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background: white;
+	border: 1px solid #d9d9d9;
+	border-top: 1px solid silver;
+	box-sizing: border-box;
+	border-radius: 1px;
+}
+
+div.form-box table th,
+div.form-box table td {
+	padding: 4px 8px;
+	vertical-align: middle;
+	text-align: center;
+	white-space: nowrap;
+}
+
+div.form-box table td label {
+	margin: 0;
+}
+
+div.form-box table td .ip-address-input {
+	text-align: center;
+}
+
+div.form-box table tr > th:first-child {
+	text-align: left;
+	width: 100%;
+}
+
+div.form-box table tr > td:first-child {
+	text-align: left;
+}
+
+div.form-box table > thead > tr {
+	height: 1.5em;
+	padding: 4px;
+	border-bottom: 1px solid silver;
+}
+
+div.form-box table > tbody > tr:nth-child(even) {
+	background-color: #f1f1f1;
+	border-top: 1px solid #f1f1f1;
+}
+
+div.form-box table > tbody > tr:nth-child(odd) {
+	background-color: #f8f8f8;
+	border-top: 1px solid #f8f8f8;
+}
+
+div.form-box table > tbody > tr:hover,
+div.form-box table > tbody > tr:hover + tr {
+	border-top-color: silver;
+}
+
+div.form-box table > tbody > tr:nth-child(even):hover {
+	background-color: #f1f1ff;
+}
+
+div.form-box table > tbody > tr:nth-child(odd):hover {
+	background-color: #f8f8ff;
+}
+
 /* Particular elements */
 
 div.form-box label.remember {

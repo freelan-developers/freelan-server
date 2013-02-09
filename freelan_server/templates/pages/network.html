@@ -42,9 +42,9 @@ Freelan Server - New network
 				<div class="ipv4_address-div">
 					{{ form.ipv4_address.label }}
 					{% if current_user.admin_flag %}
-						{{ form.ipv4_address(placeholder='IPv4 network', class=form.ipv4_address.errors and 'form-error' or '') }}
+						{{ form.ipv4_address(placeholder='aaa.bbb.ccc.ddd/ee', class=form.ipv4_address.errors and 'form-error' or '') }}
 					{% else %}
-						{{ form.ipv4_address(placeholder='IPv4 network', readonly='readonly', class=form.ipv4_address.errors and 'form-error' or '') }}
+						{{ form.ipv4_address(placeholder='aaa.bbb.ccc.ddd/ee', readonly='readonly', class=form.ipv4_address.errors and 'form-error' or '') }}
 					{% endif %}
 
 					{% for error in form.ipv4_address.errors %}
@@ -55,9 +55,9 @@ Freelan Server - New network
 				<div class="ipv6_address-div">
 					{{ form.ipv6_address.label }}
 					{% if current_user.admin_flag %}
-						{{ form.ipv6_address(placeholder='IPv6 network', class=form.ipv6_address.errors and 'form-error' or '') }}
+						{{ form.ipv6_address(placeholder='aaaa:bbbb:cccc:dddd:eeee:ffff:gggg:hhhh/iii', class=form.ipv6_address.errors and 'form-error' or '') }}
 					{% else %}
-						{{ form.ipv6_address(placeholder='IPv6 network', readonly='readonly', class=form.ipv6_address.errors and 'form-error' or '') }}
+						{{ form.ipv6_address(placeholder='aaaa:bbbb:cccc:dddd:eeee:ffff:gggg:hhhh/iii', readonly='readonly', class=form.ipv6_address.errors and 'form-error' or '') }}
 					{% endif %}
 
 					{% for error in form.ipv6_address.errors %}
@@ -72,7 +72,8 @@ Freelan Server - New network
 						<table class="membership">
 							<thead>
 								<tr>
-									<th colspan="2">User</th>
+									<th>User</th>
+									<th>Member</th>
 									<th>IPv4 address</th>
 									<th>IPv6 address</th>
 								</tr>
@@ -81,24 +82,26 @@ Freelan Server - New network
 							<tbody>
 								{% for member_form in form.members %}
 									<tr>
-										<td colspan="2">
+										<td>
 											{{ member_form.csrf_token }}
+											{{ member_form.username(element='strong') }}
+										</td>
 
+										<td>
 											<label>
 												{{ member_form.is_member(class=member_form.is_member.errors and 'form-error' or None) }}
-												{{ member_form.username(element='strong') }}
-
-												{% for error in member_form.is_member.errors %}
-													<span class="errormsg">{{ error }}</span>
-												{% endfor %}
 											</label>
+
+											{% for error in member_form.is_member.errors %}
+												<span class="errormsg">{{ error }}</span>
+											{% endfor %}
 										</td>
 
 										<td>
 											{% if current_user.admin_flag %}
-												{{ member_form.ipv4_address(placeholder='Auto-assigned IPv4 address', class=member_form.ipv4_address.errors and 'form-error' or '') }}
+												{{ member_form.ipv4_address(placeholder='aaa.bbb.ccc.ddd', class=member_form.ipv4_address.errors and 'form-error' or '') }}
 											{% else %}
-												{{ member_form.ipv4_address(placeholder='Auto-assigned IPv4 address', readonly='readonly', class=member_form.ipv4_address.errors and 'form-error' or '') }}
+												{{ member_form.ipv4_address(placeholder='aaa.bbb.ccc.ddd', readonly='readonly', class=member_form.ipv4_address.errors and 'form-error' or '') }}
 											{% endif %}
 
 											{% for error in member_form.ipv4_address.errors %}
@@ -108,9 +111,9 @@ Freelan Server - New network
 
 										<td>
 											{% if current_user.admin_flag %}
-												{{ member_form.ipv6_address(placeholder='Auto-assigned IPv6 address', class=member_form.ipv6_address.errors and 'form-error' or '') }}
+												{{ member_form.ipv6_address(placeholder='aaaa:bbbb:cccc:dddd:eeee:ffff:gggg:hhhh', class=member_form.ipv6_address.errors and 'form-error' or '') }}
 											{% else %}
-												{{ member_form.ipv6_address(placeholder='Auto-assigned IPv6 address', readonly='readonly', class=member_form.ipv6_address.errors and 'form-error' or '') }}
+												{{ member_form.ipv6_address(placeholder='aaaa:bbbb:cccc:dddd:eeee:ffff:gggg:hhhh', readonly='readonly', class=member_form.ipv6_address.errors and 'form-error' or '') }}
 											{% endif %}
 
 											{% for error in member_form.ipv6_address.errors %}
@@ -151,7 +154,7 @@ Freelan Server - New network
 													{% if member.ipv4_address %}
 														<span class="ipv4_address">{{ member.ipv4_address }}</span>
 													{% else %}
-														<span class="ipv4_address empty">Auto-assigned</span>
+														<span class="ipv4_address empty">Automatic</span>
 													{% endif %}
 												</td>
 
@@ -159,7 +162,7 @@ Freelan Server - New network
 													{% if member.ipv6_address %}
 														<span class="ipv6_address">{{ member.ipv6_address }}</span>
 													{% else %}
-														<span class="ipv6_address empty">Auto-assigned</span>
+														<span class="ipv6_address empty">Automatic</span>
 													{% endif %}
 												</td>
 											</tr>

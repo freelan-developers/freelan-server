@@ -109,7 +109,8 @@ Freelan Server - New user
 						<table class="membership">
 							<thead>
 								<tr>
-									<th colspan="2">Network</th>
+									<th>Network</th>
+									<th>Member</th>
 									<th>IPv4 address</th>
 									<th>IPv6 address</th>
 								</tr>
@@ -118,21 +119,23 @@ Freelan Server - New user
 							<tbody>
 								{% for network_form in form.networks %}
 									<tr>
-										<td colspan="2">
+										<td>
 											{{ network_form.csrf_token }}
-
-											<label>
-												{{ network_form.is_member(class=network_form.is_member.errors and 'form-error' or None) }}
-												{{ network_form.network_name(element='strong') }}
-
-												{% for error in network_form.is_member.errors %}
-													<span class="errormsg">{{ error }}</span>
-												{% endfor %}
-											</label>
+											{{ network_form.network_name(element='strong') }}
 										</td>
 
 										<td>
-											{{ network_form.ipv4_address(placeholder='Auto-assigned IPv4 address', class=network_form.ipv4_address.errors and 'form-error' or '') }}
+											<label>
+												{{ network_form.is_member(class=network_form.is_member.errors and 'form-error' or None) }}
+											</label>
+
+											{% for error in network_form.is_member.errors %}
+												<span class="errormsg">{{ error }}</span>
+											{% endfor %}
+										</td>
+
+										<td>
+											{{ network_form.ipv4_address(placeholder='aaa.bbb.ccc.ddd', class=network_form.ipv4_address.errors and 'form-error' or '') }}
 
 											{% for error in network_form.ipv4_address.errors %}
 												<span class="errormsg">{{ error }}</span>
@@ -140,7 +143,7 @@ Freelan Server - New user
 										</td>
 
 										<td>
-											{{ network_form.ipv6_address(placeholder='Auto-assigned IPv6 address', class=network_form.ipv6_address.errors and 'form-error' or '') }}
+											{{ network_form.ipv6_address(placeholder='aaaa:bbbb:cccc:dddd:eeee:ffff:gggg:hhhh', class=network_form.ipv6_address.errors and 'form-error' or '') }}
 
 											{% for error in network_form.ipv6_address.errors %}
 												<span class="errormsg">{{ error }}</span>
@@ -180,7 +183,7 @@ Freelan Server - New user
 													{% if network.ipv4_address %}
 														<span class="ipv4_address">{{ network.ipv4_address }}</span>
 													{% else %}
-														<span class="ipv4_address empty">Auto-assigned</span>
+														<span class="ipv4_address empty">Automatic</span>
 													{% endif %}
 												</td>
 
@@ -188,7 +191,7 @@ Freelan Server - New user
 													{% if network.ipv6_address %}
 														<span class="ipv6_address">{{ network.ipv6_address }}</span>
 													{% else %}
-														<span class="ipv6_address empty">Auto-assigned</span>
+														<span class="ipv6_address empty">Automatic</span>
 													{% endif %}
 												</td>
 											</tr>
