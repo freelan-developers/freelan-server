@@ -2,8 +2,6 @@
 The API join network view.
 """
 
-from datetime import datetime
-
 from freelan_server.database import DATABASE, Network, UserInNetwork
 
 from flask.views import MethodView
@@ -82,22 +80,14 @@ class ApiJoinNetworkView(MethodView):
             if (user != current_user) and user.certificate_string
         ]
 
-        memberships = [membership for membership in network.memberships if membership.user != current_user]
-
-        valid_endpoints = []
-        now = datetime.now()
-
-        for membership in memberships:
-            for raw_endpoint in membership.raw_endpoints:
-                if (now - raw_endpoint.creation_date) <= self.app.config['NETWORK_MEMBERSHIP_VALIDITY_DURATION']:
-                    valid_endpoints.append(raw_endpoint.value)
+        users_endpoints = network.get_endpoints(validity_duration=self.app.config['NETWORK_MEMBERSHIP_VALIDITY_DURATION'])
 
         # FIXME: Make the following IP addresses dynamic
         result = {
             'ipv4_address_prefix_length': '9.0.0.2/24',
             'ipv6_address_prefix_length': 'fe80::2/64',
             'users_certificates': users_certificates,
-            'users_endpoints': valid_endpoints,
+            'users_endpoints': users_endpoints,
         }
 
         return jsonify(result)

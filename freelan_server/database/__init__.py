@@ -285,3 +285,19 @@ class Network(DATABASE.Model):
                     )
 
     members = property(get_members, set_members)
+
+    def get_endpoints(self, validity_duration=None):
+        """
+        Get the endpoints.
+        """
+
+        endpoints = []
+
+        now = datetime.datetime.now()
+
+        for membership in self.memberships:
+            for endpoint in membership.endpoints:
+                if validity_duration is None or (now - endpoint.creation_date) <= validity_duration:
+                    endpoints.append(endpoint)
+
+        return endpoints
