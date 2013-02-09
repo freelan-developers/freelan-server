@@ -84,7 +84,12 @@ Freelan Server - New network
 									<tr>
 										<td>
 											{{ member_form.csrf_token }}
-											{{ member_form.username(element='strong') }}
+											
+											{% if member_form.email.data %}
+												<img class="avatar" src="{{ member_form.email.data | gravatar(size=32) }}" alt="{{ member_form.email.data }}" />
+											{% endif %}
+
+											<a href="{{ url_for('user', user_id=member_form.user_id.data) }}">{{ member_form.username(element='strong') }}</a>
 										</td>
 
 										<td>

@@ -11,6 +11,7 @@ class NetworkMemberForm(Form):
     """
     user_id = ConstantField('Identifier')
     username = ConstantField('Name')
+    email = ConstantField('Email')
     is_member = BooleanField('Is member')
     ipv4_address = IPTextField('IPv4 address', ip_version=4, network_only=False)
     ipv6_address = IPTextField('IPv6 address', ip_version=6, network_only=False)

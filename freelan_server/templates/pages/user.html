@@ -121,7 +121,7 @@ Freelan Server - New user
 									<tr>
 										<td>
 											{{ network_form.csrf_token }}
-											{{ network_form.network_name(element='strong') }}
+											<a href="{{ url_for('network', network_id=network_form.network_id.data) }}">{{ network_form.network_name(element='strong') }}</a>
 										</td>
 
 										<td>

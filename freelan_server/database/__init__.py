@@ -239,6 +239,7 @@ class Network(DATABASE.Model):
             return Member(
                 user_id=user.id,
                 username=user.username,
+                email=user.email,
                 is_member=is_member,
                 ipv4_address=ipv4_address,
                 ipv6_address=ipv6_address,

@@ -367,14 +367,6 @@ div.form-box table td {
 	white-space: nowrap;
 }
 
-div.form-box table td label {
-	margin: 0;
-}
-
-div.form-box table td .ip-address-input {
-	text-align: center;
-}
-
 div.form-box table tr > th:first-child {
 	text-align: left;
 	width: 100%;
@@ -411,6 +403,20 @@ div.form-box table > tbody > tr:nth-child(even):hover {
 
 div.form-box table > tbody > tr:nth-child(odd):hover {
 	background-color: #f8f8ff;
+}
+
+div.form-box table td label {
+	margin: 0;
+}
+
+div.form-box table td .ip-address-input {
+	text-align: center;
+}
+
+div.form-box table td .avatar {
+	float: none;
+	margin: 0 4px 0 0;
+	vertical-align: middle;
 }
 
 /* Particular elements */
