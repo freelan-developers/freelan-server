@@ -48,7 +48,7 @@ def init_database(args):
         DATABASE.session.add(eleanor)
         print 'Added some user accounts with default password "password".'
 
-        my_network = Network(name='My network')
+        my_network = Network(name='My network', ipv4_address='9.0.0.0/24')
         foo_network = Network(name='Foo network')
         bar_network = Network(name='Bar network')
         virtual_network = Network(name='Virtual network')
@@ -59,9 +59,9 @@ def init_database(args):
         DATABASE.session.add(virtual_network)
         print 'Added some networks.'
 
-        DATABASE.session.add(UserInNetwork(user=alice, network=my_network))
-        DATABASE.session.add(UserInNetwork(user=bob, network=my_network))
-        DATABASE.session.add(UserInNetwork(user=chris, network=my_network))
+        DATABASE.session.add(UserInNetwork(user=alice, network=my_network, ipv4_address='9.0.0.1'))
+        DATABASE.session.add(UserInNetwork(user=bob, network=my_network, ipv4_address='9.0.0.2'))
+        DATABASE.session.add(UserInNetwork(user=chris, network=my_network, ipv4_address='9.0.0.3'))
         DATABASE.session.add(UserInNetwork(user=alice, network=foo_network))
         DATABASE.session.add(UserInNetwork(user=bob, network=foo_network))
         DATABASE.session.add(UserInNetwork(user=alice, network=bar_network))
