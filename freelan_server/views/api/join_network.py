@@ -76,8 +76,8 @@ class ApiJoinNetworkView(MethodView):
         DATABASE.session.commit()
 
         users_certificates = [
-            user.certificate_string for user in network.users
-            if (user != current_user) and user.certificate_string
+            membership.user.certificate_string for membership in network.memberships
+            if (membership.user != current_user) and membership.user.certificate_string
         ]
 
         users_endpoints = network.get_endpoints(validity_duration=self.app.config['NETWORK_MEMBERSHIP_VALIDITY_DURATION'])
