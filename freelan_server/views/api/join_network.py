@@ -36,7 +36,7 @@ class ApiJoinNetworkView(MethodView):
 
         network = Network.query.filter(Network.name == network_name).first();
 
-        if not network or not network in current_user.networks:
+        if not network or not current_user in network:
             return 'No network match the specified name. ("%s")' % network_name, 403
 
         if not endpoints:
