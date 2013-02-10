@@ -110,7 +110,7 @@ def list_users(args):
             'username': user.username,
             'email': user.email or '<no email>',
             'creation_date': user.creation_date,
-            'networks': ', '.join([network.name for network in user.networks])
+            'networks': ', '.join([membership.network.name for membership in user.memberships])
         }
 
 def list_users_memberships(args):
@@ -137,7 +137,7 @@ def list_users_memberships(args):
     for user in users:
         print
 
-        if user.networks:
+        if user.memberships:
             print u'%s:' % user.username
 
             if args.network:
@@ -147,14 +147,14 @@ def list_users_memberships(args):
                     print 'No such network: %s' % args.network
 
             else:
-                networks = user.networks
+                networks = [membership.network for membership in user.memberships]
 
             for network in networks:
 
                 membership = user.get_membership(network)
 
                 if membership:
-                    print u'* %s: %s' % (network.name, ', '.join(membership.endpoints))
+                    print u'* %s: %s' % (network.name, ', '.join(endpoint.value for endpoint in membership.endpoints))
                 else:
                     print u'* %s: no memberships' % network.name
         else:
@@ -242,7 +242,7 @@ def list_networks(args):
             'name': network.name,
             'creation_date': network.creation_date,
             'users_len': len(network.users),
-            'users': ', '.join([user.username for user in network.users]),
+            'users': ', '.join([membership.user.username for membership in network.memberships]),
             'ipv4_address': network.ipv4_address or 'No IPv4 address',
             'ipv6_address': network.ipv6_address or 'No IPv6 address',
         }
