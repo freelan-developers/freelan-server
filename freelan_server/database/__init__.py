@@ -319,7 +319,7 @@ class Network(DATABASE.Model):
         if not membership:
             raise ValueError('Unable to get the IPv4 address of a user that does not belong to the network.')
 
-        #TODO: Implement
+        return membership.ipv4_address or None
 
     def get_ipv6_address(self, user):
         """
@@ -331,4 +331,4 @@ class Network(DATABASE.Model):
         if not membership:
             raise ValueError('Unable to get the IPv6 address of a user that does not belong to the network.')
 
-        #TODO: Implement
+        return membership.ipv6_address or None
