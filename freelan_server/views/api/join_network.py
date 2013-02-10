@@ -80,7 +80,7 @@ class ApiJoinNetworkView(MethodView):
             if (membership.user != current_user) and membership.user.certificate_string
         ]
 
-        users_endpoints = network.get_endpoints(validity_duration=self.app.config['NETWORK_MEMBERSHIP_VALIDITY_DURATION'])
+        users_endpoints = [e.value for e in network.get_endpoints(validity_duration=self.app.config['NETWORK_MEMBERSHIP_VALIDITY_DURATION'])]
 
         result = {
             'ipv4_address_prefix_length': network.get_ipv4_address(current_user),
