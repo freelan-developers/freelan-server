@@ -87,8 +87,8 @@ class ApiJoinNetworkView(MethodView):
         ]
 
         result = {
-            'ipv4_address_prefix_length': network.get_ipv4_address(current_user),
-            'ipv6_address_prefix_length': network.get_ipv6_address(current_user),
+            'ipv4_address_prefix_length': network.get_ipv4_address_prefix_length(current_user),
+            'ipv6_address_prefix_length': network.get_ipv6_address_prefix_length(current_user),
             'users_certificates': users_certificates,
             'users_endpoints': users_endpoints,
         }

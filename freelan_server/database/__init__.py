@@ -12,6 +12,8 @@ from flask_login import UserMixin
 
 import datetime
 
+import IPy
+
 import M2Crypto as m2
 
 DATABASE = SQLAlchemy(APPLICATION)
@@ -320,9 +322,9 @@ class Network(DATABASE.Model):
 
         return endpoints
 
-    def get_ipv4_address(self, user):
+    def get_ipv4_address_prefix_length(self, user):
         """
-        Get the IPv4 address of a user in the network.
+        Get the IPv4 address and prefix length of a user in the network.
         """
 
         membership = self.get_membership(user)
@@ -330,11 +332,15 @@ class Network(DATABASE.Model):
         if not membership:
             raise ValueError('Unable to get the IPv4 address of a user that does not belong to the network.')
 
-        return membership.ipv4_address or None
+        if membership.ipv4_address and self.ipv4_address:
+            address = IPy.IP(membership.ipv4_address)
+            network = IPy.IP(self.ipv4_address, make_net=True)
 
-    def get_ipv6_address(self, user):
+            return '%s/%s' % (address, network.prefixlen())
+
+    def get_ipv6_address_prefix_length(self, user):
         """
-        Get the IPv6 address of a user in the network.
+        Get the IPv6 address and prefix length of a user in the network.
         """
 
         membership = self.get_membership(user)
@@ -342,4 +348,8 @@ class Network(DATABASE.Model):
         if not membership:
             raise ValueError('Unable to get the IPv6 address of a user that does not belong to the network.')
 
-        return membership.ipv6_address or None
+        if membership.ipv6_address and self.ipv6_address:
+            address = IPy.IP(membership.ipv6_address)
+            network = IPy.IP(self.ipv6_address, make_net=True)
+
+            return '%s/%s' % (address, network.prefixlen())
