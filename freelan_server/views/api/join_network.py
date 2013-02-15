@@ -2,7 +2,7 @@
 The API join network view.
 """
 
-from freelan_server.database import DATABASE, Network, UserInNetwork
+from freelan_server.database import DATABASE, Network, Endpoint
 
 from flask.views import MethodView
 
@@ -66,7 +66,7 @@ class ApiJoinNetworkView(MethodView):
 
             return endpoint
 
-        endpoints = list(set(map(replace_host_part, endpoints)))
+        endpoints = map(lambda e: Endpoint(value=e), set(map(replace_host_part, endpoints)))
 
         current_user.set_endpoints(
             network=network,
