@@ -42,9 +42,8 @@ class Endpoint(DATABASE.Model):
     Represents an endpoint.
     """
 
-    id = DATABASE.Column(DATABASE.Integer, primary_key=True)
-    user_in_network_network_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user_in_network.network_id'))
-    user_in_network_user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user_in_network.user_id'))
+    user_in_network_network_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user_in_network.network_id'), primary_key=True)
+    user_in_network_user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user_in_network.user_id'), primary_key=True)
     creation_date = DATABASE.Column(DATABASE.DateTime(timezone=True), nullable=False, default=datetime.datetime.now)
     value = DATABASE.Column(DATABASE.String(64), unique=False, nullable=False)
     __table_args__ = (DATABASE.UniqueConstraint('user_in_network_network_id', 'user_in_network_user_id', 'value', name='endpoint_uc'),)
