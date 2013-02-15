@@ -31,6 +31,8 @@ class ApiJoinNetworkView(MethodView):
 
     def post(self):
 
+        Endpoint.remove_out_of_date(validity_duration=self.app.config['NETWORK_MEMBERSHIP_VALIDITY_DURATION'])
+
         network_name = request.json.get('network')
         endpoints = request.json.get('endpoints')
 

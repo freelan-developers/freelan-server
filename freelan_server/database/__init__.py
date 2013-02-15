@@ -48,6 +48,16 @@ class Endpoint(DATABASE.Model):
     value = DATABASE.Column(DATABASE.String(64), unique=False, nullable=False)
     __table_args__ = (DATABASE.UniqueConstraint('user_in_network_network_id', 'user_in_network_user_id', 'value', name='endpoint_uc'),)
 
+    @staticmethod
+    def remove_out_of_date(validity_duration):
+        """
+        Remove all the out of date endpoints.
+        """
+
+        now = datetime.datetime.now()
+
+        Endpoint.query.filter(Endpoint.creation_date < (now - validity_duration)).delete()
+
 class User(DATABASE.Model, UserMixin):
     """
     Represents a database user.
