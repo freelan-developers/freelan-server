@@ -292,19 +292,21 @@ class Network(DATABASE.Model):
 
         return UserInNetwork.query.filter_by(user=user, network=self).first()
 
-    def get_endpoints(self, validity_duration=None):
+    def get_endpoints(self, validity_duration=None, exclude_users=None):
         """
         Get the endpoints.
         """
 
+        exclude_users = map(lambda user: user.id, exclude_users) if exclude_users else []
         endpoints = []
 
         now = datetime.datetime.now()
 
         for membership in self.memberships:
-            for endpoint in membership.endpoints:
-                if validity_duration is None or (now - endpoint.creation_date) <= validity_duration:
-                    endpoints.append(endpoint)
+            if membership.user_id not in exclude_users:
+                for endpoint in membership.endpoints:
+                    if validity_duration is None or (now - endpoint.creation_date) <= validity_duration:
+                        endpoints.append(endpoint)
 
         return endpoints
 
