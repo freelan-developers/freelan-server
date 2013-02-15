@@ -33,11 +33,11 @@ AUTHORITY_PRIVATE_KEY_FILE = ''
 # If no passphrase is required, specify None.
 AUTHORITY_PRIVATE_KEY_PASSPHRASE = None
 
-# The issued certificate validity duration, in days.
-CERTIFICATE_VALIDITY_DURATION = 3
+# The issued certificate validity duration.
+CERTIFICATE_VALIDITY_DURATION = timedelta(days=3)
 
-# The network membership duration, in seconds.
-NETWORK_MEMBERSHIP_VALIDITY_DURATION = timedelta(seconds=300)
+# The network membership duration.
+NETWORK_MEMBERSHIP_VALIDITY_DURATION = timedelta(days=3)
 
 # The database URI.
 #

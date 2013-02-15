@@ -76,7 +76,7 @@ class ApiSignView(MethodView):
 
         # Set the certificate "not after" timestamp
         not_after = ASN1.ASN1_UTCTIME()
-        not_after.set_datetime(datetime.today() + timedelta(days=self.app.config['CERTIFICATE_VALIDITY_DURATION']))
+        not_after.set_datetime(datetime.today() + self.app.config['CERTIFICATE_VALIDITY_DURATION'])
 
         certificate.set_not_after(not_after)
 
