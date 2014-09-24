@@ -22,6 +22,7 @@ setup(
         'Flask-KVSession',
         'Flask-Gravatar',
         'Flask-WTF',
+        'wtforms-recaptcha',
         'M2Crypto',
         'IPy',
     ],
