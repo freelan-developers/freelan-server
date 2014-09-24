@@ -2,7 +2,8 @@
 The login form.
 """
 
-from flask_wtf import Form, TextField, PasswordField, RecaptchaField, BooleanField, validators
+from wtforms import TextField, PasswordField, RecaptchaField, BooleanField
+from flask_wtf import Form, validators
 
 class LoginForm(Form):
     """
