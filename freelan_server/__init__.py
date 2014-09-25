@@ -12,7 +12,7 @@ APPLICATION.config.from_envvar('FREELAN_SERVER_CONFIGURATION_FILE', silent=True)
 
 # Replace the default session mechanism
 from simplekv.memory import DictStore
-from flaskext.kvsession import KVSessionExtension
+from flask_kvsession import KVSessionExtension
 
 STORE = DictStore()
 KVSessionExtension(STORE, APPLICATION)
